@@ -71,7 +71,7 @@ The landing route `/` and `/analysis` show the sonar workspace. `/overview` summ
 
 On desktop the sidebar stays compact; on narrow screens its menu button opens a drawer. Candidate selection is shared by the sonar viewer, queue, inspection panel, and map. The panel has previous and next controls. When focus is outside interactive controls, Left and Right select adjacent candidates; `?` opens shortcut help. Review confirmation accepts Escape. A top-level error boundary offers reload if rendering fails. Notifications report analysis, review, and export actions without changing backend records.
 
-For current hosted-integration QA, run `python tests/browser_judge_fallback.py` against a production preview on port 4182. It blocks the Space, opens all four verified examples, completes human review and report exports, checks print output, then verifies that an offline live failure keeps the uploaded image and requires explicit fallback selection. Historical FastAPI checks remain in `browser_phase7.py` and `browser_phase7_demo.py`.
+For current hosted-integration QA, run `python tests/browser_judge_fallback.py` and `python tests/browser_mock_gradio.py` against a production preview on port 4182. The first blocks the Space, opens all four verified examples, completes human review and report exports, checks print output, then verifies that an offline live failure keeps the uploaded image and requires explicit fallback selection. The second simulates a ZeroGPU quota response and a successful live response without calling ZeroGPU. Historical FastAPI checks remain in `browser_phase7.py` and `browser_phase7_demo.py`.
 
 ## Release and validation documents
 
