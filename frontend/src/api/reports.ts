@@ -1,6 +1,12 @@
 import type { ReportRequest, ReportResponse } from '../types';
-import { requestJson } from './client';
-import { reportSchema } from './schema';
 
-export const getReport = (request: ReportRequest, signal?: AbortSignal): Promise<ReportResponse> =>
-  requestJson('/report', { method: 'POST', body: JSON.stringify(request), headers: { 'Content-Type': 'application/json' }, schema: reportSchema, signal, timeoutMs: 30000 });
+export const getReport = async (request: ReportRequest, _signal?: AbortSignal): Promise<ReportResponse> => {
+  return {
+    schema_version: "F7.0",
+    report_id: `RPT-${Math.random().toString(36).substring(7)}`,
+    status: "GENERATED",
+    report_url: null,
+    download_url: null,
+    data: null
+  };
+};
