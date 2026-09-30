@@ -64,6 +64,27 @@ Scripts: [`ai/train_v1.py`](../ai/train_v1.py), [`ai/train_v2_hn.py`](../ai/trai
 
 The JSON also records `inference_time_ms: 13.2`; that is a detector evaluation measurement, **not** an end-to-end Space latency promise. Dataset size, image-level independence, licensing, and a held-out external field evaluation cannot be established from this one summary file. Very high AP for some classes is not proof of broad deployment readiness.
 
+## D2 evidence fusion: recomputed held-out candidate result
+
+On 1 October 2026, I ran the checked-in [`gate_d2_final.py`](../ai/fusion/gate_d2_final.py) evaluation in memory. Its `joblib.dump` call was disabled for this verification, so no frozen model artifact was overwritten. It labeled the checked-in `gate_c_all_val_results.json` candidates against the **local, Git-ignored** validation labels with IoU ≥ 0.50, split candidates by image ID into DEV/CALIB/TEST, fit the fusion model on DEV, selected separate fusion and AI-only thresholds on CALIB for about 90% recall, and evaluated both once on TEST. It reproduced the manifest's fusion operating threshold **0.3818**. The TP labeling compares a box to **any** ground-truth box, does not check class equality, and does not enforce one-to-one candidate-to-object matching. These are class-agnostic candidate-match metrics, not object-level detection recall.
+
+| Split | Candidates | True-positive candidates |
+| --- | ---: | ---: |
+| DEV | 2,674 | 757 |
+| CALIB | 891 | 259 |
+| TEST | 794 | 240 |
+
+| Candidate-level TEST measure | AI confidence only | D2 evidence fusion |
+| --- | ---: | ---: |
+| True positives / false negatives | 212 / 28 | 220 / 20 |
+| False positives / true negatives | 455 / 99 | 284 / 270 |
+| Recall | 88.3% | 91.7% |
+| Precision | 31.8% | 43.7% |
+| F1 | 0.4675 | 0.5914 |
+| PR-AUC | 0.3508 | 0.5546 |
+
+The false-positive reduction is `(455 − 284) / 455 = 37.5824%`, **37.6% to one decimal**. This is a useful matched comparison on the same candidate pool, with operating points chosen on a separate calibration split. It is **not** detector mAP, end-to-end accuracy, a comparison against external products, or a claim about ZeroGPU performance. The [recomputed counts and method](metrics/d2_candidate_test_recomputed.json), evaluation source file, and code are checked in, but the ground-truth labels and frozen model artifact are not in GitHub; independent reproduction from a fresh clone remains blocked. The same image-derived pool was used to develop the system, so a genuinely external survey/sensor test is still needed. See [slide-ready wording and future targets](PPT_METRICS.md).
+
 ## Global versus tiled: where we won and where we did not
 
 [`ai/reference/gate_b_results.json`](../ai/reference/gate_b_results.json) is a project-internal ablation. Its values are a separate evaluation from the V6 summary above:

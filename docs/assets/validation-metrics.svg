@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">SONAR-SHIELD measured validation figures</title>
+  <desc id="desc">V6-P2 detector on the clean validation split: precision 74.7 percent, recall 69.1 percent, mAP at 50 70.4 percent, mAP at 50 to 95 47.8 percent. D2 evidence fusion on a separate held-out candidate test pool raises recall from 88.3 to 91.7 percent and precision from 31.8 to 43.7 percent while reducing false positives from 455 to 284, a 37.6 percent reduction.</desc>
+  <rect width="1600" height="900" fill="#061923"/>
+  <rect x="0" y="0" width="1600" height="12" fill="#5bcde1"/>
+  <text x="64" y="82" fill="#78d7e8" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="4">SONAR-SHIELD  /  MEASURED VALIDATION</text>
+  <text x="64" y="133" fill="#f0f7f9" font-family="Arial, sans-serif" font-size="38" font-weight="700">Two measured stages. Two different evaluation tasks.</text>
+
+  <rect x="64" y="166" width="700" height="557" rx="22" fill="#102b37" stroke="#376272" stroke-width="2"/>
+  <text x="96" y="219" fill="#f0f7f9" font-family="Arial, sans-serif" font-size="28" font-weight="700">FROZEN V6-P2 DETECTOR</text>
+  <text x="96" y="252" fill="#9ec0c9" font-family="Arial, sans-serif" font-size="18">Clean validation split · drishti_sss_v3 val_clean</text>
+
+  <rect x="96" y="287" width="308" height="171" rx="15" fill="#173c49"/>
+  <text x="120" y="326" fill="#a7cbd3" font-family="Arial, sans-serif" font-size="19">PRECISION</text>
+  <text x="120" y="413" fill="#7de0ee" font-family="Arial, sans-serif" font-size="70" font-weight="700">74.7%</text>
+  <rect x="424" y="287" width="308" height="171" rx="15" fill="#173c49"/>
+  <text x="448" y="326" fill="#a7cbd3" font-family="Arial, sans-serif" font-size="19">RECALL</text>
+  <text x="448" y="413" fill="#7de0ee" font-family="Arial, sans-serif" font-size="70" font-weight="700">69.1%</text>
+  <rect x="96" y="476" width="308" height="171" rx="15" fill="#173c49"/>
+  <text x="120" y="515" fill="#a7cbd3" font-family="Arial, sans-serif" font-size="19">mAP@50</text>
+  <text x="120" y="602" fill="#7de0ee" font-family="Arial, sans-serif" font-size="70" font-weight="700">70.4%</text>
+  <rect x="424" y="476" width="308" height="171" rx="15" fill="#173c49"/>
+  <text x="448" y="515" fill="#a7cbd3" font-family="Arial, sans-serif" font-size="19">mAP@50–95</text>
+  <text x="448" y="602" fill="#7de0ee" font-family="Arial, sans-serif" font-size="70" font-weight="700">47.8%</text>
+  <text x="96" y="690" fill="#9ec0c9" font-family="Arial, sans-serif" font-size="17">Detector metrics, not “system accuracy”.</text>
+
+  <rect x="790" y="166" width="746" height="557" rx="22" fill="#102b37" stroke="#376272" stroke-width="2"/>
+  <text x="822" y="219" fill="#f0f7f9" font-family="Arial, sans-serif" font-size="28" font-weight="700">D2 EVIDENCE FUSION</text>
+  <text x="822" y="252" fill="#9ec0c9" font-family="Arial, sans-serif" font-size="18">Held-out candidate TEST pool · 794 candidates · 240 positives</text>
+  <text x="822" y="311" fill="#a7cbd3" font-family="Arial, sans-serif" font-size="18">MEASURE</text>
+  <text x="1115" y="311" fill="#a7cbd3" font-family="Arial, sans-serif" font-size="18">AI ONLY</text>
+  <text x="1320" y="311" fill="#a7cbd3" font-family="Arial, sans-serif" font-size="18">FUSION</text>
+  <line x1="822" y1="326" x2="1504" y2="326" stroke="#3d6371" stroke-width="2"/>
+
+  <text x="822" y="384" fill="#e6f1f3" font-family="Arial, sans-serif" font-size="24">Recall</text>
+  <text x="1115" y="384" fill="#d0dee2" font-family="Arial, sans-serif" font-size="31">88.3%</text>
+  <text x="1318" y="384" fill="#78e6c2" font-family="Arial, sans-serif" font-size="34" font-weight="700">91.7%</text>
+  <line x1="822" y1="408" x2="1504" y2="408" stroke="#2d4e5c" stroke-width="2"/>
+  <text x="822" y="466" fill="#e6f1f3" font-family="Arial, sans-serif" font-size="24">Precision</text>
+  <text x="1115" y="466" fill="#d0dee2" font-family="Arial, sans-serif" font-size="31">31.8%</text>
+  <text x="1318" y="466" fill="#78e6c2" font-family="Arial, sans-serif" font-size="34" font-weight="700">43.7%</text>
+  <line x1="822" y1="490" x2="1504" y2="490" stroke="#2d4e5c" stroke-width="2"/>
+  <text x="822" y="548" fill="#e6f1f3" font-family="Arial, sans-serif" font-size="24">False positives</text>
+  <text x="1115" y="548" fill="#d0dee2" font-family="Arial, sans-serif" font-size="31">455</text>
+  <text x="1318" y="548" fill="#78e6c2" font-family="Arial, sans-serif" font-size="34" font-weight="700">284</text>
+
+  <rect x="822" y="581" width="682" height="105" rx="15" fill="#174b43" stroke="#3aa588" stroke-width="2"/>
+  <text x="849" y="628" fill="#a9ecd7" font-family="Arial, sans-serif" font-size="20" font-weight="700">FALSE-POSITIVE REDUCTION</text>
+  <text x="849" y="670" fill="#ffffff" font-family="Arial, sans-serif" font-size="43" font-weight="700">455 → 284  ·  −37.6%</text>
+
+  <line x1="64" y1="762" x2="1536" y2="762" stroke="#355967" stroke-width="2"/>
+  <text x="64" y="801" fill="#bed2d8" font-family="Arial, sans-serif" font-size="18">D2 thresholds selected separately on CALIB; same image-grouped TEST pool (class-agnostic IoU ≥ 0.50).</text>
+  <text x="64" y="835" fill="#8eb0ba" font-family="Arial, sans-serif" font-size="17">Sources: ai/reference/metrics.json · ai/fusion/gate_d2_final.py · local validation labels. Not an external field benchmark.</text>
+</svg>

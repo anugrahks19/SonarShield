@@ -64,16 +64,40 @@ See [the architecture document](docs/ARCHITECTURE.md) for service boundaries, re
 
 The repository contains scripts for V1 through V6 experiments. V1 fine-tuned a pretrained Drishti detector. Later scripts tested hard negatives, targeted data refinement, higher-resolution hard positives, a larger YOLOv8m baseline, and finally a YOLOv8s-P2 small-object head with sonar-oriented augmentation. The **V6-P2** detector is named in the F9 freeze manifest. Training scripts record intended configurations; by themselves they do not prove that every run completed or establish comparable per-version results. The local dataset and model weights are excluded from GitHub.
 
-| Recorded result | Value | Boundary |
-| --- | ---: | --- |
-| V6 validation `mAP@0.5` | 0.704 | `drishti_sss_v3` `val_clean`, from [`metrics.json`](ai/reference/metrics.json) |
-| V6 validation `mAP@0.5:0.95` | 0.478 | Same recorded evaluation |
-| V6 precision / recall | 0.747 / 0.691 | Same recorded evaluation; not a field deployment estimate |
-| Crab-pot / shipwreck AP@0.5 | 0.343 / 0.505 | Illustrates uneven class performance |
-| Background false positives | 26 detections on 324 images | Separate evaluation at confidence 0.25; 0.080 FP/image, from [`fp_benchmark.json`](ai/reference/fp_benchmark.json) |
-| F9 runtime smoke | 10 real images | End-to-end functional check, not a statistical accuracy estimate |
+### Measured validation strip · frozen V6-P2 detector
+
+| **Precision** | **Recall** | **mAP@50** | **mAP@50–95** |
+| ---: | ---: | ---: | ---: |
+| **74.7%** | **69.1%** | **70.4%** | **47.8%** |
+
+Final detector summary on the `drishti_sss_v3` **clean validation split**, as recorded in [`ai/reference/metrics.json`](ai/reference/metrics.json). These are detection metrics, **not “system accuracy”** and not an external field-test result. Per-class AP varies substantially: crab pot **34.3%**, shipwreck **50.5%** at IoU 0.50.
+
+### Measured validation strip · D2 evidence fusion
+
+| Held-out candidate TEST pool | Detector confidence only | D2 evidence fusion |
+| --- | ---: | ---: |
+| **Recall** | **88.3%** (212/240) | **91.7%** (220/240) |
+| **Precision** | **31.8%** (212/667) | **43.7%** (220/504) |
+| **False positives** | **455** | **284** |
+
+**171 fewer false positives · 37.6% reduction** relative to the detector-confidence baseline. Thresholds were selected **separately on CALIB** to target about 90% recall, then evaluated on the same **794-candidate grouped TEST split** (240 positives, IoU ≥ 0.50). The script marks a positive by overlap with **any** ground-truth box; it does not require a class-label match. This is a **candidate-level, class-agnostic filtering** comparison, not whole-image detector mAP, class-correct precision, or end-to-end system accuracy. I recomputed it from [`gate_d2_final.py`](ai/fusion/gate_d2_final.py) and the checked-in candidate evidence using local, Git-ignored labels; a fresh GitHub clone cannot independently reproduce it until those labels are published. The [recorded test counts](docs/metrics/d2_candidate_test_recomputed.json) and [slide-ready figures](docs/PPT_METRICS.md) show the method and boundary.
+
+![Slide-ready validation figure showing detector metrics and the separate D2 candidate-pool comparison](docs/assets/validation-metrics.svg)
+
+Other context: [`fp_benchmark.json`](ai/reference/fp_benchmark.json) records **26 detector false positives on 324 background images** at confidence 0.25, a separate evaluation that must not be combined with the D2 candidate pool. The [F9 runtime report](backend_freeze/f9_runtime_validation.md) covers **10 real images** as an end-to-end smoke test, not a statistical accuracy estimate.
 
 The Gate B ablation found nearly equal global and hybrid `mAP@0.5` (0.7029 versus 0.7036) and the **same 98 false positives** in that evaluation. It does **not** support a broad claim that tiling improves accuracy. It *does* provide a concrete recovery case: Contact 105 had a spatially separate tiled crab-pot candidate missed by the global pass. Read the [training and validation notes](docs/TRAINING_AND_VALIDATION.md) for the chronology, source files, threshold differences, and unresolved evidence.
+
+### Next validation gate · proposed targets, **not achieved results**
+
+| Metric | Proposed goal on a newly locked external survey/sensor test |
+| --- | ---: |
+| Detector mAP@50 / mAP@50–95 | **≥75% / ≥55%** |
+| Detector recall at a stated operating point | **≥75% while maintaining ≥75% precision** |
+| Class-agnostic candidate-match fusion | **≥50% precision at ≥90% recall**; **≥40% fewer false positives** than a matched AI-only baseline |
+| Background false detections | **≤5 per 100 images** at a preregistered operating point |
+
+These are **engineering goals, not predictions or current performance**. Reaching them would require correcting class IDs and provenance, gathering more real and rare-class sonar examples, auditing labels and near-duplicate frames, mining hard negatives, tuning small-object training and evidence fusion on development data, selecting thresholds only on a separate CALIB split, and evaluating once on new external data. Class-correct and per-class results must also be reported after the mapping is fixed. The [slide-ready plan](docs/PPT_METRICS.md) states the comparisons and caveats to use in a presentation.
 
 ## Why this design is useful
 

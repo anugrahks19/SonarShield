@@ -1,0 +1,20 @@
+{
+  "status": "locally_recomputed_not_independently_reproducible_from_github_clone",
+  "verified_on": "2026-10-01",
+  "evaluation_script": "ai/fusion/gate_d2_final.py",
+  "candidate_evidence": "ai/reference/gate_c_all_val_results.json",
+  "ground_truth": "datasets/gate_a_SOURCE_STATE_UNKNOWN/labels/val (git-ignored local files)",
+  "method": "Image-grouped DEV/CALIB/TEST split; fusion and AI-only thresholds selected separately on CALIB for approximately 90% recall; class-agnostic IoU >= 0.50 match to any ground-truth box (predicted class is not checked); evaluated on the same held-out TEST candidate pool. The verification disabled joblib.dump and did not overwrite the frozen model.",
+  "split": {
+    "dev": { "candidates": 2674, "positives": 757 },
+    "calib": { "candidates": 891, "positives": 259 },
+    "test": { "candidates": 794, "positives": 240, "negatives": 554 }
+  },
+  "fusion_threshold": 0.3818,
+  "test_confusion_matrix": {
+    "ai_confidence_only": { "tp": 212, "fp": 455, "fn": 28, "tn": 99 },
+    "d2_evidence_fusion": { "tp": 220, "fp": 284, "fn": 20, "tn": 270 }
+  },
+  "false_positive_reduction_percent": 37.582417582417584,
+  "interpretation": "Candidate-level internal held-out comparison, not detector mAP, system accuracy, or external field validation."
+}
