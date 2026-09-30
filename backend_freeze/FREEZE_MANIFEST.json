@@ -1,0 +1,13 @@
+{
+  "project": "SONAR-SHIELD",
+  "status": "BACKEND_FROZEN",
+  "version": "F9",
+  "timestamp": "2026-09-30T07:00:00Z",
+  "components": {
+    "detector": "V6-P2",
+    "fusion": "D2-v1",
+    "decision_policy": "E1-v1",
+    "calibration": "F5-v1.0"
+  },
+  "notes": "Backend intelligence and API contracts are frozen for product integration. Future changes are limited to defect fixes, security, performance, and integration issues; no model, evidence, threshold, or decision-policy changes are planned without reopening the relevant validation gate."
+}
