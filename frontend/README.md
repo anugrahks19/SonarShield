@@ -1,4 +1,6 @@
-# SONAR-SHIELD frontend · Phase 8 release candidate
+# SONAR-SHIELD frontend implementation notes
+
+For the current judge-facing overview, architecture, training evidence, limitations, and setup, start at the [repository README](../README.md). Some lower sections here retain the historical local FastAPI phase workflow; the hosted frontend uses the Gradio endpoint described below.
 
 ## Judge walkthrough: live first, verified example when needed
 
@@ -8,9 +10,9 @@
 
 **Current hosted integration:** Vercel calls the Hugging Face Gradio Space `mrintrovert19/sonar-shield-api` through `/analyze_image_gradio`. See [Hugging Face integration and redeployment](docs/HUGGING_FACE_INTEGRATION.md). The sections below describe the original local FastAPI F8 workflow and its historical QA; they do not describe the current hosted API transport.
 
-The analysis workspace renders the frozen F8 `/analyze` response, provides a separate human review workflow, and displays backend geographic coordinates in Leaflet when available. It does not calculate candidate decisions, fusion, reliability, or location.
+The analysis workspace renders an F8-shaped response from the current Gradio adapter (or a verified F9 example), provides a separate human review workflow, and displays backend geographic coordinates in Leaflet when available. It does not calculate candidate decisions, fusion, reliability, or location.
 
-**Release status: blocked pending F9 freeze integrity and a deployed production/staging check.** The local frontend and real F8 integration have passed the Phase 8 checks recorded in [the release audit](docs/RELEASE_AUDIT.md). No final full-stack tag or release certificate has been issued.
+**Current status:** the public Vercel frontend and Gradio Space are deployed, and the frontend's offline, quota, and mocked live paths have been checked. The historical [Phase 8 release audit](docs/RELEASE_AUDIT.md) predates that deployment; its F9 freeze/provenance blockers still matter. No final full-stack release certificate has been issued.
 
 Run `npm install` and `npm run dev` from this directory. Run `npm test` for the contract and viewer checks and `npm run build` for TypeScript validation plus the Vite production build. The active analysis adapter connects to the configured Hugging Face Space.
 

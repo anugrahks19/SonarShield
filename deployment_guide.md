@@ -1,6 +1,8 @@
-# SONAR-SHIELD Deployment Guide: Vercel + Hugging Face
+# SONAR-SHIELD deployment guide — historical Docker/FastAPI proposal
 
-This is the official hosting strategy for the SONAR-SHIELD project. 
+> **Archived plan:** This file describes an earlier Docker/FastAPI Space proposal and its `VITE_API_URL` setting. The current public app uses a **Gradio** Space, `/analyze_image_gradio`, and `VITE_GRADIO_SPACE_ID`. Follow the [repository README](README.md) and [current integration guide](frontend/docs/HUGGING_FACE_INTEGRATION.md) for setup and deployment. The commands below are retained only as project history.
+
+This was the original hosting proposal for the SONAR-SHIELD project.
 - **Frontend**: Vercel (Fast, global CDN, perfect for React).
 - **Backend API**: Hugging Face Spaces (Free 16GB RAM, natively supports large `.pt` and `.pkl` AI weights via Git LFS, Docker support).
 
