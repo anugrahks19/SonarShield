@@ -1,0 +1,276 @@
+{
+    "Crab Pot": [
+        {
+            "range": [
+                0.0,
+                0.4
+            ],
+            "count": 23,
+            "estimated_tp_rate": 0.043478260869565216,
+            "mean_score": 0.32011433845553766,
+            "reliability_band": "LOW_RELIABILITY",
+            "uncertainty_level": "HIGH_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.4,
+                0.5
+            ],
+            "count": 51,
+            "estimated_tp_rate": 0.29411764705882354,
+            "mean_score": 0.45072846322555243,
+            "reliability_band": "LOW_RELIABILITY",
+            "uncertainty_level": "HIGH_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.5,
+                0.6000000000000001
+            ],
+            "count": 90,
+            "estimated_tp_rate": 0.4111111111111111,
+            "mean_score": 0.5578112754901758,
+            "reliability_band": "MEDIUM_RELIABILITY",
+            "uncertainty_level": "MEDIUM_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.6000000000000001,
+                0.7000000000000001
+            ],
+            "count": 90,
+            "estimated_tp_rate": 0.5888888888888889,
+            "mean_score": 0.6475246618672188,
+            "reliability_band": "MEDIUM_RELIABILITY",
+            "uncertainty_level": "MEDIUM_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.7000000000000001,
+                0.8
+            ],
+            "count": 63,
+            "estimated_tp_rate": 0.5396825396825397,
+            "mean_score": 0.7423025785863091,
+            "reliability_band": "MEDIUM_RELIABILITY",
+            "uncertainty_level": "MEDIUM_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.8,
+                0.9
+            ],
+            "count": 20,
+            "estimated_tp_rate": 0.55,
+            "mean_score": 0.8309682798014938,
+            "reliability_band": "MEDIUM_RELIABILITY",
+            "uncertainty_level": "MEDIUM_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.9,
+                1.0
+            ],
+            "count": 0,
+            "estimated_tp_rate": 0.0,
+            "mean_score": 0.0,
+            "reliability_band": "LOW_RELIABILITY",
+            "uncertainty_level": "HIGH_UNCERTAINTY"
+        }
+    ],
+    "Wreck": [
+        {
+            "range": [
+                0.0,
+                0.30000000000000004
+            ],
+            "count": 13,
+            "estimated_tp_rate": 0.0,
+            "mean_score": 0.22895872527557132,
+            "reliability_band": "LOW_RELIABILITY",
+            "uncertainty_level": "HIGH_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.30000000000000004,
+                0.5
+            ],
+            "count": 28,
+            "estimated_tp_rate": 0.21428571428571427,
+            "mean_score": 0.425955287782316,
+            "reliability_band": "LOW_RELIABILITY",
+            "uncertainty_level": "HIGH_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.5,
+                0.6000000000000001
+            ],
+            "count": 12,
+            "estimated_tp_rate": 0.5833333333333334,
+            "mean_score": 0.5474229740634036,
+            "reliability_band": "MEDIUM_RELIABILITY",
+            "uncertainty_level": "MEDIUM_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.6000000000000001,
+                0.7000000000000001
+            ],
+            "count": 14,
+            "estimated_tp_rate": 0.8571428571428571,
+            "mean_score": 0.6534208225223856,
+            "reliability_band": "HIGH_RELIABILITY",
+            "uncertainty_level": "LOW_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.7000000000000001,
+                0.8
+            ],
+            "count": 19,
+            "estimated_tp_rate": 0.8421052631578947,
+            "mean_score": 0.7581140960526084,
+            "reliability_band": "MEDIUM_RELIABILITY",
+            "uncertainty_level": "MEDIUM_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.8,
+                0.9
+            ],
+            "count": 12,
+            "estimated_tp_rate": 1.0,
+            "mean_score": 0.8491775445621333,
+            "reliability_band": "HIGH_RELIABILITY",
+            "uncertainty_level": "LOW_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.9,
+                1.0
+            ],
+            "count": 0,
+            "estimated_tp_rate": 0.0,
+            "mean_score": 0.0,
+            "reliability_band": "LOW_RELIABILITY",
+            "uncertainty_level": "HIGH_UNCERTAINTY"
+        }
+    ],
+    "Mine": [
+        {
+            "range": [
+                0.0,
+                0.1
+            ],
+            "count": 21,
+            "estimated_tp_rate": 0.0,
+            "mean_score": 0.06899747910904441,
+            "reliability_band": "LOW_RELIABILITY",
+            "uncertainty_level": "HIGH_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.1,
+                0.2
+            ],
+            "count": 53,
+            "estimated_tp_rate": 0.03773584905660377,
+            "mean_score": 0.15649642292544858,
+            "reliability_band": "LOW_RELIABILITY",
+            "uncertainty_level": "HIGH_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.2,
+                0.30000000000000004
+            ],
+            "count": 61,
+            "estimated_tp_rate": 0.16393442622950818,
+            "mean_score": 0.24781927085667022,
+            "reliability_band": "LOW_RELIABILITY",
+            "uncertainty_level": "HIGH_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.30000000000000004,
+                0.4
+            ],
+            "count": 64,
+            "estimated_tp_rate": 0.21875,
+            "mean_score": 0.3403063396501673,
+            "reliability_band": "LOW_RELIABILITY",
+            "uncertainty_level": "HIGH_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.4,
+                0.5
+            ],
+            "count": 28,
+            "estimated_tp_rate": 0.35714285714285715,
+            "mean_score": 0.43747787391937154,
+            "reliability_band": "MEDIUM_RELIABILITY",
+            "uncertainty_level": "MEDIUM_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.5,
+                0.6000000000000001
+            ],
+            "count": 17,
+            "estimated_tp_rate": 0.47058823529411764,
+            "mean_score": 0.5476804855621475,
+            "reliability_band": "MEDIUM_RELIABILITY",
+            "uncertainty_level": "MEDIUM_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.6000000000000001,
+                0.7000000000000001
+            ],
+            "count": 16,
+            "estimated_tp_rate": 0.375,
+            "mean_score": 0.6493681109000391,
+            "reliability_band": "MEDIUM_RELIABILITY",
+            "uncertainty_level": "MEDIUM_UNCERTAINTY"
+        },
+        {
+            "range": [
+                0.7000000000000001,
+                1.0
+            ],
+            "count": 12,
+            "estimated_tp_rate": 0.4166666666666667,
+            "mean_score": 0.8280710534823372,
+            "reliability_band": "MEDIUM_RELIABILITY",
+            "uncertainty_level": "MEDIUM_UNCERTAINTY"
+        }
+    ],
+    "Pipeline": [
+        {
+            "range": [
+                0.0,
+                1.0
+            ],
+            "count": 0,
+            "estimated_tp_rate": 0.0,
+            "mean_score": 0.0,
+            "reliability_band": "UNCALIBRATED",
+            "uncertainty_level": "UNKNOWN"
+        }
+    ],
+    "Ghost Net": [
+        {
+            "range": [
+                0.0,
+                1.0
+            ],
+            "count": 0,
+            "estimated_tp_rate": 0.0,
+            "mean_score": 0.0,
+            "reliability_band": "UNCALIBRATED",
+            "uncertainty_level": "UNKNOWN"
+        }
+    ]
+}

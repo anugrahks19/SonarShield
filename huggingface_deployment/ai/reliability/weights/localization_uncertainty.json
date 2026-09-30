@@ -1,0 +1,32 @@
+{
+    "Crab Pot": {
+        "n": 163,
+        "center_x_error_median_px": 1.0382269726562185,
+        "center_y_error_median_px": 1.0485613134765686,
+        "width_error_median_px": 2.284865898437488,
+        "height_error_median_px": 4.427734375,
+        "iou_median": 0.6382627476195885,
+        "center_x_error_90th_px": 3.0065660742187044,
+        "center_y_error_90th_px": 2.4692997968749877
+    },
+    "Wreck": {
+        "n": 32,
+        "center_x_error_median_px": 9.763706533203077,
+        "center_y_error_median_px": 74.9753323364258,
+        "width_error_median_px": 20.101493835449304,
+        "height_error_median_px": 137.21364807128907,
+        "iou_median": 0.7021484362234878,
+        "center_x_error_90th_px": 21.219597821289067,
+        "center_y_error_90th_px": 134.32816857850554
+    },
+    "Mine": {
+        "n": 45,
+        "center_x_error_median_px": 3.467552402343813,
+        "center_y_error_median_px": 3.83111572265625,
+        "width_error_median_px": 9.887985229492188,
+        "height_error_median_px": 6.753005546874931,
+        "iou_median": 0.7032188982596262,
+        "center_x_error_90th_px": 21.297372871093767,
+        "center_y_error_90th_px": 19.8429263537598
+    }
+}

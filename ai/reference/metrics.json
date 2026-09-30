@@ -1,0 +1,19 @@
+{
+    "model": "yolov8s-p2",
+    "dataset": "drishti_sss_v3",
+    "split": "val_clean",
+    "overall": {
+        "mAP50": 0.704,
+        "mAP50-95": 0.478,
+        "precision": 0.747,
+        "recall": 0.691,
+        "inference_time_ms": 13.2
+    },
+    "classes_mAP50": {
+        "crab_pot": 0.343,
+        "submarine_pipeline": 0.995,
+        "shipwreck": 0.505,
+        "ghost_net": 0.995,
+        "mine_cylinder": 0.682
+    }
+}

@@ -1,0 +1,11 @@
+*.zip
+datasets/
+models/
+*.pt
+*.pkl
+__pycache__/
+.temp/
+.cbm-cache/
+.agent/
+huggingface_deployment/.git/
+frontend/.git/

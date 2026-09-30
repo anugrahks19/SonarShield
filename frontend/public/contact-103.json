@@ -1,0 +1,204 @@
+{
+  "schema_version": "F8.0",
+  "analysis_id": "ANL-1c7ed9ac",
+  "status": "COMPLETED",
+  "input": {
+    "input_id": "IMG-cc4234c3",
+    "filename": "Contact_103_sslo_png_jpg.rf.53fe66a3739b5f18e390901f89cf481e.jpg",
+    "sha256": "94976a1512bff544b94954335b3cf9ad988e9377cf4dc31fa4b8d6e1373dbed3",
+    "width": 640,
+    "height": 640
+  },
+  "summary": {
+    "candidate_count": 1,
+    "confirmed_count": 0,
+    "review_count": 1,
+    "rejected_count": 0,
+    "unknown_count": 0
+  },
+  "candidates": [
+    {
+      "schema_version": "F7.0",
+      "candidate_id": "CAND-4ae62fad",
+      "detection": {
+        "class_id": 0,
+        "class_name": "Crab Pot",
+        "confidence": 0.30360063910484314,
+        "bbox": [
+          428.972412109375,
+          302.0389709472656,
+          443.04762268066406,
+          316.0032043457031
+        ],
+        "source_mode": "TILED"
+      },
+      "classification": {
+        "class_id": 0,
+        "class_name": "Crab Pot",
+        "reliability": {
+          "estimated_tp_rate": 0.85,
+          "support_count": 100,
+          "method": "CLASS_CONDITIONAL_EMPIRICAL_BINNING",
+          "source_split": "CALIB",
+          "confidence_interval": null
+        },
+        "presentation": {
+          "reliability_band": "MODERATE",
+          "uncertainty_level": "LOW_UNCERTAINTY"
+        }
+      },
+      "decision": {
+        "status": "REVIEW",
+        "fusion_score": 0.6945826116971042,
+        "reason_codes": [
+          "MODERATE_FUSION_EVIDENCE",
+          "NO_SHADOW_SUPPORT"
+        ]
+      },
+      "evidence": {
+        "ai_confidence": 0.30360063910484314,
+        "bbox": [
+          428.972412109375,
+          302.0389709472656,
+          443.04762268066406,
+          316.0032043457031
+        ],
+        "geometry": {
+          "width_px": 14.075210571289062,
+          "height_px": 13.9642333984375,
+          "bbox_area_px": 196.5495255496353,
+          "aspect_ratio": 1.007947244197736
+        },
+        "seabed": {
+          "background_mean": 113.74746376811594,
+          "background_std": 19.033713246351574,
+          "local_contrast": 0.05086093430294398
+        },
+        "shadow": {
+          "shadow_candidate_presence": 0.344061850475435,
+          "shadow_area_px": 149.7520194663888,
+          "area_ratio": 0.7619047619047619,
+          "adjacency": 1.0,
+          "mean_intensity_ratio": 0.5484188212509915
+        },
+        "quality": {
+          "boundary_strength": 0.1620314065044534,
+          "artifact_flags": {
+            "near_image_edge": false,
+            "near_nadir": false,
+            "dropout": false,
+            "extreme_saturation": false,
+            "very_low_dynamic_range": false
+          }
+        }
+      },
+      "localization": {
+        "metadata": {
+          "status": "PIXEL_ONLY",
+          "available_spaces": [
+            "IMAGE_PIXEL"
+          ],
+          "unavailable_spaces": [
+            "SONAR_RELATIVE",
+            "GEOGRAPHIC"
+          ],
+          "reason_code": "NO_SONAR_NAV_METADATA"
+        },
+        "pixel_convention": {
+          "origin": "top-left",
+          "axes": "x rightward, y downward",
+          "indexing": "zero-based continuous",
+          "bounding_box_semantics": "[x_min, y_min, x_max, y_max), max exclusive",
+          "reference": "pixel center of (i,j) is (j + 0.5, i + 0.5)"
+        },
+        "image_geometry": null,
+        "coordinate_provenance": [],
+        "coordinates": {
+          "image": {
+            "coordinate_system": "IMAGE_PIXEL",
+            "x_min": 428.972412109375,
+            "y_min": 302.0389709472656,
+            "x_max": 443.04762268066406,
+            "y_max": 316.0032043457031,
+            "center_x": 436.01001739501953,
+            "center_y": 309.0210876464844,
+            "width_px": 14.075210571289062,
+            "height_px": 13.9642333984375
+          },
+          "normalized_image": null,
+          "sonar": null,
+          "geographic": null
+        }
+      },
+      "localization_uncertainty": {
+        "validation_reference": {
+          "scope": "CLASS_LEVEL",
+          "class_name": "Crab Pot",
+          "median_center_error_px": 75.5,
+          "p90_center_error_px": 130.2,
+          "median_normalized_center_error": 0.11,
+          "p90_normalized_center_error": 0.19
+        },
+        "error_envelope": {
+          "status": "CLASS_CONDITIONAL_ESTIMATE",
+          "scope": "CLASS_CONDITIONAL",
+          "method": "CALIB_DERIVED_P90_ENVELOPE",
+          "envelope_px": 130.2,
+          "envelope_normalized": 0.19,
+          "reason": "CALIB derived bounds"
+        }
+      },
+      "quality": {
+        "image": {
+          "flags": []
+        },
+        "detection": {
+          "flags": []
+        },
+        "evidence": {
+          "completeness": {
+            "available": [],
+            "missing": []
+          },
+          "flags": []
+        },
+        "localization": {
+          "flags": []
+        },
+        "metadata": {
+          "flags": []
+        }
+      },
+      "provenance": {
+        "candidate_id": "CAND-4ae62fad",
+        "input_id": "IMG-cc4234c3",
+        "source_dataset": "drishti_sss_v3",
+        "source_dataset_version": null,
+        "image_sha256": "94976a1512bff544b94954335b3cf9ad988e9377cf4dc31fa4b8d6e1373dbed3",
+        "pipeline_version": "v1.2",
+        "detector_version": "V6-P2",
+        "fusion_version": "D2-v1",
+        "decision_policy_version": "E1-v1",
+        "calibration_version": "F5-v1.0",
+        "preprocessing_version": "v1.0",
+        "coordinate_contract_version": "F3-v1.0",
+        "detector_artifact_sha256": "detector_hash",
+        "fusion_artifact_sha256": "fusion_hash",
+        "decision_policy_sha256": "policy_hash",
+        "classification_calibration_sha256": "calib_hash",
+        "localization_uncertainty_sha256": "loc_hash",
+        "processing_timestamp": "2026-09-30T06:51:07.068475+00:00",
+        "runtime_version": "python3"
+      }
+    }
+  ],
+  "artifacts": {
+    "visual_audit_url": null,
+    "report_url": null
+  },
+  "processing": {
+    "status": "COMPLETED",
+    "pipeline_version": "v1.2",
+    "processing_time_ms": 2500
+  }
+}

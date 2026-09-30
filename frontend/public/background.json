@@ -1,0 +1,29 @@
+{
+  "schema_version": "F8.0",
+  "analysis_id": "ANL-d88a01f4",
+  "status": "COMPLETED",
+  "input": {
+    "input_id": "IMG-5025e0e3",
+    "filename": "bg_1693569221.750_x1000.jpg",
+    "sha256": "290b4cef41e56ea4269e58ab282f0f76ca7c6c0c4c69dd51f5479d55c635fca9",
+    "width": 640,
+    "height": 500
+  },
+  "summary": {
+    "candidate_count": 0,
+    "confirmed_count": 0,
+    "review_count": 0,
+    "rejected_count": 0,
+    "unknown_count": 0
+  },
+  "candidates": [],
+  "artifacts": {
+    "visual_audit_url": null,
+    "report_url": null
+  },
+  "processing": {
+    "status": "COMPLETED",
+    "pipeline_version": "v1.2",
+    "processing_time_ms": 2500
+  }
+}

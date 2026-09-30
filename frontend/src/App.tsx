@@ -1,0 +1,208 @@
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Activity, BarChart3, CircleHelp, FileText, LayoutDashboard, Menu, Radio, X } from 'lucide-react';
+import { analyzeImage, AnalysisError, getHealth } from './api';
+import { demoEnabled, mockEnabled } from './config/env';
+import { analyzeSchema } from './api/schema';
+import type { AnalyzeResponse, HealthResponse } from './types';
+import type { HumanReview } from './review/reviewStore';
+import { deleteReview, getReviews, saveReview } from './review/reviewStore';
+import SonarViewer from './components/sonar/SonarViewer';
+import CandidateList from './components/candidates/CandidateList';
+import AnalysisPanel from './components/analysis/AnalysisPanel';
+import ReviewSummary from './components/review/ReviewSummary';
+import { mapPoints } from './components/map/mapData';
+import { OverviewPage, SystemPage } from './components/navigation/Pages';
+import { ToastRegion } from './components/ui/Feedback';
+import type { Toast } from './components/ui/Feedback';
+import './App.css';
+import './Phase2.css';
+import './Phase3.css';
+import './Phase4.css';
+import './Phase5.css';
+import './Phase6.css';
+import './Phase7.css';
+
+type Phase = 'empty' | 'selected' | 'running' | 'success' | 'error' | 'invalid';
+const navigation = [{ name: 'Overview', icon: LayoutDashboard }, { name: 'Analysis', icon: Activity }, { name: 'Candidates', icon: BarChart3 }, { name: 'Reports', icon: FileText }, { name: 'System', icon: Radio }];
+const pathPage = (path: string) => path === '/overview' ? 'Overview' : path.startsWith('/reports') ? 'Reports' : path === '/candidates' ? 'Candidates' : path === '/system' ? 'System' : 'Analysis';
+const pagePath = (name: string, id?: string) => name === 'Reports' && id ? `/reports/${encodeURIComponent(id)}` : `/${name.toLowerCase()}`;
+const demoSamples = [{ id: 'contact-103', label: 'Contact 103 · 1 candidate' }, { id: 'contact-104', label: 'Contact 104 · 1 candidate' }, { id: 'contact-105', label: 'Contact 105 · 2 candidates' }, { id: 'background', label: 'Background · 0 candidates' }];
+const SonarMap = lazy(() => import('./components/map/SonarMap'));
+const ReportPage = lazy(() => import('./components/reports/ReportPage'));
+
+export default function App() {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [src, setSrc] = useState<string | null>(null);
+  const [dimensions, setDimensions] = useState<{ width: number; height: number } | null>(null);
+  const [phase, setPhase] = useState<Phase>('empty');
+  const [result, setResult] = useState<AnalyzeResponse | null>(null);
+  const [reviews, setReviews] = useState<Record<string, HumanReview>>({});
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [error, setError] = useState<AnalysisError | null>(null);
+  const [health, setHealth] = useState<HealthResponse | null>(null);
+  const [healthBusy, setHealthBusy] = useState(false);
+  const [healthError, setHealthError] = useState<AnalysisError | null>(null);
+  const healthAbort = useRef<AbortController | null>(null);
+  const analysisAbort = useRef<AbortController | null>(null);
+  const requestVersion = useRef(0);
+  const [demo, setDemo] = useState(false);
+  const [drag, setDrag] = useState(false);
+  const [page, setPage] = useState(() => pathPage(window.location.pathname));
+  const [routePath, setRoutePath] = useState(() => window.location.pathname);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  const [toasts, setToasts] = useState<Toast[]>([]);
+  const toastId = useRef(0);
+  const notify = useCallback((kind: Toast['kind'], message: string) => {
+    const id = ++toastId.current;
+    setToasts(current => [...current.filter(toast => toast.kind !== kind).slice(-1), { id, kind, message }]);
+    window.setTimeout(() => setToasts(current => current.filter(toast => toast.id !== id)), 4500);
+  }, []);
+  useEffect(() => {
+    const sync = () => { setRoutePath(window.location.pathname); setPage(pathPage(window.location.pathname)); };
+    window.addEventListener('popstate', sync);
+    return () => window.removeEventListener('popstate', sync);
+  }, []);
+  const navigate = useCallback((name: string, id?: string) => {
+    const path = pagePath(name, id);
+    if (window.location.pathname !== path) window.history.pushState(null, '', path);
+    setRoutePath(path); setPage(name); setMenuOpen(false);
+  }, []);
+
+  const checkHealth = useCallback(async () => {
+    healthAbort.current?.abort();
+    const controller = new AbortController();
+    healthAbort.current = controller;
+    setHealthBusy(true); setHealthError(null);
+    try { const value = await getHealth(controller.signal); if (healthAbort.current === controller) setHealth(value); }
+    catch (issue) {
+      if (healthAbort.current === controller) {
+        setHealth(null);
+        setHealthError(issue instanceof AnalysisError ? issue : new AnalysisError('API_OFFLINE', 'The analysis service could not be reached.'));
+      }
+    } finally { if (healthAbort.current === controller) { healthAbort.current = null; setHealthBusy(false); } }
+  }, []);
+  useEffect(() => {
+    // Defer the first request until after the effect has settled; StrictMode's
+    // setup/cleanup replay then cannot dispatch a duplicate health request.
+    const frame = window.requestAnimationFrame(() => void checkHealth());
+    return () => {
+      window.cancelAnimationFrame(frame);
+      healthAbort.current?.abort(); analysisAbort.current?.abort();
+      // The latest request version must be invalidated on unmount, not a captured snapshot.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      requestVersion.current++;
+    };
+  }, [checkHealth]);
+  useEffect(() => () => { if (src?.startsWith('blob:')) URL.revokeObjectURL(src); }, [src]);
+
+  const selectFile = (next: File | undefined) => {
+    if (!next) return;
+    analysisAbort.current?.abort(); analysisAbort.current = null; requestVersion.current++;
+    setResult(null); setReviews({}); setSelectedId(null); setError(null); setDemo(false); setDimensions(null);
+    if (next.size === 0 || !(['image/jpeg', 'image/png'].includes(next.type) || (!next.type && /\.(jpe?g|png)$/i.test(next.name)))) {
+      setPhase('invalid'); setFile(null); setSrc(null);
+      setError(new AnalysisError('INVALID_FILE', next.size === 0 ? 'The selected file is empty.' : 'Use a JPG or PNG sonar image.'));
+      return;
+    }
+    const objectUrl = URL.createObjectURL(next);
+    const image = new Image();
+    image.onload = () => setDimensions({ width: image.naturalWidth, height: image.naturalHeight });
+    image.onerror = () => { setPhase('invalid'); setError(new AnalysisError('INVALID_IMAGE', 'The selected file could not be read as an image.')); setSrc(null); setFile(null); };
+    image.src = objectUrl;
+    setFile(next); setSrc(objectUrl); setPhase('selected');
+  };
+  const run = async () => {
+    if (!file || analysisAbort.current) return;
+    const controller = new AbortController();
+    analysisAbort.current = controller;
+    const version = ++requestVersion.current;
+    setPhase('running'); setError(null); setResult(null); setReviews({}); setSelectedId(null);
+    try {
+      const value = await analyzeImage(file, controller.signal);
+      if (version !== requestVersion.current) return;
+      if (value.status !== 'COMPLETED' || value.processing.status === 'FAILED') throw new AnalysisError('ANALYSIS_FAILED', `The backend returned ${value.status} (${value.processing.status}).`);
+      setResult(value); setReviews(getReviews(value.analysis_id, value.candidates.map(candidate => candidate.candidate_id))); setSelectedId(value.candidates[0]?.candidate_id ?? null); setPhase('success'); notify('success', `Analysis complete · ${value.candidates.length} candidate${value.candidates.length === 1 ? '' : 's'}`);
+    } catch (issue) {
+      if (version !== requestVersion.current) return;
+      setError(issue instanceof AnalysisError ? issue : new AnalysisError('ANALYSIS_FAILED', 'Analysis failed. Please retry.'));
+      setPhase('error'); notify('error', 'Analysis failed. Check the service response and retry.');
+    } finally { if (analysisAbort.current === controller) analysisAbort.current = null; }
+  };
+  const loadDemo = async (sampleId = 'contact-105') => {
+    if (!mockEnabled) return;
+    analysisAbort.current?.abort(); analysisAbort.current = null; requestVersion.current++;
+    setPhase('running'); setError(null); setFile(null); setDemo(true); setResult(null); setReviews({}); setSelectedId(null); setSrc(null);
+    try {
+      const response = await fetch(`/${sampleId}.json`);
+      if (!response.ok) throw Error();
+      const parsed = analyzeSchema.safeParse(await response.json());
+      if (!parsed.success) throw new AnalysisError('INVALID_API_RESPONSE', 'The validation fixture does not match the F8 contract.');
+      const value = parsed.data as AnalyzeResponse;
+      setDimensions(value.input.width && value.input.height ? { width: value.input.width, height: value.input.height } : null);
+      setSrc(`/${sampleId}.jpg`); setResult(value); setReviews(getReviews(value.analysis_id, value.candidates.map(candidate => candidate.candidate_id))); setSelectedId(value.candidates[0]?.candidate_id ?? null); setPhase('success'); notify('info', `Demo data loaded · ${value.candidates.length} candidate${value.candidates.length === 1 ? '' : 's'}`);
+    } catch {
+      setError(new AnalysisError('DEMO_UNAVAILABLE', 'The bundled validation sample could not be loaded.'));
+      setPhase('error'); notify('error', 'The demo sample could not be loaded.');
+    }
+  };
+  const candidate = useMemo(() => result?.candidates.find(item => item.candidate_id === selectedId) ?? null, [result, selectedId]);
+  const saveHumanReview = (review: HumanReview) => {
+    if (!result || review.analysisId !== result.analysis_id || !result.candidates.some(item => item.candidate_id === review.candidateId)) return false;
+    if (!saveReview(review)) return false;
+    setReviews(current => ({ ...current, [review.candidateId]: review })); notify('success', 'Review saved locally.');
+    return true;
+  };
+  const deleteHumanReview = () => {
+    if (!result || !selectedId || !deleteReview(result.analysis_id, selectedId)) return false;
+    setReviews(current => { const next = { ...current }; delete next[selectedId]; return next; }); notify('info', 'Local review reset.');
+    return true;
+  };
+  const selectedIndex = result?.candidates.findIndex(item => item.candidate_id === selectedId) ?? -1;
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement;
+      if (target.closest('input,textarea,select,[contenteditable="true"],button,[role="dialog"]')) return;
+      if (event.key === 'Escape') { setShortcutsOpen(false); setMenuOpen(false); return; }
+      if (event.key === '?' && (page === 'Analysis' || page === 'Candidates')) { setShortcutsOpen(open => !open); return; }
+      if ((page !== 'Analysis' && page !== 'Candidates') || !result || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+      const index = result.candidates.findIndex(item => item.candidate_id === selectedId);
+      const next = index + (event.key === 'ArrowRight' ? 1 : -1);
+      if (next >= 0 && next < result.candidates.length) { event.preventDefault(); setSelectedId(result.candidates[next].candidate_id); }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [page, result, selectedId]);
+  const total = result?.summary.candidate_count ?? result?.candidates.length ?? 0;
+  const geographicCount = result ? mapPoints(result.candidates).length : 0;
+  const status = phase === 'running' ? 'ANALYZING' : phase === 'success' ? result?.processing.status ?? 'COMPLETED' : phase === 'error' || phase === 'invalid' ? 'FAILED' : 'READY';
+  const ready = health?.status === 'OK';
+  const showWorkspace = page === 'Analysis' || page === 'Candidates';
+  const leavePage = (name: string) => {
+    if (name !== 'Analysis' && name !== 'Candidates' && analysisAbort.current) {
+      analysisAbort.current.abort(); analysisAbort.current = null; requestVersion.current++;
+      setPhase(file ? 'selected' : 'empty');
+    }
+    navigate(name, name === 'Reports' ? result?.analysis_id : undefined);
+    if (name === 'Candidates') requestAnimationFrame(() => document.getElementById('candidates')?.scrollIntoView({ behavior: 'smooth' }));
+  };
+
+  return <div className="app-shell">
+    <header className="topbar"><div className="brand"><button type="button" className="mobile-menu-trigger" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={19} /> : <Menu size={19} />}</button><div className="brand-icon">S<span>•</span></div><div><strong>SONAR-SHIELD</strong><small>MARINE ANOMALY INTELLIGENCE</small></div></div><div className="topbar-meta">{demoEnabled && <span className="top-demo-badge">DEMO MODE</span>}<span className="top-analysis"><span>ANALYSIS</span><strong>{result?.analysis_id ?? 'NO ACTIVE ANALYSIS'}</strong></span><span className="top-status"><span>F8 SERVICE</span><strong><i className={`status-dot ${ready ? 'ready' : ''}`} />{health?.status ?? (healthBusy ? 'CHECKING' : 'OFFLINE')}</strong></span></div></header>
+    {menuOpen && <button type="button" className="mobile-nav-scrim" aria-label="Dismiss navigation overlay" onClick={() => setMenuOpen(false)} />}
+    <div className="body-layout"><nav className={`sidebar ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation"><div className="nav-caption">WORKSPACE</div>{navigation.map(({ name, icon: Icon }) => <button type="button" key={name} className={page === name ? 'active' : ''} aria-current={page === name ? 'page' : undefined} onClick={() => leavePage(name)}><Icon className="nav-symbol" size={17} strokeWidth={1.8} />{name}</button>)}<div className="sidebar-system"><span className="nav-caption">SYSTEM · F8</span><div><span>API</span><strong className={ready ? 'good' : 'offline'}>{health?.status ?? (healthBusy ? 'CHECKING' : 'OFFLINE')}</strong></div>{health && Object.entries(health.components).map(([name, state]) => <div key={name}><span>{name.replaceAll('_', ' ').toUpperCase()}</span><strong className={state === 'READY' ? 'good' : 'offline'}>{state}</strong></div>)}{!health && <button type="button" className="health-retry" onClick={() => void checkHealth()} disabled={healthBusy} title={healthError?.message}>{healthBusy ? 'Checking…' : 'Retry connection'}</button>}</div></nav>
+    <main className="main-content">{showWorkspace ? <>
+      <div className="page-intro"><div><span className="eyebrow">SONAR WORKSPACE · F8 ANALYSIS</span><h1>Sonar analysis</h1><p>Inspect candidates, evidence, localization, and human review.</p></div><div className="workspace-state"><div><span>SELECTED / TOTAL</span><strong>{selectedIndex >= 0 ? selectedIndex + 1 : 0} / {total}</strong></div><div><span>GEOGRAPHIC</span><strong>{geographicCount} / {result?.candidates.length ?? 0}</strong></div><div><span>ANALYSIS STATUS</span><strong className={`workspace-status status-${status.toLowerCase()}`}>{status}</strong></div>{demo && <span className="demo-tag">DEMO DATA</span>}</div></div>
+      <section className={`upload-bar ${drag ? 'dragging' : ''}`} onDragOver={event => { event.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)} onDrop={event => { event.preventDefault(); setDrag(false); selectFile(event.dataTransfer.files[0]); }}><input ref={inputRef} type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" hidden onChange={event => { selectFile(event.target.files?.[0]); event.currentTarget.value = ''; }} /><div className="upload-icon">↑</div><div className="upload-copy"><strong>{file ? file.name : result?.input.filename ?? 'DROP SONAR IMAGE'}</strong><span>{file ? `${(file.size / 1024 / 1024).toFixed(2)} MB · ${dimensions ? `${dimensions.width} × ${dimensions.height} px · ` : ''}JPG / PNG` : 'Drag a file here or browse · JPG / PNG'}</span></div><div className="upload-actions"><button className="secondary" type="button" onClick={() => inputRef.current?.click()}>Browse image</button><button className="primary" type="button" onClick={run} disabled={!file || phase === 'running'}>{phase === 'running' && !demo ? 'Analyzing…' : 'Run analysis'}</button>{phase === 'running' && file && <button className="secondary" type="button" onClick={() => { analysisAbort.current?.abort(); analysisAbort.current = null; requestVersion.current++; setPhase('selected'); }}>Cancel</button>}{mockEnabled && (demoEnabled ? <label className="demo-picker"><span>LOAD EXAMPLE</span><select aria-label="Load demo example" defaultValue="" disabled={phase === 'running'} onChange={event => { if (event.target.value) void loadDemo(event.target.value); event.target.value = ''; }}><option value="" disabled>Select sample…</option>{demoSamples.map(sample => <option key={sample.id} value={sample.id}>{sample.label}</option>)}</select></label> : <button className="text-button" type="button" onClick={() => void loadDemo()} disabled={phase === 'running'}>Load validation sample</button>)}</div></section>
+      {phase === 'running' && <div className="notice progress" role="status"><span className="spinner" /><div><strong>ANALYSIS IN PROGRESS</strong><span>{demo ? 'Loading F9 validation output…' : 'Processing sonar image. Candidate and evidence results are pending.'}</span></div></div>}
+      {(phase === 'error' || phase === 'invalid') && <div className="notice error" role="alert"><strong>{phase === 'invalid' ? 'INVALID FILE' : error?.code === 'INVALID_API_RESPONSE' ? 'INVALID API RESPONSE' : 'ANALYSIS FAILED'}</strong><span>{error?.message}</span><code>{error?.code}</code>{file && phase === 'error' && <button type="button" onClick={run}>Retry</button>}{error?.details && Object.keys(error.details).length > 0 && <details><summary>Technical details</summary><pre>{JSON.stringify(error.details, null, 2)}</pre></details>}</div>}
+      {phase === 'success' && result && <div className="notice complete" role="status"><strong>{demo ? 'DEMO ANALYSIS LOADED' : 'ANALYSIS COMPLETE'}</strong><span>{result.analysis_id} · {total} {total === 1 ? 'CANDIDATE' : 'CANDIDATES'}</span><button type="button" className="report-view-button" onClick={() => navigate('Reports', result.analysis_id)}>View report</button></div>}
+      {phase === 'success' && total === 0 && <div className="notice neutral"><strong>NO CANDIDATES DETECTED</strong><span>The analysis pipeline returned no candidates for this image.</span></div>}
+      <div className="workspace"><div className="workspace-left"><SonarViewer key={src ?? 'none'} src={src} filename={file?.name ?? null} dimensions={dimensions} result={result} selectedId={selectedId} onSelect={setSelectedId} onUpload={() => inputRef.current?.click()} /><CandidateList candidates={result?.candidates ?? []} selectedId={selectedId} onSelect={setSelectedId} hasAnalysis={result !== null} reviews={reviews} /></div><AnalysisPanel candidate={candidate} index={selectedIndex} result={result} review={selectedId ? reviews[selectedId] : undefined} onSaveReview={saveHumanReview} onDeleteReview={deleteHumanReview} onNavigate={offset => { const next = result?.candidates[selectedIndex + offset]; if (next) setSelectedId(next.candidate_id); }} /></div>
+      {result && <ReviewSummary candidates={result.candidates} reviews={reviews} selectedId={selectedId} onSelect={setSelectedId} />}
+      <Suspense fallback={<section className="sonar-map-section panel"><div className="sonar-map-empty">Loading geospatial workspace…</div></section>}><SonarMap result={result} selectedId={selectedId} reviews={reviews} onSelect={setSelectedId} /></Suspense>
+      <button type="button" className="shortcut-help" onClick={() => setShortcutsOpen(open => !open)} aria-expanded={shortcutsOpen}><CircleHelp size={15} /> Keyboard shortcuts</button>{shortcutsOpen && <div className="shortcut-panel" role="note"><span><kbd>←</kbd> Previous candidate</span><span><kbd>→</kbd> Next candidate</span><span><kbd>?</kbd> Show shortcuts</span><span><kbd>Esc</kbd> Close</span></div>}
+    </> : page === 'Reports' ? <Suspense fallback={<div className="report-empty panel">Loading report preview…</div>}><ReportPage key={result?.analysis_id ?? 'none'} analysis={routePath.startsWith('/reports/') && result && routePath !== pagePath('Reports', result.analysis_id) ? null : result} reviews={reviews} imageSrc={src} fileSize={file?.size ?? null} onBack={() => navigate('Analysis')} onToast={notify} /></Suspense> : page === 'Overview' ? <OverviewPage result={result} reviews={reviews} health={health} onAnalysis={() => navigate('Analysis')} onReports={() => navigate('Reports', result?.analysis_id)} /> : <SystemPage health={health} busy={healthBusy} onRetry={() => void checkHealth()} />}</main></div><ToastRegion toasts={toasts} dismiss={id => setToasts(current => current.filter(toast => toast.id !== id))} />
+  </div>;
+}

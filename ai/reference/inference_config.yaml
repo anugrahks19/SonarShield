@@ -1,0 +1,12 @@
+# Frozen baseline inference settings used for Sprint 0 evaluation
+
+model: "E:/GITHUB/a sih 2026/models/v6/detector_v6_p2_sss/weights/best.pt"
+imgsz: 640
+conf: 0.001       # For mAP evaluation metrics
+iou: 0.7          # For NMS
+split: "val"      # Evaluates on val_clean
+device: 0         # GPU 0
+
+operational:
+  # The operational confidence threshold for extracting candidates (not final accuracy threshold)
+  candidate_conf: 0.15

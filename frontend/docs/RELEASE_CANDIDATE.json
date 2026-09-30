@@ -1,0 +1,31 @@
+{
+  "project": "SONAR-SHIELD",
+  "status": "BLOCKED",
+  "recorded_at_utc": "2026-09-30T16:38:25Z",
+  "frontend": {
+    "version": "1.0.0",
+    "lockfile": "package-lock.json",
+    "release_build": "npm run build:release"
+  },
+  "backend": {
+    "claimed_freeze": "backend-freeze-f9",
+    "freeze_verified": false,
+    "detector": "V6-P2",
+    "fusion": "D2-v1",
+    "decision_policy": "E1-v1",
+    "calibration": "F5-v1.0",
+    "hashes": {
+      "detector_sha256": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+      "fusion_sha256": "b57dc4e7c9eb713c11a716c72e1087a7f3e942811779d01978527b669ef9d02b",
+      "decision_policy_sha256": "af473f51fd9bf02a456861cefee98cac595da31b6544859cf7bebf5402ed2cba",
+      "calibration_sha256": null
+    }
+  },
+  "schema": "F7/F8 frozen contract; numeric version not declared in freeze manifest",
+  "environment": "Local Windows QA only; production hosts not assigned",
+  "deployment": {
+    "frontend_url": null,
+    "api_url": null,
+    "verified": false
+  }
+}

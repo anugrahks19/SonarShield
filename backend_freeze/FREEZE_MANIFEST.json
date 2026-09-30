@@ -9,5 +9,6 @@
     "decision_policy": "E1-v1",
     "calibration": "F5-v1.0"
   },
-  "notes": "Backend intelligence and API contracts are frozen for product integration. Future changes are limited to defect fixes, security, performance, and integration issues; no model, evidence, threshold, or decision-policy changes are planned without reopening the relevant validation gate."
+  "notes": "Backend intelligence and API contracts are frozen for product integration. Future changes are limited to defect fixes, security, performance, and integration issues; no model, evidence, threshold, or decision-policy changes are planned without reopening the relevant validation gate.",
+  "scope": "Decision validation scope: Crab-Pot, Shipwreck and Mine classes have validated fusion/decision behavior. Pipeline and Ghost-Net remain review-only / uncalibrated within the frozen policy."
 }

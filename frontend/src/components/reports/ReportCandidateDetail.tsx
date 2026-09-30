@@ -1,0 +1,22 @@
+import type { Candidate } from '../../types';
+import type { HumanReview } from '../../review/reviewStore';
+import { locationState } from '../map/mapData';
+
+const show = (value: unknown) => value === null || value === undefined ? 'NOT AVAILABLE' : String(value);
+const Row = ({ label, value }: { label: string; value: unknown }) => <div className="report-data-row"><dt>{label}</dt><dd>{show(value)}</dd></div>;
+const flags = (candidate: Candidate) => [
+  ['Image', candidate.quality.image.flags], ['Detection', candidate.quality.detection.flags],
+  ['Evidence', candidate.quality.evidence.flags], ['Localization', candidate.quality.localization.flags], ['Metadata', candidate.quality.metadata.flags],
+] as const;
+
+export default function ReportCandidateDetail({ candidate, index, review }: { candidate: Candidate; index: number; review?: HumanReview }) {
+  const { detection, decision, evidence, localization, localization_uncertainty: uncertainty, classification } = candidate;
+  const geographic = locationState(candidate) === 'GEOGRAPHIC' ? localization.coordinates.geographic : null;
+  return <article className="report-candidate" id={`report-candidate-${index + 1}`}>
+    <header><span>CANDIDATE #{String(index + 1).padStart(2, '0')} · {candidate.candidate_id}</span><h3>{detection.class_name}</h3></header>
+    <div className="report-detail-grid"><section><h4>AI analysis</h4><dl><Row label="AI decision" value={decision.status} /><Row label="Fusion score" value={decision.fusion_score} /><Row label="AI confidence" value={detection.confidence} /><Row label="Detection source" value={detection.source_mode} /><Row label="Reliability estimate" value={classification.reliability.estimated_tp_rate} /><Row label="Reliability band" value={classification.presentation.reliability_band} /><Row label="Decision reasons" value={decision.reason_codes.join(', ') || null} /></dl></section>
+      <section><h4>Backend evidence</h4><dl><Row label="Local contrast" value={evidence.seabed.local_contrast} /><Row label="Background mean" value={evidence.seabed.background_mean} /><Row label="Background std" value={evidence.seabed.background_std} /><Row label="Box area px" value={evidence.geometry.bbox_area_px} /><Row label="Aspect ratio" value={evidence.geometry.aspect_ratio} /><Row label="Shadow presence" value={evidence.shadow?.shadow_candidate_presence} /><Row label="Shadow area px" value={evidence.shadow?.shadow_area_px} /><Row label="Boundary strength" value={evidence.quality.boundary_strength} />{Object.entries(evidence.quality.artifact_flags).map(([name, value]) => <Row key={name} label={`Artifact · ${name}`} value={value} />)}</dl></section>
+      <section><h4>Localization & uncertainty</h4><dl><Row label="Backend status" value={localization.metadata.status} /><Row label="Reason" value={localization.metadata.reason_code} /><Row label="Image X" value={localization.coordinates.image?.center_x} /><Row label="Image Y" value={localization.coordinates.image?.center_y} /><Row label="Sonar range m" value={localization.coordinates.sonar?.range_m} /><Row label="Sonar along track m" value={localization.coordinates.sonar?.along_track_m} /><Row label="Sonar across track m" value={localization.coordinates.sonar?.across_track_m} /><Row label="Latitude" value={geographic?.latitude} /><Row label="Longitude" value={geographic?.longitude} /><Row label="Coordinate system" value={geographic?.coordinate_system} /><Row label="Uncertainty status" value={uncertainty.error_envelope.status} /><Row label="Uncertainty scope" value={uncertainty.error_envelope.scope} /><Row label="Pixel envelope" value={uncertainty.error_envelope.envelope_px} /></dl><p className="report-note">The class-conditional pixel envelope is a validation reference, not a measured error or geographic radius.</p></section>
+      <section><h4>Human review · local browser data</h4><dl><Row label="Human assessment" value={review?.status ?? 'NOT_REVIEWED'} /><Row label="Reviewed locally" value={review?.reviewedAt} /><Row label="Reviewer note" value={review?.note} /></dl><h4 className="report-quality-title">Backend quality</h4>{flags(candidate).map(([name, values]) => <div className="report-flag-group" key={name}><strong>{name}</strong><span>{values.length ? values.map(flag => `${flag.severity}: ${flag.code}`).join(' · ') : 'No flags reported'}</span></div>)}{candidate.quality.evidence.completeness.missing.length > 0 && <p className="report-note">Missing evidence: {candidate.quality.evidence.completeness.missing.join(', ')}</p>}</section></div>
+  </article>;
+}

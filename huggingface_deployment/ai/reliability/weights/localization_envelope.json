@@ -1,0 +1,20 @@
+{
+    "Wreck": {
+        "p90_error_px": 130.1573259643975,
+        "p90_error_norm": 0.19039828901926603,
+        "median_error_px": 75.49978530963463,
+        "median_error_norm": 0.10912516682859971
+    },
+    "Mine": {
+        "p90_error_px": 29.76816330338838,
+        "p90_error_norm": 0.1354685305295623,
+        "median_error_px": 7.794643394746598,
+        "median_error_norm": 0.05279197445052583
+    },
+    "Crab Pot": {
+        "p90_error_px": 3.2062170131726453,
+        "p90_error_norm": 0.10889048997987605,
+        "median_error_px": 1.388294123163115,
+        "median_error_norm": 0.05095734502370832
+    }
+}

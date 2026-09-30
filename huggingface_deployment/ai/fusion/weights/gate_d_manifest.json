@@ -1,0 +1,17 @@
+{
+    "fusion_version": "D2-v1",
+    "threshold": 0.3818,
+    "positive_iou": 0.5,
+    "candidate_conf_floor": 0.15,
+    "group_key": "image_id",
+    "validated_classes": [
+        "crab_pot",
+        "shipwreck",
+        "mine_cylinder"
+    ],
+    "unvalidated_classes": [
+        "submarine_pipeline",
+        "ghost_net"
+    ],
+    "tiled_duplicate_handling": "TILED candidates within 50px of a GLOBAL candidate were excluded prior to fusion training."
+}

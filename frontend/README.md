@@ -1,0 +1,75 @@
+# SONAR-SHIELD frontend · Phase 8 release candidate
+
+The analysis workspace renders the frozen F8 `/analyze` response, provides a separate human review workflow, and displays backend geographic coordinates in Leaflet when available. It does not calculate candidate decisions, fusion, reliability, or location.
+
+**Release status: blocked pending F9 freeze integrity and a deployed production/staging check.** The local frontend and real F8 integration have passed the Phase 8 checks recorded in [the release audit](docs/RELEASE_AUDIT.md). No final full-stack tag or release certificate has been issued.
+
+Run `npm install` and `npm run dev` from this directory. Run `npm test` for the viewer transform checks and `npm run build` for TypeScript validation plus the Vite production build. The Vite development server proxies `/health` and `/analyze` to `http://127.0.0.1:8000`. Set `VITE_API_BASE_URL` for another API origin (configure CORS there if needed).
+
+**Run analysis** always submits the selected JPG or PNG file to the real F8 endpoint. Explicit demo mode can load four frozen F9 runtime examples through the same validated renderer; these are visibly labeled demo data and do not call `/analyze`.
+
+The backend's `/detect` endpoint currently returns raw detection data from a stub. The workspace uses `/analyze` for complete F8/F7 results; the typed `/report` client powers the report metadata request. The backend currently returns fixed reliability and localization uncertainty metadata; the frontend labels these as supplied values and does not reinterpret them.
+
+## API configuration
+
+Copy `.env.example` to `.env.local` for direct development requests and set `VITE_API_BASE_URL` to the reachable F8 origin. Without a local override, the Vite development server proxies the four F8 endpoints to `http://127.0.0.1:8000`. Production builds require `VITE_API_BASE_URL`; a missing value displays a configuration error instead of silently using another service. These variables contain public configuration only.
+
+The normal workflow always calls the real `/analyze` endpoint. Set `VITE_DEMO_MODE=true` to show the **DEMO MODE** top-bar label and Load Example selector for Contact 103, 104, 105, and a background image. Its image and response pairs come from F9 runtime examples. Demo mode can run while F8 is offline, but live analysis still needs F8. The older Contact 105 validation button remains available only in development when `VITE_USE_MOCK_DATA=true`. API failures never trigger a sample fallback. Leave both variables false for normal operation.
+
+For deployment, set the public `VITE_API_BASE_URL` to the reachable F8 origin and allow that frontend origin in F8 CORS. Configure the web host to serve `index.html` for frontend paths such as `/reports/:analysisId`; preserve the exact F8 API paths separately. `VITE_*` values are bundled into browser code, so never put credentials in them. Build with `npm run build` and serve `dist/` over HTTP.
+
+For a release build, use `npm run build:release`. It requires a deployed HTTPS F8 origin, disables demo/mock mode, and runs lint, unit tests, TypeScript, and the bundle build. Local QA can still use `npm run build` with the local API origin. See [deployment instructions](docs/DEPLOYMENT.md).
+
+Requests support cancellation and timeouts. Responses are checked against the F7/F8 shape before rendering, and backend error codes are preserved. `/health` is checked on startup and can be retried from the sidebar; it is not polled continuously.
+
+## Viewer controls
+
+- **FIT** keeps the complete image within the viewer. **1:1** uses one screen pixel per image pixel. **RESET** returns to fit with no pan.
+- Use **+ / −** or the mouse wheel to zoom. Drag the image to pan when enlarged. **BOXES ON/OFF** changes overlay visibility only.
+- Boxes use the untouched F8 `detection.bbox` pixel coordinates. The image and boxes share one screen transform: `screen = centered image offset + pan + image pixel × display scale`. Selecting a box or result row centers that candidate when the image is larger than the viewer.
+- The cursor readout is in image pixels. It is not a geographic location.
+
+The candidate strip keeps backend order. Up and Down move selection between visible rows; Enter or Space selects a focused row. Filters change only the displayed list.
+
+## Human review
+
+F8 has no review or feedback endpoint. Human assessments are stored only in this browser under `sonarShield.review.v1`, keyed by both `analysis_id` and `candidate_id`. The stored record contains the assessment, exact reviewer note, and local timestamp; it does not contain sonar images or change F7/F8 candidate objects. A new backend analysis ID does not inherit an earlier analysis's review. Clearing browser storage removes local reviews. Reloading the same analysis response restores its matching reviews, although the frontend does not persist the analysis response or uploaded image across page refreshes.
+
+Choose **Confirmed**, **False positive**, or **Needs investigation**, add a note, and select **Save review**. A confirmation dialog shows the original AI class and decision beside the human assessment. **Reset review** also requires confirmation and removes only the local review. The queue shows human review progress and deterministic next/previous or next unreviewed navigation. Its AI and human filters are separate; review counts are workflow counts, not model metrics.
+
+For a live browser smoke check while Vite and F8 are running, run `python tests/browser_phase4.py`. It checks direct browser CORS, real upload, box alignment through zoom and pan, review persistence and reset, zero candidates, responsive layout, and console errors. Its three-candidate REJECT/UNKNOWN scenario is a browser test fixture; normal analysis continues to call the real F8 API.
+
+## Geospatial workspace
+
+The map reads `candidate.localization` directly. Only candidates with backend status `GEOGRAPHIC` and valid WGS84 latitude/longitude get Leaflet markers. Pixel and sonar coordinates appear in labeled detail sections; they are never converted into geographic coordinates. The current frozen F9 examples are all `PIXEL_ONLY`, so real uploads show an honest map-unavailable state. The F7/F8 contract has no survey track or geographic uncertainty region. Its class-conditional pixel uncertainty remains textual and is never drawn as a map radius.
+
+Map markers, sonar boxes, the candidate list, and the inspection panel share the same selected candidate ID. Clicking a marker pans to it; selecting from the list or sonar viewer highlights its marker without taking over the map viewport. A new analysis replaces old map data. Missing tiles show a warning while coordinate text remains available. The default basemap uses OpenStreetMap tiles with attribution; set `VITE_MAP_TILE_URL` and `VITE_MAP_TILE_ATTRIBUTION` together to use another provider. Deployment must provide access to the chosen tile service or replace it with an approved internal source.
+
+For live and fixture-based browser verification, run `python tests/browser_phase5.py` while Vite and F8 are running. Geographic, mixed, and invalid examples in that script are test fixtures; they are not application data.
+
+## Reports and exports
+
+Open **Reports** after an analysis to view its input record, original or annotated sonar image, candidate details, evidence, localization, quality flags, provenance, and separately labeled local human reviews. The report is a projection of the current F8 `/analyze` response. It is session-only: a refresh clears the analysis response and uploaded image. No persistent history is available.
+
+**Export JSON** downloads the complete F8 analysis unchanged under `analysis` and matching local reviews under `human_review`. **Export CSV** writes one row per candidate; unavailable coordinates are blank, including in zero-candidate results (header only). **Print report** uses the browser's print dialog, where users can save a PDF. There is no separate PDF generator.
+
+**Request F8 report metadata** calls the frozen `/report` endpoint for the current analysis ID. The endpoint returns a report ID, status, and URL reference but does not serve a downloadable report artifact. The frontend displays that reference as text. JSON and CSV downloads are generated from the current validated analysis response in the browser.
+
+Run `python tests/browser_phase6.py` while Vite and F8 are running for live upload, report request, JSON/CSV, print, responsive layout, and zero-candidate verification. Its geographic UNKNOWN/REJECT scenario is a browser test fixture. `npm test` checks export fidelity and safe filenames.
+
+## Phase 7 interface
+
+The landing route `/` and `/analysis` show the sonar workspace. `/overview` summarizes the current session, `/candidates` opens the workspace at the review queue, `/reports` and `/reports/:analysisId` show the current session report, and `/system` shows F8 health. Browser history and direct URLs work. A direct report URL after refresh shows an unavailable state because F8 does not provide analysis history. The Vite proxy forwards only exact F8 API paths, so `/reports` remains a frontend route.
+
+On desktop the sidebar stays compact; on narrow screens its menu button opens a drawer. Candidate selection is shared by the sonar viewer, queue, inspection panel, and map. The panel has previous and next controls. When focus is outside interactive controls, Left and Right select adjacent candidates; `?` opens shortcut help. Review confirmation accepts Escape. A top-level error boundary offers reload if rendering fails. Notifications report analysis, review, and export actions without changing backend records.
+
+For Chrome QA with the real F8 server and Vite on port 5173, run `python tests/browser_phase7.py`. It checks Contact 103/104/105, background, review, report, direct routes, console errors, and six screen sizes. For the optional demo, start Vite on port 5174 with `VITE_DEMO_MODE=true` and run `python tests/browser_phase7_demo.py`; that check blocks `/analyze` and verifies all four samples still load. The normal local UI is available at `http://127.0.0.1:5173/` while the development server is running.
+
+## Release and validation documents
+
+- [Release audit and blockers](docs/RELEASE_AUDIT.md)
+- [Deployment and environment](docs/DEPLOYMENT.md)
+- [Validation scope](docs/VALIDATION.md)
+- [14-step demo runbook](docs/FINAL_DEMO_RUNBOOK.md)
+- [3–5 minute demo script](docs/DEMO_SCRIPT.md)
+- [Machine-readable release candidate record](docs/RELEASE_CANDIDATE.json)

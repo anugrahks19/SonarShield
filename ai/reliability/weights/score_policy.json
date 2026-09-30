@@ -1,0 +1,25 @@
+{
+    "classes": {
+        "0": {
+            "review_threshold": 0.4971505682068122,
+            "confirm": {
+                "enabled": false,
+                "threshold": null
+            }
+        },
+        "1": {
+            "review_threshold": 0.4893148477697467,
+            "confirm": {
+                "enabled": true,
+                "threshold": 0.7118971946890915
+            }
+        },
+        "2": {
+            "review_threshold": 0.27380889184521046,
+            "confirm": {
+                "enabled": false,
+                "threshold": null
+            }
+        }
+    }
+}

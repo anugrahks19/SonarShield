@@ -1,0 +1,16 @@
+{
+    "dataset": "324_independent_backgrounds",
+    "confidence_threshold": 0.25,
+    "overall": {
+        "total_fp_detections": 26,
+        "images_with_at_least_one_fp": 22,
+        "fp_per_image": 0.080
+    },
+    "classes_fp": {
+        "crab_pot": 9,
+        "submarine_pipeline": 4,
+        "shipwreck": 4,
+        "ghost_net": 0,
+        "mine_cylinder": 9
+    }
+}

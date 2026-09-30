@@ -1,0 +1,72 @@
+import { useEffect, useRef, useState } from 'react';
+import { AnalysisError, getReport } from '../../api';
+import type { AnalyzeResponse, Candidate, ReportResponse } from '../../types';
+import type { HumanReview } from '../../review/reviewStore';
+import { locationState, mapPoints } from '../map/mapData';
+import { downloadText, exportCsvText, exportJsonText, safeAnalysisName } from '../../reports/export';
+import ReportCandidateDetail from './ReportCandidateDetail';
+import ReportImage from './ReportImage';
+import { DecisionBadge } from '../ui/Display';
+import ReviewStatusBadge from '../review/ReviewStatusBadge';
+
+type Props = { analysis: AnalyzeResponse | null; reviews: Record<string, HumanReview>; imageSrc: string | null; fileSize: number | null; onBack: () => void; onToast?: (kind: 'success' | 'error' | 'info', message: string) => void };
+const show = (value: unknown) => value === null || value === undefined ? 'NOT AVAILABLE' : String(value);
+const groups = (candidate: Candidate) => [candidate.quality.image.flags, candidate.quality.detection.flags, candidate.quality.evidence.flags, candidate.quality.localization.flags, candidate.quality.metadata.flags];
+
+function CopyValue({ value }: { value: string }) {
+  const [copied, setCopied] = useState(false);
+  return <span className="report-copy-value" title={value}><code className="report-short-value">{value.length > 22 ? `${value.slice(0, 12)}…` : value}</code><code className="report-print-value">{value}</code><button type="button" className="report-no-print" onClick={() => { void navigator.clipboard.writeText(value).then(() => { setCopied(true); window.setTimeout(() => setCopied(false), 1600); }).catch(() => setCopied(false)); }}>{copied ? 'COPIED' : 'COPY'}</button></span>;
+}
+
+export default function ReportPage({ analysis, reviews, imageSrc, fileSize, onBack, onToast }: Props) {
+  const [previewCreatedAt] = useState(() => new Date().toISOString());
+  const [backendReport, setBackendReport] = useState<ReportResponse | null>(null);
+  const [backendError, setBackendError] = useState<AnalysisError | null>(null);
+  const [backendBusy, setBackendBusy] = useState(false);
+  const requestController = useRef<AbortController | null>(null);
+  useEffect(() => () => requestController.current?.abort(), []);
+
+  if (!analysis) return <div className="report-empty panel"><span className="eyebrow">REPORTS · CURRENT SESSION</span><h1>NO ANALYSIS AVAILABLE</h1><p>Run an analysis to preview and export its record. F8 does not provide a persistent analysis or report history. A direct report URL needs the same analysis loaded in this session.</p><button className="primary" type="button" onClick={onBack}>Open analysis</button></div>;
+
+  const candidates = analysis.candidates;
+  const reviewed = candidates.filter(candidate => reviews[candidate.candidate_id]?.analysisId === analysis.analysis_id).length;
+  const decisions = [...new Set(candidates.map(candidate => candidate.decision.status))].map(status => ({ status, count: candidates.filter(candidate => candidate.decision.status === status).length }));
+  const geographic = mapPoints(candidates).length;
+  const sonar = candidates.filter(candidate => candidate.localization.coordinates.sonar !== null).length;
+  const pixelOnly = candidates.filter(candidate => locationState(candidate) === 'PIXEL_ONLY').length;
+  const unavailable = candidates.filter(candidate => ['UNAVAILABLE', 'NOT_PROCESSED', 'INVALID'].includes(locationState(candidate))).length;
+  const warningEntries = candidates.flatMap(candidate => groups(candidate).flat().filter(flag => flag.severity === 'WARNING' || flag.severity === 'ERROR').map(flag => ({ id: candidate.candidate_id, flag })));
+  const provenance = candidates[0]?.provenance;
+
+  const requestBackendReport = async () => {
+    requestController.current?.abort();
+    const controller = new AbortController();
+    requestController.current = controller;
+    setBackendBusy(true); setBackendError(null); setBackendReport(null);
+    try { setBackendReport(await getReport({ analysis_ids: [analysis.analysis_id], format: 'JSON', include_images: false }, controller.signal)); }
+    catch (issue) { setBackendError(issue instanceof AnalysisError ? issue : new AnalysisError('REPORT_UNAVAILABLE', 'The F8 report request failed.')); }
+    finally { if (requestController.current === controller) { requestController.current = null; setBackendBusy(false); } }
+  };
+  const exportFile = (type: 'json' | 'csv') => {
+    try {
+      downloadText(`${safeAnalysisName(analysis.analysis_id)}.${type}`, type === 'json' ? exportJsonText(analysis, reviews) : exportCsvText(analysis, reviews), type === 'json' ? 'application/json' : 'text/csv;charset=utf-8');
+      onToast?.('success', `${type.toUpperCase()} export started.`);
+    } catch { onToast?.('error', `${type.toUpperCase()} export failed.`); }
+  };
+  return <div className="reports-page"><div className="report-actions report-no-print"><div><button type="button" className="secondary report-back" onClick={onBack}>← Analysis</button><span>CURRENT ANALYSIS · SESSION ONLY</span></div><div><button type="button" className="secondary" onClick={() => exportFile('json')}>Export JSON</button><button type="button" className="secondary" onClick={() => exportFile('csv')}>Export CSV</button><button type="button" className="primary" onClick={() => window.print()}>Print report</button></div></div>
+    <article className="report-paper"><header className="report-cover"><span className="report-brand">SONAR-SHIELD</span><h1>MARINE ANOMALY ANALYSIS REPORT</h1><div className="report-cover-grid"><div><span>ANALYSIS ID</span><strong>{analysis.analysis_id}</strong></div><div><span>BACKEND STATUS</span><strong>{analysis.status}</strong></div><div><span>INPUT</span><strong>{analysis.input.filename}</strong></div><div><span>PREVIEW CREATED LOCALLY</span><strong>{new Date(previewCreatedAt).toLocaleString()}</strong></div></div></header>
+      <nav className="report-toc report-no-print" aria-label="Report sections">{[['Summary', 'report-summary'], ['Input', 'report-input'], ['Image', 'report-image'], ['Candidates', 'report-candidates'], ['Quality', 'report-quality'], ['Provenance', 'report-provenance']].map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</nav>
+      <section className="report-section" id="report-summary"><h2>Analysis summary</h2><div className="report-summary-grid"><div><span>CANDIDATES</span><strong>{candidates.length}</strong></div><div><span>HUMAN REVIEWED</span><strong>{reviewed} / {candidates.length}</strong></div><div><span>GEOGRAPHIC</span><strong>{geographic}</strong></div><div><span>PIXEL ONLY</span><strong>{pixelOnly}</strong></div></div><div className="report-summary-lines"><p><strong>AI decisions:</strong> {decisions.length ? decisions.map(entry => `${entry.count} ${entry.status}`).join(' · ') : 'No candidates'}</p><p><strong>Human review:</strong> {reviewed} reviewed · {candidates.length - reviewed} pending · local browser data</p><p><strong>Localization:</strong> {geographic} geographic · {sonar} sonar · {pixelOnly} pixel only · {unavailable} unavailable/invalid</p><p><strong>Evidence available:</strong> {candidates.filter(candidate => candidate.evidence.shadow !== null).length} shadow · {candidates.filter(candidate => candidate.evidence.geometry !== null).length} geometry</p></div>{warningEntries.length > 0 && <div className="report-warning"><strong>BACKEND QUALITY WARNINGS</strong>{warningEntries.map(({ id, flag }, index) => <p key={`${id}-${flag.code}-${index}`}>{id} · {flag.severity}: {flag.code}</p>)}</div>}</section>
+      <section className="report-section" id="report-input"><h2>Input record</h2><dl className="report-meta-grid"><div><dt>Filename</dt><dd>{analysis.input.filename}</dd></div><div><dt>Input ID</dt><dd>{analysis.input.input_id}</dd></div><div><dt>Dimensions</dt><dd>{analysis.input.width !== null && analysis.input.height !== null ? `${analysis.input.width} × ${analysis.input.height} px` : 'NOT AVAILABLE'}</dd></div><div><dt>File size · local upload</dt><dd>{fileSize === null ? 'NOT AVAILABLE' : `${fileSize.toLocaleString()} bytes`}</dd></div><div><dt>Image SHA-256</dt><dd><CopyValue value={analysis.input.sha256} /></dd></div><div><dt>Pipeline version</dt><dd>{analysis.processing.pipeline_version}</dd></div><div><dt>Processing time</dt><dd>{analysis.processing.processing_time_ms} ms</dd></div><div><dt>Analysis timestamp</dt><dd>{show(provenance?.processing_timestamp)}</dd></div></dl></section>
+      <ReportImage analysis={analysis} src={imageSrc} />
+      <section className="report-section" id="report-candidates"><h2>Candidate summary</h2>{candidates.length ? <div className="report-table-wrap"><table><thead><tr><th># / ID</th><th>Class</th><th>AI decision</th><th>Fusion</th><th>AI confidence</th><th>Source</th><th>Location</th><th>Human review</th></tr></thead><tbody>{candidates.map((candidate, index) => <tr key={candidate.candidate_id}><td>#{String(index + 1).padStart(2, '0')}<small>{candidate.candidate_id}</small></td><td>{candidate.detection.class_name}</td><td><DecisionBadge status={candidate.decision.status} /></td><td>{candidate.decision.fusion_score}</td><td>{candidate.detection.confidence}</td><td>{candidate.detection.source_mode}</td><td>{locationState(candidate)}</td><td><ReviewStatusBadge status={reviews[candidate.candidate_id]?.analysisId === analysis.analysis_id ? reviews[candidate.candidate_id].status : 'NOT_REVIEWED'} /></td></tr>)}</tbody></table></div> : <p className="report-no-candidates">NO CANDIDATES DETECTED · The report retains the input and processing record.</p>}
+        {geographic > 0 ? <div className="report-location-list"><h3>Geographic positions · backend WGS84</h3>{candidates.flatMap((candidate, index) => locationState(candidate) === 'GEOGRAPHIC' && candidate.localization.coordinates.geographic ? [<p key={candidate.candidate_id}>#{String(index + 1).padStart(2, '0')} · {candidate.localization.coordinates.geographic.latitude}, {candidate.localization.coordinates.geographic.longitude}</p>] : [])}<button type="button" className="report-no-print" onClick={onBack}>View live map in analysis</button></div> : <p className="report-muted">GEOGRAPHIC LOCALIZATION UNAVAILABLE · Image pixel coordinates remain in candidate details where provided.</p>}
+      </section>
+      {candidates.map((candidate, index) => <ReportCandidateDetail key={candidate.candidate_id} candidate={candidate} index={index} review={reviews[candidate.candidate_id]?.analysisId === analysis.analysis_id ? reviews[candidate.candidate_id] : undefined} />)}
+      <section className="report-section" id="report-quality"><h2>Quality & data integrity</h2>{candidates.length ? candidates.map(candidate => <div className="report-quality-summary" key={candidate.candidate_id}><strong>{candidate.candidate_id}</strong>{[['IMAGE', candidate.quality.image.flags], ['DETECTION', candidate.quality.detection.flags], ['EVIDENCE', candidate.quality.evidence.flags], ['LOCALIZATION', candidate.quality.localization.flags], ['METADATA', candidate.quality.metadata.flags]].map(([label, values]) => <span key={label as string}>{label as string}: {(values as typeof candidate.quality.image.flags).length ? (values as typeof candidate.quality.image.flags).map(flag => `${flag.severity} ${flag.code}`).join(', ') : 'No flags'}</span>)}</div>) : <p className="report-muted">No candidate-level quality records were returned.</p>}</section>
+      <section className="report-section" id="report-provenance"><h2>Provenance & reproducibility</h2>{candidates.length ? candidates.map(candidate => <div className="report-provenance-candidate" key={candidate.candidate_id}><h3>{candidate.candidate_id}</h3><dl className="report-meta-grid">{Object.entries(candidate.provenance).map(([key, value]) => <div key={key}><dt>{key.replaceAll('_', ' ')}</dt><dd>{value === null ? 'NOT AVAILABLE' : key.includes('sha256') ? <CopyValue value={value} /> : value}</dd></div>)}</dl></div>) : <p className="report-muted">Candidate-level provenance is unavailable because this analysis returned no candidates. Input SHA-256 and pipeline version appear above.</p>}</section>
+      <section className="report-section report-backend-reference"><h2>F8 report reference</h2><p>The frozen `/report` endpoint returns metadata. This on-screen report is a frontend projection of the current `/analyze` response.</p><button type="button" className="secondary report-no-print" onClick={() => void requestBackendReport()} disabled={backendBusy}>{backendBusy ? 'Requesting…' : backendError ? 'Retry F8 report request' : 'Request F8 report metadata'}</button>{backendReport && <div role="status"><p>Report ID: <strong>{backendReport.report_id}</strong> · Status: <strong>{backendReport.status}</strong></p><p>Backend URL reference: {backendReport.report_url ?? 'NOT AVAILABLE'}</p><p>{backendReport.download_url || backendReport.data ? 'The backend returned additional report data or a download reference.' : 'No downloadable artifact or report data was returned in the response.'}</p></div>}{backendError && <div className="report-api-error" role="alert"><strong>{backendError.code}</strong><p>{backendError.message}</p>{backendError.details && <details><summary>Technical details</summary><pre>{JSON.stringify(backendError.details, null, 2)}</pre></details>}</div>}</section>
+      <footer className="report-footer"><strong>SONAR-SHIELD</strong><span>{analysis.analysis_id}</span><span>AI decisions, evidence, localization, and uncertainty are rendered from F8. Human review is local browser data. Unavailable measurements are not inferred.</span></footer>
+    </article>
+  </div>;
+}
