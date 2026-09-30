@@ -1,12 +1,7 @@
 import type { ReportRequest, ReportResponse } from '../types';
+import { AnalysisError } from './errors';
 
 export const getReport = async (_request: ReportRequest, _signal?: AbortSignal): Promise<ReportResponse> => {
-  return {
-    schema_version: "F7.0",
-    report_id: `RPT-${Math.random().toString(36).substring(7)}`,
-    status: "GENERATED",
-    report_url: null,
-    download_url: null,
-    data: null
-  };
+  void _request; void _signal;
+  throw new AnalysisError('ENDPOINT_UNAVAILABLE', 'The deployed Gradio Space has no report endpoint. Use the current analysis JSON, CSV, or browser print export.');
 };

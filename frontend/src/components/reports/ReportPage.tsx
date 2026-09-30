@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { AnalysisError, getReport } from '../../api';
-import type { AnalyzeResponse, Candidate, ReportResponse } from '../../types';
+import { useState } from 'react';
+import type { AnalyzeResponse, Candidate } from '../../types';
 import type { HumanReview } from '../../review/reviewStore';
 import { locationState, mapPoints } from '../map/mapData';
 import { downloadText, exportCsvText, exportJsonText, safeAnalysisName } from '../../reports/export';
@@ -20,11 +19,6 @@ function CopyValue({ value }: { value: string }) {
 
 export default function ReportPage({ analysis, reviews, imageSrc, fileSize, onBack, onToast }: Props) {
   const [previewCreatedAt] = useState(() => new Date().toISOString());
-  const [backendReport, setBackendReport] = useState<ReportResponse | null>(null);
-  const [backendError, setBackendError] = useState<AnalysisError | null>(null);
-  const [backendBusy, setBackendBusy] = useState(false);
-  const requestController = useRef<AbortController | null>(null);
-  useEffect(() => () => requestController.current?.abort(), []);
 
   if (!analysis) return <div className="report-empty panel"><span className="eyebrow">REPORTS · CURRENT SESSION</span><h1>NO ANALYSIS AVAILABLE</h1><p>Run an analysis to preview and export its record. F8 does not provide a persistent analysis or report history. A direct report URL needs the same analysis loaded in this session.</p><button className="primary" type="button" onClick={onBack}>Open analysis</button></div>;
 
@@ -38,15 +32,6 @@ export default function ReportPage({ analysis, reviews, imageSrc, fileSize, onBa
   const warningEntries = candidates.flatMap(candidate => groups(candidate).flat().filter(flag => flag.severity === 'WARNING' || flag.severity === 'ERROR').map(flag => ({ id: candidate.candidate_id, flag })));
   const provenance = candidates[0]?.provenance;
 
-  const requestBackendReport = async () => {
-    requestController.current?.abort();
-    const controller = new AbortController();
-    requestController.current = controller;
-    setBackendBusy(true); setBackendError(null); setBackendReport(null);
-    try { setBackendReport(await getReport({ analysis_ids: [analysis.analysis_id], format: 'JSON', include_images: false }, controller.signal)); }
-    catch (issue) { setBackendError(issue instanceof AnalysisError ? issue : new AnalysisError('REPORT_UNAVAILABLE', 'The F8 report request failed.')); }
-    finally { if (requestController.current === controller) { requestController.current = null; setBackendBusy(false); } }
-  };
   const exportFile = (type: 'json' | 'csv') => {
     try {
       downloadText(`${safeAnalysisName(analysis.analysis_id)}.${type}`, type === 'json' ? exportJsonText(analysis, reviews) : exportCsvText(analysis, reviews), type === 'json' ? 'application/json' : 'text/csv;charset=utf-8');
@@ -65,7 +50,7 @@ export default function ReportPage({ analysis, reviews, imageSrc, fileSize, onBa
       {candidates.map((candidate, index) => <ReportCandidateDetail key={candidate.candidate_id} candidate={candidate} index={index} review={reviews[candidate.candidate_id]?.analysisId === analysis.analysis_id ? reviews[candidate.candidate_id] : undefined} />)}
       <section className="report-section" id="report-quality"><h2>Quality & data integrity</h2>{candidates.length ? candidates.map(candidate => <div className="report-quality-summary" key={candidate.candidate_id}><strong>{candidate.candidate_id}</strong>{[['IMAGE', candidate.quality.image.flags], ['DETECTION', candidate.quality.detection.flags], ['EVIDENCE', candidate.quality.evidence.flags], ['LOCALIZATION', candidate.quality.localization.flags], ['METADATA', candidate.quality.metadata.flags]].map(([label, values]) => <span key={label as string}>{label as string}: {(values as typeof candidate.quality.image.flags).length ? (values as typeof candidate.quality.image.flags).map(flag => `${flag.severity} ${flag.code}`).join(', ') : 'No flags'}</span>)}</div>) : <p className="report-muted">No candidate-level quality records were returned.</p>}</section>
       <section className="report-section" id="report-provenance"><h2>Provenance & reproducibility</h2>{candidates.length ? candidates.map(candidate => <div className="report-provenance-candidate" key={candidate.candidate_id}><h3>{candidate.candidate_id}</h3><dl className="report-meta-grid">{Object.entries(candidate.provenance).map(([key, value]) => <div key={key}><dt>{key.replaceAll('_', ' ')}</dt><dd>{value === null ? 'NOT AVAILABLE' : key.includes('sha256') ? <CopyValue value={value} /> : value}</dd></div>)}</dl></div>) : <p className="report-muted">Candidate-level provenance is unavailable because this analysis returned no candidates. Input SHA-256 and pipeline version appear above.</p>}</section>
-      <section className="report-section report-backend-reference"><h2>F8 report reference</h2><p>The frozen `/report` endpoint returns metadata. This on-screen report is a frontend projection of the current `/analyze` response.</p><button type="button" className="secondary report-no-print" onClick={() => void requestBackendReport()} disabled={backendBusy}>{backendBusy ? 'Requesting…' : backendError ? 'Retry F8 report request' : 'Request F8 report metadata'}</button>{backendReport && <div role="status"><p>Report ID: <strong>{backendReport.report_id}</strong> · Status: <strong>{backendReport.status}</strong></p><p>Backend URL reference: {backendReport.report_url ?? 'NOT AVAILABLE'}</p><p>{backendReport.download_url || backendReport.data ? 'The backend returned additional report data or a download reference.' : 'No downloadable artifact or report data was returned in the response.'}</p></div>}{backendError && <div className="report-api-error" role="alert"><strong>{backendError.code}</strong><p>{backendError.message}</p>{backendError.details && <details><summary>Technical details</summary><pre>{JSON.stringify(backendError.details, null, 2)}</pre></details>}</div>}</section>
+      <section className="report-section report-backend-reference"><h2>Report source</h2><p>This report is generated in your browser from the current Space analysis response. The deployed Gradio Space does not expose a report endpoint or a downloadable backend report. Use JSON, CSV, or Print report above.</p></section>
       <footer className="report-footer"><strong>SONAR-SHIELD</strong><span>{analysis.analysis_id}</span><span>AI decisions, evidence, localization, and uncertainty are rendered from F8. Human review is local browser data. Unavailable measurements are not inferred.</span></footer>
     </article>
   </div>;

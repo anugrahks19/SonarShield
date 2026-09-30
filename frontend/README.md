@@ -1,26 +1,28 @@
 # SONAR-SHIELD frontend · Phase 8 release candidate
 
+**Current hosted integration:** Vercel calls the Hugging Face Gradio Space `mrintrovert19/sonar-shield-api` through `/analyze_image_gradio`. See [Hugging Face integration and redeployment](docs/HUGGING_FACE_INTEGRATION.md). The sections below describe the original local FastAPI F8 workflow and its historical QA; they do not describe the current hosted API transport.
+
 The analysis workspace renders the frozen F8 `/analyze` response, provides a separate human review workflow, and displays backend geographic coordinates in Leaflet when available. It does not calculate candidate decisions, fusion, reliability, or location.
 
 **Release status: blocked pending F9 freeze integrity and a deployed production/staging check.** The local frontend and real F8 integration have passed the Phase 8 checks recorded in [the release audit](docs/RELEASE_AUDIT.md). No final full-stack tag or release certificate has been issued.
 
-Run `npm install` and `npm run dev` from this directory. Run `npm test` for the viewer transform checks and `npm run build` for TypeScript validation plus the Vite production build. The Vite development server proxies `/health` and `/analyze` to `http://127.0.0.1:8000`. Set `VITE_API_BASE_URL` for another API origin (configure CORS there if needed).
+Run `npm install` and `npm run dev` from this directory. Run `npm test` for the contract and viewer checks and `npm run build` for TypeScript validation plus the Vite production build. The active analysis adapter connects to the configured Hugging Face Space.
 
-**Run analysis** always submits the selected JPG or PNG file to the real F8 endpoint. Explicit demo mode can load four frozen F9 runtime examples through the same validated renderer; these are visibly labeled demo data and do not call `/analyze`.
+**Run analysis** submits the selected JPG or PNG file to the Space's `/analyze_image_gradio` endpoint. Explicit demo mode can load four frozen F9 runtime examples through the same validated renderer; these are visibly labeled demo data and do not call the Space.
 
-The backend's `/detect` endpoint currently returns raw detection data from a stub. The workspace uses `/analyze` for complete F8/F7 results; the typed `/report` client powers the report metadata request. The backend currently returns fixed reliability and localization uncertainty metadata; the frontend labels these as supplied values and does not reinterpret them.
+The deployed Space exposes no separate health, raw detection, report, or review endpoint. The workspace uses the returned F8/F7-shaped analysis for the viewer and browser report. The frontend labels backend-supplied reliability and localization uncertainty without reinterpretation.
 
 ## API configuration
 
-Copy `.env.example` to `.env.local` for direct development requests and set `VITE_API_BASE_URL` to the reachable F8 origin. Without a local override, the Vite development server proxies the four F8 endpoints to `http://127.0.0.1:8000`. Production builds require `VITE_API_BASE_URL`; a missing value displays a configuration error instead of silently using another service. These variables contain public configuration only.
+Copy `.env.example` to `.env.local` only if you need to override the default public Space ID. `VITE_GRADIO_SPACE_ID` defaults to `mrintrovert19/sonar-shield-api` and must use `owner/space` syntax. The legacy `VITE_API_BASE_URL` is not used by the hosted Gradio analysis adapter. These variables contain public configuration only.
 
-The normal workflow always calls the real `/analyze` endpoint. Set `VITE_DEMO_MODE=true` to show the **DEMO MODE** top-bar label and Load Example selector for Contact 103, 104, 105, and a background image. Its image and response pairs come from F9 runtime examples. Demo mode can run while F8 is offline, but live analysis still needs F8. The older Contact 105 validation button remains available only in development when `VITE_USE_MOCK_DATA=true`. API failures never trigger a sample fallback. Leave both variables false for normal operation.
+The normal workflow calls the real Space analysis endpoint. Set `VITE_DEMO_MODE=true` to show the **DEMO MODE** top-bar label and Load Example selector for Contact 103, 104, 105, and a background image. Its image and response pairs come from F9 runtime examples. Demo mode can run while the Space is offline, but live analysis still needs it. The older Contact 105 validation button remains available only in development when `VITE_USE_MOCK_DATA=true`. API failures never trigger a sample fallback. Leave both variables false for normal operation.
 
-For deployment, set the public `VITE_API_BASE_URL` to the reachable F8 origin and allow that frontend origin in F8 CORS. Configure the web host to serve `index.html` for frontend paths such as `/reports/:analysisId`; preserve the exact F8 API paths separately. `VITE_*` values are bundled into browser code, so never put credentials in them. Build with `npm run build` and serve `dist/` over HTTP.
+For deployment, set the public Space ID if different from the default. The Vercel route rewrites in `vercel.json` serve `index.html` for frontend paths such as `/reports/:analysisId`. `VITE_*` values are bundled into browser code, so never put credentials in them. Build with `npm run build:release` and deploy `dist/`.
 
-For a release build, use `npm run build:release`. It requires a deployed HTTPS F8 origin, disables demo/mock mode, and runs lint, unit tests, TypeScript, and the bundle build. Local QA can still use `npm run build` with the local API origin. See [deployment instructions](docs/DEPLOYMENT.md).
+For a release build, use `npm run build:release`. It verifies the Space identifier, rejects demo/mock mode, and runs lint, unit tests, TypeScript, and the bundle build. See [Hugging Face deployment instructions](docs/HUGGING_FACE_INTEGRATION.md).
 
-Requests support cancellation and timeouts. Responses are checked against the F7/F8 shape before rendering, and backend error codes are preserved. `/health` is checked on startup and can be retried from the sidebar; it is not polled continuously.
+Responses are checked against the F7/F8 shape before rendering. The service indicator checks Space API reachability on startup and can be retried; it is not a model health check. Stale analysis responses are ignored when the user changes input or the app unmounts.
 
 ## Viewer controls
 

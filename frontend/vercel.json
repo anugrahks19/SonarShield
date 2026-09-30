@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/analysis", "destination": "/index.html" },
+    { "source": "/overview", "destination": "/index.html" },
+    { "source": "/candidates", "destination": "/index.html" },
+    { "source": "/reports", "destination": "/index.html" },
+    { "source": "/reports/:analysisId", "destination": "/index.html" },
+    { "source": "/system", "destination": "/index.html" }
+  ]
+}

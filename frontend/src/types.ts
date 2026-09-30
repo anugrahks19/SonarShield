@@ -39,5 +39,5 @@ export type DetectResponse = {
 };
 export type ReportRequest = { analysis_ids: string[]; format?: string; include_images?: boolean };
 export type ReportResponse = { schema_version: string; report_id: string; status: string; report_url: string | null; download_url: string | null; data: Record<string, unknown> | null };
-export type HealthResponse = { status: string; schema_version: string; components: { detector: string; fusion: string; decision_policy: string; calibration: string; unknown_detector: string }; pipeline_version: string; uptime_seconds: number };
+export type HealthResponse = { status: string; schema_version: string; components: Record<string, string>; pipeline_version: string; uptime_seconds: number | null };
 export type ApiError = { code: string; message: string; details?: Record<string, unknown> };

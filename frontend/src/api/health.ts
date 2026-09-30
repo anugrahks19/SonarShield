@@ -1,24 +1,25 @@
-import type { HealthResponse } from '../types';
 import { Client } from '@gradio/client';
+import type { HealthResponse } from '../types';
+import { AnalysisError } from './errors';
+import { gradioSpaceId } from '../config/env';
 
-export const getHealth = async (_signal?: AbortSignal): Promise<HealthResponse> => {
+export const getHealth = async (signal?: AbortSignal): Promise<HealthResponse> => {
+  if (signal?.aborted) throw new AnalysisError('REQUEST_CANCELLED', 'The request was cancelled.');
+  let client: Client | undefined;
   try {
-    // Check if we can connect to the Hugging Face GPU space
-    await Client.connect("mrintrovert19/sonar-shield-api");
+    client = await Client.connect(gradioSpaceId);
+    if (signal?.aborted) throw new AnalysisError('REQUEST_CANCELLED', 'The request was cancelled.');
     return {
-      status: "ONLINE",
-      schema_version: "F7.0",
-      uptime_seconds: 3600,
-      components: {
-        detector: 'ONLINE',
-        fusion: 'ONLINE',
-        decision_policy: 'ONLINE',
-        calibration: 'ONLINE',
-        unknown_detector: 'ONLINE'
-      },
-      pipeline_version: 'v1.2'
+      status: 'REACHABLE',
+      schema_version: 'NOT_REPORTED',
+      uptime_seconds: null,
+      components: {},
+      pipeline_version: 'NOT_REPORTED',
     };
-  } catch (e) {
-    throw new Error("Backend offline");
+  } catch (error) {
+    if (error instanceof AnalysisError) throw error;
+    throw new AnalysisError('API_OFFLINE', 'The Hugging Face Space could not be reached.');
+  } finally {
+    client?.close();
   }
 };
