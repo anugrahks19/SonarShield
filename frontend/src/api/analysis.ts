@@ -3,6 +3,7 @@ import type { AnalyzeResponse, DetectResponse } from '../types';
 import { analyzeSchema } from './schema';
 import { AnalysisError } from './errors';
 import { gradioSpaceId } from '../config/env';
+import { classifyGradioError } from './gradioError';
 
 const analysisEndpoint = '/analyze_image_gradio';
 
@@ -31,14 +32,7 @@ export async function analyzeImage(file: File, signal?: AbortSignal): Promise<An
     }
     return parsed.data;
   } catch (error) {
-    if (error instanceof AnalysisError) throw error;
-    if (error instanceof SyntaxError) throw new AnalysisError('INVALID_API_RESPONSE', 'The Space returned invalid JSON.');
-    const message = error instanceof Error ? error.message : 'The Space analysis request failed.';
-    if (message.includes('No endpoint matching')) throw new AnalysisError('API_ENDPOINT_MISMATCH', message);
-    if (message.includes('Space metadata could not be loaded') || message.includes('Failed to fetch')) {
-      throw new AnalysisError('API_OFFLINE', 'The Hugging Face Space could not be reached.');
-    }
-    throw new AnalysisError('ANALYSIS_FAILED', message);
+    throw classifyGradioError(error);
   } finally {
     client?.close();
   }

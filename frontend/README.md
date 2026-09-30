@@ -1,5 +1,11 @@
 # SONAR-SHIELD frontend · Phase 8 release candidate
 
+## Judge walkthrough: live first, verified example when needed
+
+**Live** processes the judge's uploaded JPG or PNG now through the Hugging Face Space. A successful result is labeled **LIVE ANALYSIS**. ZeroGPU is shared and may refuse a run even when the Space API is reachable. When its quota is reached, the uploaded image stays visible, the app explains the limit, and the judge can explicitly choose **View verified example** or **Try live again later**. There is no automatic retry or switch to sample data.
+
+**Verified example** replays a previously completed F9 analysis of the displayed sample image. It makes no new inference and never represents an uploaded image. **Explore verified examples** is available before any upload and works while the Space is offline. Contact 105 is the default; Contact 103, Contact 104, and the zero-candidate background are also bundled. The app checks each image SHA-256 against its saved response before loading. Candidate selection, evidence, human review, localization, and reports remain interactive. The viewer, review area, report, print view, and downloaded files are labeled **PRECOMPUTED EXAMPLE · NOT LIVE INFERENCE**. The Oracle Micro VM is not used for inference or as a quota workaround.
+
 **Current hosted integration:** Vercel calls the Hugging Face Gradio Space `mrintrovert19/sonar-shield-api` through `/analyze_image_gradio`. See [Hugging Face integration and redeployment](docs/HUGGING_FACE_INTEGRATION.md). The sections below describe the original local FastAPI F8 workflow and its historical QA; they do not describe the current hosted API transport.
 
 The analysis workspace renders the frozen F8 `/analyze` response, provides a separate human review workflow, and displays backend geographic coordinates in Leaflet when available. It does not calculate candidate decisions, fusion, reliability, or location.
@@ -8,7 +14,7 @@ The analysis workspace renders the frozen F8 `/analyze` response, provides a sep
 
 Run `npm install` and `npm run dev` from this directory. Run `npm test` for the contract and viewer checks and `npm run build` for TypeScript validation plus the Vite production build. The active analysis adapter connects to the configured Hugging Face Space.
 
-**Run analysis** submits the selected JPG or PNG file to the Space's `/analyze_image_gradio` endpoint. Explicit demo mode can load four frozen F9 runtime examples through the same validated renderer; these are visibly labeled demo data and do not call the Space.
+**Run analysis** submits the selected JPG or PNG file to the Space's `/analyze_image_gradio` endpoint. The four frozen F9 runtime examples use the same validated renderer and do not call the Space.
 
 The deployed Space exposes no separate health, raw detection, report, or review endpoint. The workspace uses the returned F8/F7-shaped analysis for the viewer and browser report. The frontend labels backend-supplied reliability and localization uncertainty without reinterpretation.
 
@@ -16,7 +22,7 @@ The deployed Space exposes no separate health, raw detection, report, or review 
 
 Copy `.env.example` to `.env.local` only if you need to override the default public Space ID. `VITE_GRADIO_SPACE_ID` defaults to `mrintrovert19/sonar-shield-api` and must use `owner/space` syntax. The legacy `VITE_API_BASE_URL` is not used by the hosted Gradio analysis adapter. These variables contain public configuration only.
 
-The normal workflow calls the real Space analysis endpoint. Set `VITE_DEMO_MODE=true` to show the **DEMO MODE** top-bar label and Load Example selector for Contact 103, 104, 105, and a background image. Its image and response pairs come from F9 runtime examples. Demo mode can run while the Space is offline, but live analysis still needs it. The older Contact 105 validation button remains available only in development when `VITE_USE_MOCK_DATA=true`. API failures never trigger a sample fallback. Leave both variables false for normal operation.
+The normal workflow calls the real Space analysis endpoint. The verified examples are available in release builds through an explicit chooser, with source labels throughout. `VITE_DEMO_MODE=true` adds a development-only DEMO MODE badge; leave it false for release. API failures never trigger a sample fallback automatically.
 
 For deployment, set the public Space ID if different from the default. The Vercel route rewrites in `vercel.json` serve `index.html` for frontend paths such as `/reports/:analysisId`. `VITE_*` values are bundled into browser code, so never put credentials in them. Build with `npm run build:release` and deploy `dist/`.
 
@@ -65,7 +71,7 @@ The landing route `/` and `/analysis` show the sonar workspace. `/overview` summ
 
 On desktop the sidebar stays compact; on narrow screens its menu button opens a drawer. Candidate selection is shared by the sonar viewer, queue, inspection panel, and map. The panel has previous and next controls. When focus is outside interactive controls, Left and Right select adjacent candidates; `?` opens shortcut help. Review confirmation accepts Escape. A top-level error boundary offers reload if rendering fails. Notifications report analysis, review, and export actions without changing backend records.
 
-For Chrome QA with the real F8 server and Vite on port 5173, run `python tests/browser_phase7.py`. It checks Contact 103/104/105, background, review, report, direct routes, console errors, and six screen sizes. For the optional demo, start Vite on port 5174 with `VITE_DEMO_MODE=true` and run `python tests/browser_phase7_demo.py`; that check blocks `/analyze` and verifies all four samples still load. The normal local UI is available at `http://127.0.0.1:5173/` while the development server is running.
+For current hosted-integration QA, run `python tests/browser_judge_fallback.py` against a production preview on port 4182. It blocks the Space, opens all four verified examples, completes human review and report exports, checks print output, then verifies that an offline live failure keeps the uploaded image and requires explicit fallback selection. Historical FastAPI checks remain in `browser_phase7.py` and `browser_phase7_demo.py`.
 
 ## Release and validation documents
 

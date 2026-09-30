@@ -1,7 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Activity, BarChart3, CircleHelp, FileText, LayoutDashboard, Menu, Radio, X } from 'lucide-react';
 import { analyzeImage, AnalysisError, getHealth } from './api';
-import { demoEnabled, mockEnabled } from './config/env';
+import { demoEnabled } from './config/env';
 import { analyzeSchema } from './api/schema';
 import type { AnalyzeResponse, HealthResponse } from './types';
 import type { HumanReview } from './review/reviewStore';
@@ -13,6 +13,7 @@ import ReviewSummary from './components/review/ReviewSummary';
 import { mapPoints } from './components/map/mapData';
 import { OverviewPage, SystemPage } from './components/navigation/Pages';
 import { ToastRegion } from './components/ui/Feedback';
+import VerifiedExamples, { type VerifiedExampleId } from './components/ui/VerifiedExamples';
 import type { Toast } from './components/ui/Feedback';
 import './App.css';
 import './Phase2.css';
@@ -21,12 +22,12 @@ import './Phase4.css';
 import './Phase5.css';
 import './Phase6.css';
 import './Phase7.css';
+import './JudgeFallback.css';
 
 type Phase = 'empty' | 'selected' | 'running' | 'success' | 'error' | 'invalid';
 const navigation = [{ name: 'Overview', icon: LayoutDashboard }, { name: 'Analysis', icon: Activity }, { name: 'Candidates', icon: BarChart3 }, { name: 'Reports', icon: FileText }, { name: 'System', icon: Radio }];
 const pathPage = (path: string) => path === '/overview' ? 'Overview' : path.startsWith('/reports') ? 'Reports' : path === '/candidates' ? 'Candidates' : path === '/system' ? 'System' : 'Analysis';
 const pagePath = (name: string, id?: string) => name === 'Reports' && id ? `/reports/${encodeURIComponent(id)}` : `/${name.toLowerCase()}`;
-const demoSamples = [{ id: 'contact-103', label: 'Contact 103 · 1 candidate' }, { id: 'contact-104', label: 'Contact 104 · 1 candidate' }, { id: 'contact-105', label: 'Contact 105 · 2 candidates' }, { id: 'background', label: 'Background · 0 candidates' }];
 const SonarMap = lazy(() => import('./components/map/SonarMap'));
 const ReportPage = lazy(() => import('./components/reports/ReportPage'));
 
@@ -47,6 +48,9 @@ export default function App() {
   const analysisAbort = useRef<AbortController | null>(null);
   const requestVersion = useRef(0);
   const [demo, setDemo] = useState(false);
+  const [showExamples, setShowExamples] = useState(false);
+  const [exampleBusy, setExampleBusy] = useState(false);
+  const [quotaLimited, setQuotaLimited] = useState(false);
   const [drag, setDrag] = useState(false);
   const [page, setPage] = useState(() => pathPage(window.location.pathname));
   const [routePath, setRoutePath] = useState(() => window.location.pathname);
@@ -100,7 +104,7 @@ export default function App() {
   const selectFile = (next: File | undefined) => {
     if (!next) return;
     analysisAbort.current?.abort(); analysisAbort.current = null; requestVersion.current++;
-    setResult(null); setReviews({}); setSelectedId(null); setError(null); setDemo(false); setDimensions(null);
+    setResult(null); setReviews({}); setSelectedId(null); setError(null); setDemo(false); setDimensions(null); setShowExamples(false); setExampleBusy(false);
     if (next.size === 0 || !(['image/jpeg', 'image/png'].includes(next.type) || (!next.type && /\.(jpe?g|png)$/i.test(next.name)))) {
       setPhase('invalid'); setFile(null); setSrc(null);
       setError(new AnalysisError('INVALID_FILE', next.size === 0 ? 'The selected file is empty.' : 'Use a JPG or PNG sonar image.'));
@@ -118,35 +122,47 @@ export default function App() {
     const controller = new AbortController();
     analysisAbort.current = controller;
     const version = ++requestVersion.current;
-    setPhase('running'); setError(null); setResult(null); setReviews({}); setSelectedId(null);
+    setPhase('running'); setError(null); setResult(null); setReviews({}); setSelectedId(null); setShowExamples(false); setExampleBusy(false);
     try {
       const value = await analyzeImage(file, controller.signal);
       if (version !== requestVersion.current) return;
       if (value.status !== 'COMPLETED' || value.processing.status === 'FAILED') throw new AnalysisError('ANALYSIS_FAILED', `The backend returned ${value.status} (${value.processing.status}).`);
-      setResult(value); setReviews(getReviews(value.analysis_id, value.candidates.map(candidate => candidate.candidate_id))); setSelectedId(value.candidates[0]?.candidate_id ?? null); setPhase('success'); notify('success', `Analysis complete · ${value.candidates.length} candidate${value.candidates.length === 1 ? '' : 's'}`);
+      setResult(value); setDemo(false); setQuotaLimited(false); setReviews(getReviews(value.analysis_id, value.candidates.map(candidate => candidate.candidate_id))); setSelectedId(value.candidates[0]?.candidate_id ?? null); setPhase('success'); notify('success', `Live analysis complete · ${value.candidates.length} candidate${value.candidates.length === 1 ? '' : 's'}`);
     } catch (issue) {
       if (version !== requestVersion.current) return;
-      setError(issue instanceof AnalysisError ? issue : new AnalysisError('ANALYSIS_FAILED', 'Analysis failed. Please retry.'));
+      const failure = issue instanceof AnalysisError ? issue : new AnalysisError('ANALYSIS_FAILED', 'Analysis failed. Please retry.');
+      setError(failure);
+      if (failure.code === 'GPU_QUOTA_EXCEEDED') setQuotaLimited(true);
       setPhase('error'); notify('error', 'Analysis failed. Check the service response and retry.');
     } finally { if (analysisAbort.current === controller) analysisAbort.current = null; }
   };
-  const loadDemo = async (sampleId = 'contact-105') => {
-    if (!mockEnabled) return;
-    analysisAbort.current?.abort(); analysisAbort.current = null; requestVersion.current++;
-    setPhase('running'); setError(null); setFile(null); setDemo(true); setResult(null); setReviews({}); setSelectedId(null); setSrc(null);
+  const loadDemo = async (sampleId: VerifiedExampleId) => {
+    const version = ++requestVersion.current;
+    analysisAbort.current?.abort(); analysisAbort.current = null;
+    setExampleBusy(true);
     try {
-      const response = await fetch(`/${sampleId}.json`);
-      if (!response.ok) throw Error();
+      const [response, imageResponse] = await Promise.all([fetch(`/${sampleId}.json`), fetch(`/${sampleId}.jpg`)]);
+      if (!response.ok || !imageResponse.ok) throw Error();
       const parsed = analyzeSchema.safeParse(await response.json());
       if (!parsed.success) throw new AnalysisError('INVALID_API_RESPONSE', 'The validation fixture does not match the F8 contract.');
       const value = parsed.data as AnalyzeResponse;
+      const imageBlob = await imageResponse.blob();
+      const imageHash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', await imageBlob.arrayBuffer())), byte => byte.toString(16).padStart(2, '0')).join('');
+      if (imageHash !== value.input.sha256.toLowerCase()) throw new Error('Image and saved response do not match.');
+      if (version !== requestVersion.current) return;
+      const imageUrl = URL.createObjectURL(imageBlob);
+      setFile(null); setDemo(true); setResult(null); setReviews({}); setSelectedId(null); setError(null); setShowExamples(false);
       setDimensions(value.input.width && value.input.height ? { width: value.input.width, height: value.input.height } : null);
-      setSrc(`/${sampleId}.jpg`); setResult(value); setReviews(getReviews(value.analysis_id, value.candidates.map(candidate => candidate.candidate_id))); setSelectedId(value.candidates[0]?.candidate_id ?? null); setPhase('success'); notify('info', `Demo data loaded · ${value.candidates.length} candidate${value.candidates.length === 1 ? '' : 's'}`);
+      setSrc(imageUrl); setResult(value); setReviews(getReviews(value.analysis_id, value.candidates.map(candidate => candidate.candidate_id))); setSelectedId(value.candidates[0]?.candidate_id ?? null); setPhase('success'); notify('info', `Precomputed example loaded · ${value.candidates.length} candidate${value.candidates.length === 1 ? '' : 's'}`);
     } catch {
-      setError(new AnalysisError('DEMO_UNAVAILABLE', 'The bundled validation sample could not be loaded.'));
-      setPhase('error'); notify('error', 'The demo sample could not be loaded.');
-    }
+      if (version === requestVersion.current) {
+        if (!result) { setError(new AnalysisError('EXAMPLE_UNAVAILABLE', 'The verified example could not be loaded. Your uploaded image remains available.')); setPhase('error'); }
+        notify('error', 'The verified example could not be loaded. Your current image remains available.');
+      }
+    } finally { if (version === requestVersion.current) setExampleBusy(false); }
   };
+  const openExamples = () => setShowExamples(true);
+  const closeExamples = useCallback(() => setShowExamples(false), []);
   const candidate = useMemo(() => result?.candidates.find(item => item.candidate_id === selectedId) ?? null, [result, selectedId]);
   const saveHumanReview = (review: HumanReview) => {
     if (!result || review.analysisId !== result.analysis_id || !result.candidates.some(item => item.candidate_id === review.candidateId)) return false;
@@ -177,7 +193,8 @@ export default function App() {
   const total = result?.summary.candidate_count ?? result?.candidates.length ?? 0;
   const geographicCount = result ? mapPoints(result.candidates).length : 0;
   const status = phase === 'running' ? 'ANALYZING' : phase === 'success' ? result?.processing.status ?? 'COMPLETED' : phase === 'error' || phase === 'invalid' ? 'FAILED' : 'READY';
-  const ready = health?.status === 'OK' || health?.status === 'REACHABLE';
+  const ready = !quotaLimited && (health?.status === 'OK' || health?.status === 'REACHABLE');
+  const spaceStatus = quotaLimited ? 'GPU LIMIT' : health?.status === 'REACHABLE' ? 'REACHABLE · GPU UNVERIFIED' : health?.status ?? (healthBusy ? 'CHECKING' : 'OFFLINE');
   const showWorkspace = page === 'Analysis' || page === 'Candidates';
   const leavePage = (name: string) => {
     if (name !== 'Analysis' && name !== 'Candidates' && analysisAbort.current) {
@@ -189,20 +206,23 @@ export default function App() {
   };
 
   return <div className="app-shell">
-    <header className="topbar"><div className="brand"><button type="button" className="mobile-menu-trigger" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={19} /> : <Menu size={19} />}</button><div className="brand-icon">S<span>•</span></div><div><strong>SONAR-SHIELD</strong><small>MARINE ANOMALY INTELLIGENCE</small></div></div><div className="topbar-meta">{demoEnabled && <span className="top-demo-badge">DEMO MODE</span>}<span className="top-analysis"><span>ANALYSIS</span><strong>{result?.analysis_id ?? 'NO ACTIVE ANALYSIS'}</strong></span><span className="top-status"><span>SPACE API</span><strong><i className={`status-dot ${ready ? 'ready' : ''}`} />{health?.status ?? (healthBusy ? 'CHECKING' : 'OFFLINE')}</strong></span></div></header>
+    <header className="topbar"><div className="brand"><button type="button" className="mobile-menu-trigger" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} onClick={() => setMenuOpen(open => !open)}>{menuOpen ? <X size={19} /> : <Menu size={19} />}</button><div className="brand-icon">S<span>•</span></div><div><strong>SONAR-SHIELD</strong><small>MARINE ANOMALY INTELLIGENCE</small></div></div><div className="topbar-meta">{result ? <span className={demo ? 'top-example-badge' : 'top-live-badge'}>{demo ? 'PRECOMPUTED EXAMPLE · NOT LIVE INFERENCE' : 'LIVE ANALYSIS'}</span> : demoEnabled && <span className="top-demo-badge">DEMO MODE</span>}<span className="top-analysis"><span>ANALYSIS</span><strong>{result?.analysis_id ?? 'NO ACTIVE ANALYSIS'}</strong></span><span className="top-status"><span>SPACE API</span><strong><i className={`status-dot ${ready ? 'ready' : ''}`} />{spaceStatus}</strong></span></div></header>
     {menuOpen && <button type="button" className="mobile-nav-scrim" aria-label="Dismiss navigation overlay" onClick={() => setMenuOpen(false)} />}
-    <div className="body-layout"><nav className={`sidebar ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation"><div className="nav-caption">WORKSPACE</div>{navigation.map(({ name, icon: Icon }) => <button type="button" key={name} className={page === name ? 'active' : ''} aria-current={page === name ? 'page' : undefined} onClick={() => leavePage(name)}><Icon className="nav-symbol" size={17} strokeWidth={1.8} />{name}</button>)}<div className="sidebar-system"><span className="nav-caption">SYSTEM · SPACE</span><div><span>API</span><strong className={ready ? 'good' : 'offline'}>{health?.status ?? (healthBusy ? 'CHECKING' : 'OFFLINE')}</strong></div>{!health && <button type="button" className="health-retry" onClick={() => void checkHealth()} disabled={healthBusy} title={healthError?.message}>{healthBusy ? 'Checking…' : 'Retry connection'}</button>}</div></nav>
+    <div className="body-layout"><nav className={`sidebar ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation"><div className="nav-caption">WORKSPACE</div>{navigation.map(({ name, icon: Icon }) => <button type="button" key={name} className={page === name ? 'active' : ''} aria-current={page === name ? 'page' : undefined} onClick={() => leavePage(name)}><Icon className="nav-symbol" size={17} strokeWidth={1.8} />{name}</button>)}<div className="sidebar-system"><span className="nav-caption">SYSTEM · SPACE</span><div><span>API</span><strong className={ready ? 'good' : 'offline'}>{spaceStatus}</strong></div>{!health && <button type="button" className="health-retry" onClick={() => void checkHealth()} disabled={healthBusy} title={healthError?.message}>{healthBusy ? 'Checking…' : 'Retry connection'}</button>}</div></nav>
     <main className="main-content">{showWorkspace ? <>
-      <div className="page-intro"><div><span className="eyebrow">SONAR WORKSPACE · F8 ANALYSIS</span><h1>Sonar analysis</h1><p>Inspect candidates, evidence, localization, and human review.</p></div><div className="workspace-state"><div><span>SELECTED / TOTAL</span><strong>{selectedIndex >= 0 ? selectedIndex + 1 : 0} / {total}</strong></div><div><span>GEOGRAPHIC</span><strong>{geographicCount} / {result?.candidates.length ?? 0}</strong></div><div><span>ANALYSIS STATUS</span><strong className={`workspace-status status-${status.toLowerCase()}`}>{status}</strong></div>{demo && <span className="demo-tag">DEMO DATA</span>}</div></div>
-      <section className={`upload-bar ${drag ? 'dragging' : ''}`} onDragOver={event => { event.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)} onDrop={event => { event.preventDefault(); setDrag(false); selectFile(event.dataTransfer.files[0]); }}><input ref={inputRef} type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" hidden onChange={event => { selectFile(event.target.files?.[0]); event.currentTarget.value = ''; }} /><div className="upload-icon">↑</div><div className="upload-copy"><strong>{file ? file.name : result?.input.filename ?? 'DROP SONAR IMAGE'}</strong><span>{file ? `${(file.size / 1024 / 1024).toFixed(2)} MB · ${dimensions ? `${dimensions.width} × ${dimensions.height} px · ` : ''}JPG / PNG` : 'Drag a file here or browse · JPG / PNG'}</span></div><div className="upload-actions"><button className="secondary" type="button" onClick={() => inputRef.current?.click()}>Browse image</button><button className="primary" type="button" onClick={run} disabled={!file || phase === 'running'}>{phase === 'running' && !demo ? 'Analyzing…' : 'Run analysis'}</button>{phase === 'running' && file && <button className="secondary" type="button" onClick={() => { analysisAbort.current?.abort(); analysisAbort.current = null; requestVersion.current++; setPhase('selected'); }}>Cancel</button>}{mockEnabled && (demoEnabled ? <label className="demo-picker"><span>LOAD EXAMPLE</span><select aria-label="Load demo example" defaultValue="" disabled={phase === 'running'} onChange={event => { if (event.target.value) void loadDemo(event.target.value); event.target.value = ''; }}><option value="" disabled>Select sample…</option>{demoSamples.map(sample => <option key={sample.id} value={sample.id}>{sample.label}</option>)}</select></label> : <button className="text-button" type="button" onClick={() => void loadDemo()} disabled={phase === 'running'}>Load validation sample</button>)}</div></section>
-      {phase === 'running' && <div className="notice progress" role="status"><span className="spinner" /><div><strong>ANALYSIS IN PROGRESS</strong><span>{demo ? 'Loading F9 validation output…' : 'Processing sonar image. Candidate and evidence results are pending.'}</span></div></div>}
-      {(phase === 'error' || phase === 'invalid') && <div className="notice error" role="alert"><strong>{phase === 'invalid' ? 'INVALID FILE' : error?.code === 'INVALID_API_RESPONSE' ? 'INVALID API RESPONSE' : 'ANALYSIS FAILED'}</strong><span>{error?.message}</span><code>{error?.code}</code>{file && phase === 'error' && <button type="button" onClick={run}>Retry</button>}{error?.details && Object.keys(error.details).length > 0 && <details><summary>Technical details</summary><pre>{JSON.stringify(error.details, null, 2)}</pre></details>}</div>}
-      {phase === 'success' && result && <div className="notice complete" role="status"><strong>{demo ? 'DEMO ANALYSIS LOADED' : 'ANALYSIS COMPLETE'}</strong><span>{result.analysis_id} · {total} {total === 1 ? 'CANDIDATE' : 'CANDIDATES'}</span><button type="button" className="report-view-button" onClick={() => navigate('Reports', result.analysis_id)}>View report</button></div>}
+      <div className="page-intro"><div><span className="eyebrow">SONAR WORKSPACE · F8 ANALYSIS</span><h1>Sonar analysis</h1><p>Inspect candidates, evidence, localization, and human review.</p></div><div className="workspace-state"><div><span>SELECTED / TOTAL</span><strong>{selectedIndex >= 0 ? selectedIndex + 1 : 0} / {total}</strong></div><div><span>GEOGRAPHIC</span><strong>{geographicCount} / {result?.candidates.length ?? 0}</strong></div><div><span>ANALYSIS STATUS</span><strong className={`workspace-status status-${status.toLowerCase()}`}>{status}</strong></div>{demo && <span className="demo-tag">PRECOMPUTED EXAMPLE</span>}</div></div>
+      <section className="judge-paths" aria-label="Judging paths"><p><strong>Live</strong> processes your uploaded image now. <strong>Verified example</strong> replays a previously completed analysis of the displayed sample image.</p><button type="button" className="secondary" onClick={openExamples}>Explore verified examples</button></section>
+      <section className={`upload-bar ${drag ? 'dragging' : ''}`} onDragOver={event => { event.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)} onDrop={event => { event.preventDefault(); setDrag(false); selectFile(event.dataTransfer.files[0]); }}><input ref={inputRef} type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" hidden onChange={event => { selectFile(event.target.files?.[0]); event.currentTarget.value = ''; }} /><div className="upload-icon">↑</div><div className="upload-copy"><strong>{file ? file.name : result?.input.filename ?? 'DROP SONAR IMAGE'}</strong><span>{file ? `${(file.size / 1024 / 1024).toFixed(2)} MB · ${dimensions ? `${dimensions.width} × ${dimensions.height} px · ` : ''}JPG / PNG` : 'Drag a file here or browse · JPG / PNG'}</span></div><div className="upload-actions"><button className="secondary" type="button" onClick={() => inputRef.current?.click()}>Browse image</button><button className="primary" type="button" onClick={run} disabled={!file || phase === 'running'}>{phase === 'running' && !demo ? 'Analyzing…' : 'Run analysis'}</button>{phase === 'running' && file && <button className="secondary" type="button" onClick={() => { analysisAbort.current?.abort(); analysisAbort.current = null; requestVersion.current++; setPhase('selected'); }}>Cancel</button>}</div></section>
+      {showExamples && <VerifiedExamples busy={exampleBusy} onConfirm={id => void loadDemo(id)} onClose={closeExamples} />}
+      {phase === 'running' && <div className="notice progress" role="status"><span className="spinner" /><div><strong>LIVE ANALYSIS IN PROGRESS</strong><span>Processing your uploaded sonar image. Candidate and evidence results are pending.</span></div></div>}
+      {(phase === 'error' || phase === 'invalid') && <div className="notice error" role="alert"><strong>{phase === 'invalid' ? 'INVALID FILE' : error?.code === 'INVALID_API_RESPONSE' ? 'INVALID API RESPONSE' : error?.code === 'GPU_QUOTA_EXCEEDED' ? 'LIVE GPU LIMIT REACHED' : 'ANALYSIS FAILED'}</strong><span>{error?.message}</span><code>{error?.code}</code>{phase === 'error' && <div className="judge-error-actions"><button type="button" onClick={openExamples}>View verified example</button>{file && <button type="button" onClick={run}>Try live again later</button>}</div>}{error?.details && Object.keys(error.details).length > 0 && <details><summary>Technical details</summary><pre>{JSON.stringify(error.details, null, 2)}</pre></details>}</div>}
+      {phase === 'success' && result && <div className="notice complete" role="status"><strong>{demo ? 'PRECOMPUTED EXAMPLE LOADED' : 'LIVE ANALYSIS COMPLETE'}</strong><span>{result.analysis_id} · {total} {total === 1 ? 'CANDIDATE' : 'CANDIDATES'}</span><button type="button" className="report-view-button" onClick={() => navigate('Reports', result.analysis_id)}>View report</button></div>}
+      {result && <div className={`judge-source-banner ${demo ? '' : 'live'}`} role="note"><strong>{demo ? 'PRECOMPUTED EXAMPLE · NOT LIVE INFERENCE' : 'LIVE ANALYSIS'}</strong><span>{demo ? 'This response was computed earlier for the displayed sample image. It is not an analysis of any image you uploaded.' : 'This result was produced from your uploaded image during this session.'}</span></div>}
       {phase === 'success' && total === 0 && <div className="notice neutral"><strong>NO CANDIDATES DETECTED</strong><span>The analysis pipeline returned no candidates for this image.</span></div>}
       <div className="workspace"><div className="workspace-left"><SonarViewer key={src ?? 'none'} src={src} filename={file?.name ?? null} dimensions={dimensions} result={result} selectedId={selectedId} onSelect={setSelectedId} onUpload={() => inputRef.current?.click()} /><CandidateList candidates={result?.candidates ?? []} selectedId={selectedId} onSelect={setSelectedId} hasAnalysis={result !== null} reviews={reviews} /></div><AnalysisPanel candidate={candidate} index={selectedIndex} result={result} review={selectedId ? reviews[selectedId] : undefined} onSaveReview={saveHumanReview} onDeleteReview={deleteHumanReview} onNavigate={offset => { const next = result?.candidates[selectedIndex + offset]; if (next) setSelectedId(next.candidate_id); }} /></div>
-      {result && <ReviewSummary candidates={result.candidates} reviews={reviews} selectedId={selectedId} onSelect={setSelectedId} />}
+      {result && <><div className={`judge-source-banner ${demo ? '' : 'live'}`} role="note"><strong>{demo ? 'PRECOMPUTED EXAMPLE · NOT LIVE INFERENCE' : 'LIVE ANALYSIS'}</strong><span>Human review below applies to the {demo ? 'displayed verified sample' : 'uploaded image'}.</span></div><ReviewSummary candidates={result.candidates} reviews={reviews} selectedId={selectedId} onSelect={setSelectedId} /></>}
       <Suspense fallback={<section className="sonar-map-section panel"><div className="sonar-map-empty">Loading geospatial workspace…</div></section>}><SonarMap result={result} selectedId={selectedId} reviews={reviews} onSelect={setSelectedId} /></Suspense>
       <button type="button" className="shortcut-help" onClick={() => setShortcutsOpen(open => !open)} aria-expanded={shortcutsOpen}><CircleHelp size={15} /> Keyboard shortcuts</button>{shortcutsOpen && <div className="shortcut-panel" role="note"><span><kbd>←</kbd> Previous candidate</span><span><kbd>→</kbd> Next candidate</span><span><kbd>?</kbd> Show shortcuts</span><span><kbd>Esc</kbd> Close</span></div>}
-    </> : page === 'Reports' ? <Suspense fallback={<div className="report-empty panel">Loading report preview…</div>}><ReportPage key={result?.analysis_id ?? 'none'} analysis={routePath.startsWith('/reports/') && result && routePath !== pagePath('Reports', result.analysis_id) ? null : result} reviews={reviews} imageSrc={src} fileSize={file?.size ?? null} onBack={() => navigate('Analysis')} onToast={notify} /></Suspense> : page === 'Overview' ? <OverviewPage result={result} reviews={reviews} health={health} onAnalysis={() => navigate('Analysis')} onReports={() => navigate('Reports', result?.analysis_id)} /> : <SystemPage health={health} busy={healthBusy} onRetry={() => void checkHealth()} />}</main></div><ToastRegion toasts={toasts} dismiss={id => setToasts(current => current.filter(toast => toast.id !== id))} />
+    </> : page === 'Reports' ? <Suspense fallback={<div className="report-empty panel">Loading report preview…</div>}><ReportPage key={`${result?.analysis_id ?? 'none'}-${demo}`} analysis={routePath.startsWith('/reports/') && result && routePath !== pagePath('Reports', result.analysis_id) ? null : result} source={demo ? 'PRECOMPUTED_EXAMPLE' : 'LIVE_ANALYSIS'} reviews={reviews} imageSrc={src} fileSize={file?.size ?? null} onBack={() => navigate('Analysis')} onToast={notify} /></Suspense> : page === 'Overview' ? <OverviewPage result={result} reviews={reviews} health={health} onAnalysis={() => navigate('Analysis')} onReports={() => navigate('Reports', result?.analysis_id)} /> : <SystemPage health={health} busy={healthBusy} onRetry={() => void checkHealth()} />}</main></div><ToastRegion toasts={toasts} dismiss={id => setToasts(current => current.filter(toast => toast.id !== id))} />
   </div>;
 }

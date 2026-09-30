@@ -13,6 +13,7 @@ test('JSON export preserves the F8 object and separates local human review', () 
   const review = { analysisId: source.analysis_id, candidateId: first.candidate_id, status: 'CONFIRMED', note: 'Exact note, with comma and "quotes".', reviewedAt: '2026-09-30T12:00:00.000Z' };
   const json = JSON.parse(exportJsonText(source, { [first.candidate_id]: review }));
   assert.deepEqual(json.analysis, source);
+  assert.equal(json.result_source, 'LIVE_ANALYSIS');
   assert.deepEqual(json.human_review.reviews, [review]);
   assert.equal(json.human_review.storage, 'LOCAL_BROWSER');
   assert.equal(first.decision.status, source.candidates[0].decision.status);
@@ -30,6 +31,17 @@ test('CSV keeps backend values, separate review state, and blank missing coordin
   assert.ok(lines[1].includes(',,,"FALSE_POSITIVE"'));
   assert.ok(lines[2].includes(',,,"NOT_REVIEWED"'));
   assert.equal(exportCsvText(zero, {}).trim().split('\r\n').length, 1);
+  assert.match(lines[0], /result_source,source_label$/);
+  assert.match(lines[1], /"LIVE_ANALYSIS","LIVE ANALYSIS"$/);
+});
+
+test('precomputed exports disclose their source without altering analysis', () => {
+  const json = JSON.parse(exportJsonText(multiple, {}, 'PRECOMPUTED_EXAMPLE'));
+  assert.equal(json.result_source, 'PRECOMPUTED_EXAMPLE');
+  assert.equal(json.source_label, 'PRECOMPUTED EXAMPLE · NOT LIVE INFERENCE');
+  assert.match(json.source_note, /no inference ran/i);
+  assert.deepEqual(json.analysis, multiple);
+  assert.match(exportCsvText(multiple, {}, 'PRECOMPUTED_EXAMPLE'), /"PRECOMPUTED_EXAMPLE","PRECOMPUTED EXAMPLE · NOT LIVE INFERENCE"/);
 });
 
 test('geographic CSV exports supplied coordinates without rounding', () => {
