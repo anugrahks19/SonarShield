@@ -1,37 +1,41 @@
-import { Client, handle_file } from '@gradio/client';
+import { Client } from '@gradio/client';
 import type { AnalyzeResponse, DetectResponse } from '../types';
 import { analyzeSchema } from './schema';
-import { AnalysisError } from './errors';
+import { AnalysisError, responseError } from './errors';
 import { gradioSpaceId } from '../config/env';
 import { classifyGradioError } from './gradioError';
 
-const analysisEndpoint = '/analyze_image_gradio';
-
 export async function analyzeImage(file: File, signal?: AbortSignal): Promise<AnalyzeResponse> {
-  if (signal?.aborted) throw new AnalysisError('REQUEST_CANCELLED', 'The request was cancelled.');
+  const cancelled = () => { if (signal?.aborted) throw new AnalysisError('REQUEST_CANCELLED', 'The request was cancelled.'); };
+  cancelled();
   let client: Client | undefined;
   try {
-    client = await Client.connect(gradioSpaceId);
-    if (signal?.aborted) throw new AnalysisError('REQUEST_CANCELLED', 'The request was cancelled.');
-    const response = await client.predict(analysisEndpoint, {
-      image_filepath: handle_file(file),
-      run_tiled_auxiliary: true,
+    // Upload bytes directly to the public Space; only the small reference goes to Vercel.
+    client = await Client.connect(gradioSpaceId, { record_history: false });
+    cancelled();
+    const root = client.config?.root;
+    if (!root) throw new AnalysisError('API_OFFLINE', 'The Space upload configuration could not be loaded.');
+    const upload = await client.upload_files(root, [file]);
+    cancelled();
+    if (upload.error) throw new Error(upload.error);
+    if (upload.files?.length !== 1) throw new AnalysisError('INVALID_API_RESPONSE', 'The Space did not return an uploaded image reference.');
+    const response = await fetch('/api/analyze', {
+      method: 'POST', signal, headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ file: { path: upload.files[0], orig_name: file.name, mime_type: file.type || (/\.png$/i.test(file.name) ? 'image/png' : 'image/jpeg'), size: file.size } }),
     });
-    if (signal?.aborted) throw new AnalysisError('REQUEST_CANCELLED', 'The request was cancelled.');
-    const data: unknown = response.data;
-    const output: unknown = Array.isArray(data) ? data[0] : undefined;
-    const payload: unknown = typeof output === 'string' ? JSON.parse(output) : output;
-    if (payload && typeof payload === 'object' && 'error' in payload) {
-      throw new AnalysisError('ANALYSIS_FAILED', String(payload.error));
-    }
+    cancelled();
+    const payload: unknown = await response.json();
+    if (!response.ok) throw responseError(response.status, payload);
     const parsed = analyzeSchema.safeParse(payload);
     if (!parsed.success) {
       throw new AnalysisError('INVALID_API_RESPONSE', 'The Space returned an analysis that does not match the F8 contract.', {
         issues: parsed.error.issues.slice(0, 12).map(issue => ({ path: issue.path.join('.'), message: issue.message })),
       });
     }
+    cancelled();
     return parsed.data;
   } catch (error) {
+    cancelled();
     throw classifyGradioError(error);
   } finally {
     client?.close();

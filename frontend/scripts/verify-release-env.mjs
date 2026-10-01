@@ -1,5 +1,6 @@
 const spaceId = process.env.VITE_GRADIO_SPACE_ID?.trim() || 'mrintrovert19/sonar-shield-api';
 const errors = [];
+if (Object.keys(process.env).some(key => /^VITE_.*(?:HF_TOKEN|HUGGINGFACE_TOKEN)$/i.test(key) && process.env[key])) errors.push('Hugging Face tokens must be server-only HF_TOKEN variables, never VITE_* variables.');
 
 if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(spaceId)) errors.push('VITE_GRADIO_SPACE_ID must be a public owner/space identifier.');
 

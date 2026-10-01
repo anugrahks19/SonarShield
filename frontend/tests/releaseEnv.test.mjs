@@ -17,3 +17,11 @@ test('release build rejects explicit demo and mock modes', () => {
   assert.notEqual(check({ VITE_GRADIO_SPACE_ID: 'mrintrovert19/sonar-shield-api', VITE_DEMO_MODE: 'true' }).status, 0);
   assert.notEqual(check({ VITE_GRADIO_SPACE_ID: 'mrintrovert19/sonar-shield-api', VITE_USE_MOCK_DATA: 'true' }).status, 0);
 });
+
+test('release build rejects public HF credentials without echoing their values', () => {
+  const token = 'hf_TESTONLYNOTAREALCREDENTIAL';
+  const result = check({ VITE_HF_TOKEN: token });
+  assert.notEqual(result.status, 0);
+  assert.ok(!result.stderr.includes(token));
+  assert.equal(check({ HF_TOKEN: token }).status, 0);
+});

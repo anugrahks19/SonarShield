@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:gateway": "node --env-file-if-exists=.env.gateway.local scripts/dev-gateway.mjs",
     "build": "tsc --noEmit && vite build",
     "build:release": "node scripts/verify-release-env.mjs && npm run lint && npm test && npm run build",
     "typecheck": "tsc --noEmit",
@@ -13,7 +14,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@gradio/client": "^2.7.1",
+    "@gradio/client": "2.7.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^1.49.0",
     "react": "^19.2.8",

@@ -17,8 +17,9 @@ flowchart TB
     UI --- LS
     UI --> P
   end
-  subgraph Vercel[Vercel static deployment]
+  subgraph Vercel[Vercel deployment]
     JS[Vite bundle]
+    GW[Authenticated inference gateway<br/>server-only HF_TOKEN]
     EX[Contact 103, 104, 105, background<br/>JPG + saved JSON]
   end
   subgraph HF[Hugging Face Space: mrintrovert19/sonar-shield-api]
@@ -33,8 +34,11 @@ flowchart TB
   end
   JS --> UI
   EX -->|Explicit chooser + hash check| UI
-  UI -->|User starts live run| GR
-  AI -->|Analysis response| UI
+  UI -->|Image upload only| GR
+  UI -->|Uploaded reference| GW
+  GW -->|Authenticated live request| GR
+  AI -->|Analysis response| GW
+  GW --> UI
   FA -.-> FR
 ```
 
@@ -42,26 +46,30 @@ The diagram shows the current integration boundary, not an assurance that the ho
 
 ## 2. Live request sequence
 
-The browser accepts JPG/PNG files. It retains the selected image in a browser object URL, calls `Client.connect('mrintrovert19/sonar-shield-api')`, and invokes `/analyze_image_gradio` with `image_filepath: handle_file(file)` and `run_tiled_auxiliary: true`. The Gradio client handles upload and prediction transport. The adapter accepts JSON text or an object in `response.data[0]`, validates it with Zod against the F8-shaped analysis contract, and only then renders it. A newer selection invalidates an older pending result.
+The browser accepts JPG/PNG files and retains the selected image in a browser object URL. It uploads image bytes directly to the public Space using Gradio's upload method, then sends the small uploaded file reference to the same-origin Vercel `POST /api/analyze` gateway. The gateway validates the cache path, uses a server-only `HF_TOKEN` to submit `/analyze_image_gradio` with `run_tiled_auxiliary: true`, handles data/error/completion events, and unwraps the first output. The browser validates that object with Zod against the existing F8-shaped analysis contract before rendering. A newer selection invalidates an older pending result. All gateway visitors share the service account's quota; secrets never enter the public bundle. The 300-second function has a 270-second controlled timeout and best-effort upstream cancellation. [Gateway setup, errors, development, and rollback](../frontend/docs/HUGGING_FACE_INTEGRATION.md) document the new transport.
 
 ```mermaid
 sequenceDiagram
   actor Judge
   participant UI as Vercel React app
+  participant Gateway as Vercel inference gateway
   participant Space as Hugging Face Gradio
   participant Pipeline as Hosted pipeline
   Judge->>UI: Select JPG/PNG; Run analysis
   UI->>UI: Show uploaded image; mark running
   UI->>Space: Connect and upload image
-  UI->>Space: predict(/analyze_image_gradio)
+  UI->>Gateway: POST /api/analyze with uploaded reference
+  Gateway->>Space: Authenticated submit(/analyze_image_gradio)
   alt ZeroGPU accepts run
     Space->>Pipeline: Detector, evidence, fusion, decision
     Pipeline-->>Space: F8-shaped response
-    Space-->>UI: response.data[0]
+    Space-->>Gateway: response.data[0]
+    Gateway-->>UI: Analysis object
     UI->>UI: Parse and schema-validate
     UI-->>Judge: LIVE ANALYSIS, candidates and report
-  else Shared quota exceeded
-    Space-->>UI: ZeroGPU limit error
+  else Authenticated service account quota exceeded
+    Space-->>Gateway: Original ZeroGPU limit error
+    Gateway-->>UI: Redacted reason + supplied reset time
     UI-->>Judge: Keep upload visible; explain limit
     Judge->>UI: View verified example
     UI-->>Judge: Explain sample and no new inference

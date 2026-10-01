@@ -17,7 +17,9 @@ The five detector labels in the training configuration are crab pot, submarine p
 ```mermaid
 flowchart LR
     J[Judge / analyst] --> UI[React + Vite workspace<br/>Vercel]
-    UI -->|Explicit live upload| G[Gradio Space<br/>ZeroGPU]
+    UI -->|Image upload only| G[Gradio Space<br/>ZeroGPU]
+    UI -->|Uploaded file reference| GW[Vercel inference gateway<br/>server-only HF_TOKEN]
+    GW -->|Authenticated live analysis| G
     G --> D[YOLOv8s-P2 detector<br/>global + optional tiles]
     D --> E[Image evidence]
     E --> F[Fusion + decision policy]
@@ -30,7 +32,7 @@ flowchart LR
     V --> X[JSON / CSV / print-to-PDF]
 ```
 
-The Space is a **Gradio** deployment, not the local FastAPI server. The frontend calls the named Gradio endpoint `/analyze_image_gradio` through `@gradio/client`. Its API reachability indicator cannot establish available GPU quota. The verified-example path makes no Space inference request.
+The Space is a **Gradio** deployment, not the local FastAPI server. The browser uploads image bytes directly to the public Space, then sends only the uploaded reference to `POST /api/analyze` on Vercel. That gateway calls `/analyze_image_gradio` with a server-only `HF_TOKEN`; visitors share the authenticated account's finite quota. Configure the token and exact `APP_ORIGIN` in Vercel before deploying this integration; see [setup and rollback instructions](frontend/docs/HUGGING_FACE_INTEGRATION.md). Missing credentials disable live requests explicitly. Original quota errors and any supplied reset countdown remain visible in Technical details. The API reachability indicator cannot establish available GPU quota. The verified-example path makes no Space inference request.
 
 ## Try it as a judge
 
