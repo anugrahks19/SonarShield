@@ -1,0 +1,19 @@
+{
+  "source": "USGS 2015-315-FA / 15CCT03; release metadata and vessel diagram",
+  "metadata_path": "datasets/xtf/GrandBay_2015-315-FA_metadata.txt",
+  "crs": "EPSG:4326",
+  "coordinate_units": "decimal_degrees",
+  "side_scan_model_documented": "Klein 3900",
+  "header_sonar_name": "Klein 3000 (header/software identity discrepancy retained)",
+  "documented_offset_from_GPS_antenna_m": {
+    "forward": 0.2,
+    "starboard": 1.85,
+    "tow_depth_diagram": -0.75
+  },
+  "offset_application": "NOT_APPLIED_BY_THIS_PROFILE; release says correction applied during mosaic processing",
+  "channel_sample_order": "UNVERIFIED_DO_NOT_PROJECT_CONTACTS",
+  "pose_time_alignment": "UNVERIFIED",
+  "heave_zero": "MISSING_OR_ZERO_UNRESOLVED",
+  "ground_truth_targets": "NOT_PROVIDED",
+  "navigation_use": "SURVEY_CONTEXT_ONLY_NOT_HAZARD_LOCATION"
+}

@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "device": "cpu",
+  "platform": "Windows-11-10.0.22635-SP0",
+  "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "logical_cpus": 16,
+  "total_ram_bytes": 16788725760,
+  "image_sha256": "6407b4344f90aa1ade206d83c2e9072e6a007c200f3a721212258908225e29e3",
+  "input_bytes": 66818,
+  "tiled": true,
+  "cold_seconds": 12.503740199987078,
+  "warm_seconds": [
+    2.50927199999569,
+    2.503753199998755,
+    2.735019400002784
+  ],
+  "warm_p50_seconds": 2.50927199999569,
+  "warm_p95_seconds": 2.735019400002784,
+  "serial_images_per_second": 0.38719446710478056,
+  "process_peak_rss_bytes_sampled": 771608576,
+  "memory_sampling_ms": 20,
+  "power": "NOT_MEASURED",
+  "export_equivalence": "NOT_EVALUATED",
+  "candidate_counts": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "artifacts": {
+    "detector": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+    "fusion": "b57dc4e7c9eb713c11a716c72e1087a7f3e942811779d01978527b669ef9d02b"
+  },
+  "performance_scope": "THIS_DEVICE_AND_INPUT_ONLY_NOT_ACCURACY"
+}

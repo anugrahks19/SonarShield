@@ -31,8 +31,8 @@ test('CSV keeps backend values, separate review state, and blank missing coordin
   assert.ok(lines[1].includes(',,,"FALSE_POSITIVE"'));
   assert.ok(lines[2].includes(',,,"NOT_REVIEWED"'));
   assert.equal(exportCsvText(zero, {}).trim().split('\r\n').length, 1);
-  assert.match(lines[0], /result_source,source_label$/);
-  assert.match(lines[1], /"LIVE_ANALYSIS","LIVE ANALYSIS"$/);
+  assert.match(lines[0], /result_source,source_label,/);
+  assert.match(lines[1], /"LIVE_ANALYSIS","LIVE ANALYSIS",/);
 });
 
 test('precomputed exports disclose their source without altering analysis', () => {

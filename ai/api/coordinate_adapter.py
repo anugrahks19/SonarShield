@@ -1,10 +1,10 @@
 from typing import Dict, Any, Optional, Tuple, List
 import datetime
-from api.coordinate_schema import (
+from ai.api.coordinate_schema import (
     GeolocationContract, LocalizationStatus, CoordinatesPayload, LocalizationMetadata,
     ImageCoordinates, NormalizedImageCoordinates, SonarCoordinates, GeographicCoordinates,
     ImageGeometry, PixelConvention, CoordinateProvenance,
-    CandidateLocalizationUncertainty
+    ErrorEnvelopeReference
 )
 
 class CoordinateAdapter:
@@ -68,7 +68,7 @@ class CoordinateAdapter:
                 ),
                 image_geometry=image_geometry,
                 coordinates=CoordinatesPayload(),
-                localization_uncertainty=CandidateLocalizationUncertainty(
+                localization_uncertainty=ErrorEnvelopeReference(
                     status="NOT_ESTIMABLE", reason="CANDIDATE_NOT_PROCESSED"
                 )
             )
@@ -83,7 +83,7 @@ class CoordinateAdapter:
                 ),
                 image_geometry=image_geometry,
                 coordinates=CoordinatesPayload(),
-                localization_uncertainty=CandidateLocalizationUncertainty(
+                localization_uncertainty=ErrorEnvelopeReference(
                     status="NOT_ESTIMABLE", reason="NO_DETECTION"
                 )
             )
@@ -129,8 +129,10 @@ class CoordinateAdapter:
         )
 
         # 2. Assess Capabilities
-        has_sonar = self._check_sonar_capability(metadata)
-        has_geo = self._check_geo_capability(metadata)
+        has_sonar = False
+        has_geo = False
+        if metadata:
+            raise ValueError("Use the validated ground-range raster adapter; legacy metadata-presence checks cannot compute coordinates.")
         
         status = LocalizationStatus.PIXEL_ONLY
         reason_code = "NO_SONAR_NAV_METADATA"
@@ -168,7 +170,7 @@ class CoordinateAdapter:
                 sonar=sonar_coords,
                 geographic=geo_coords
             ),
-            localization_uncertainty=CandidateLocalizationUncertainty(
+            localization_uncertainty=ErrorEnvelopeReference(
                 status="NOT_ESTIMABLE", reason="Pending F4 validation integration"
             )
         )

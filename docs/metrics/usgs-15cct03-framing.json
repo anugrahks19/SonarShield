@@ -1,0 +1,1861 @@
+[
+  {
+    "file": "15CCT03_SSS_150528172600.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528175600.xtf",
+    "bytes": 67761024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3850,
+      "0": 3850
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528180500.xtf",
+    "bytes": 46429824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2638,
+      "0": 2638
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528181100.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528184100.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528191100.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528194100.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528201100.xtf",
+    "bytes": 34602624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 1966,
+      "0": 1966
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528201600.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528204600.xtf",
+    "bytes": 164543424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 9349,
+      "0": 9349
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528210700.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528213700.xtf",
+    "bytes": 157221824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 8933,
+      "0": 8933
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528215700.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150528222700.xtf",
+    "bytes": 38545024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2190,
+      "0": 2190
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529141200.xtf",
+    "bytes": 99177024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 5635,
+      "0": 5635
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529142500.xtf",
+    "bytes": 4084224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 232,
+      "0": 232
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529142600.xtf",
+    "bytes": 68922624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3916,
+      "0": 3916
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529143500.xtf",
+    "bytes": 83389824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 4738,
+      "0": 4738
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529144600.xtf",
+    "bytes": 104703424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 5949,
+      "0": 5949
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529145900.xtf",
+    "bytes": 110881024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 6300,
+      "0": 6300
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529151300.xtf",
+    "bytes": 197543424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 11224,
+      "0": 11224
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529153800.xtf",
+    "bytes": 98561024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 5600,
+      "0": 5600
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529155100.xtf",
+    "bytes": 68922624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3916,
+      "0": 3916
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529155900.xtf",
+    "bytes": 41501824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2358,
+      "0": 2358
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529160500.xtf",
+    "bytes": 35869824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2038,
+      "0": 2038
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529164600.xtf",
+    "bytes": 197508224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 11222,
+      "0": 11222
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529171200.xtf",
+    "bytes": 29833024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 1695,
+      "0": 1695
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529171500.xtf",
+    "bytes": 75751424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 4304,
+      "0": 4304
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529172500.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529175500.xtf",
+    "bytes": 176969024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 10055,
+      "0": 10055
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529181800.xtf",
+    "bytes": 209212224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 11887,
+      "0": 11887
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529192200.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529195200.xtf",
+    "bytes": 222306624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 12631,
+      "0": 12631
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150529202100.xtf",
+    "bytes": 55740224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3167,
+      "0": 3167
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530143000.xtf",
+    "bytes": 70911424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 4029,
+      "0": 4029
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530143900.xtf",
+    "bytes": 59753024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3395,
+      "0": 3395
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530144700.xtf",
+    "bytes": 235876224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13402,
+      "0": 13402
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530151700.xtf",
+    "bytes": 152258624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 8651,
+      "0": 8651
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530153600.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530160600.xtf",
+    "bytes": 101922624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 5791,
+      "0": 5791
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530161900.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530164900.xtf",
+    "bytes": 117498624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 6676,
+      "0": 6676
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530170400.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530173400.xtf",
+    "bytes": 140941824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 8008,
+      "0": 8008
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530175200.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530182200.xtf",
+    "bytes": 172393024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 9795,
+      "0": 9795
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530184400.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530191400.xtf",
+    "bytes": 127213824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 7228,
+      "0": 7228
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530193000.xtf",
+    "bytes": 84921024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 4825,
+      "0": 4825
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530194100.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530201100.xtf",
+    "bytes": 207645824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 11798,
+      "0": 11798
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530203700.xtf",
+    "bytes": 49985024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2840,
+      "0": 2840
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150530204400.xtf",
+    "bytes": 125541824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 7133,
+      "0": 7133
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531150400.xtf",
+    "bytes": 50953024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2895,
+      "0": 2895
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531151000.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531154000.xtf",
+    "bytes": 134746624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 7656,
+      "0": 7656
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531160000.xtf",
+    "bytes": 17689024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 1005,
+      "0": 1005
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531160200.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531163200.xtf",
+    "bytes": 181210624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 10296,
+      "0": 10296
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531165500.xtf",
+    "bytes": 20786624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 1181,
+      "0": 1181
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531165800.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531172800.xtf",
+    "bytes": 222359424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 12634,
+      "0": 12634
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531175600.xtf",
+    "bytes": 22353024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 1270,
+      "0": 1270
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531175900.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531182900.xtf",
+    "bytes": 180911424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 10279,
+      "0": 10279
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531185200.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531192200.xtf",
+    "bytes": 71668224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 4072,
+      "0": 4072
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531193100.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531200100.xtf",
+    "bytes": 11581824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 658,
+      "0": 658
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531200300.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531203300.xtf",
+    "bytes": 77705024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 4415,
+      "0": 4415
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531204300.xtf",
+    "bytes": 76701824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 4358,
+      "0": 4358
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150531205200.xtf",
+    "bytes": 110634624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 6286,
+      "0": 6286
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601141000.xtf",
+    "bytes": 177024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 10,
+      "0": 10
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601141001.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601144000.xtf",
+    "bytes": 117023424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 6649,
+      "0": 6649
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601145500.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601152500.xtf",
+    "bytes": 122004224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 6932,
+      "0": 6932
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601154100.xtf",
+    "bytes": 54209024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3080,
+      "0": 3080
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601154800.xtf",
+    "bytes": 212081024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 12050,
+      "0": 12050
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601161500.xtf",
+    "bytes": 116530624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 6621,
+      "0": 6621
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601163000.xtf",
+    "bytes": 101025024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 5740,
+      "0": 5740
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601164300.xtf",
+    "bytes": 39741824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2258,
+      "0": 2258
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601164800.xtf",
+    "bytes": 57852224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3287,
+      "0": 3287
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601165500.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601172500.xtf",
+    "bytes": 220106624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 12506,
+      "0": 12506
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601175300.xtf",
+    "bytes": 863424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 49,
+      "0": 49
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601175301.xtf",
+    "bytes": 34866624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 1981,
+      "0": 1981
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601175800.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601182800.xtf",
+    "bytes": 176423424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 10024,
+      "0": 10024
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601185000.xtf",
+    "bytes": 43543424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2474,
+      "0": 2474
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601185600.xtf",
+    "bytes": 77493824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 4403,
+      "0": 4403
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601190600.xtf",
+    "bytes": 54191424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3079,
+      "0": 3079
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601191300.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601194300.xtf",
+    "bytes": 190221824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 10808,
+      "0": 10808
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601200700.xtf",
+    "bytes": 47468224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2697,
+      "0": 2697
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601201300.xtf",
+    "bytes": 86786624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 4931,
+      "0": 4931
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150601202400.xtf",
+    "bytes": 91908224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 5222,
+      "0": 5222
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150602133300.xtf",
+    "bytes": 16245824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 923,
+      "0": 923
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150602133500.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150602140500.xtf",
+    "bytes": 114876224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 6527,
+      "0": 6527
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150602141900.xtf",
+    "bytes": 91626624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 5206,
+      "0": 5206
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150602143100.xtf",
+    "bytes": 41132224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2337,
+      "0": 2337
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_150602143600.xtf",
+    "bytes": 62956224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3577,
+      "0": 3577
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602144500.xtf",
+    "bytes": 204953024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 11645,
+      "0": 11645
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602151100.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602154100.xtf",
+    "bytes": 476224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 27,
+      "0": 27
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602154200.xtf",
+    "bytes": 170052224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 9662,
+      "0": 9662
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602160300.xtf",
+    "bytes": 55071424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3129,
+      "0": 3129
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602161000.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602164000.xtf",
+    "bytes": 43948224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2497,
+      "0": 2497
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602164600.xtf",
+    "bytes": 14714624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 836,
+      "0": 836
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602164800.xtf",
+    "bytes": 191911424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 10904,
+      "0": 10904
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602171400.xtf",
+    "bytes": 49738624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2826,
+      "0": 2826
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602172100.xtf",
+    "bytes": 235841024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13400,
+      "0": 13400
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602175100.xtf",
+    "bytes": 40393024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2295,
+      "0": 2295
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602175700.xtf",
+    "bytes": 49105024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2790,
+      "0": 2790
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602180300.xtf",
+    "bytes": 21613824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 1228,
+      "0": 1228
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602180600.xtf",
+    "bytes": 54226624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3081,
+      "0": 3081
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602181300.xtf",
+    "bytes": 37682624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2141,
+      "0": 2141
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602181700.xtf",
+    "bytes": 93844224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 5332,
+      "0": 5332
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602183800.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602190800.xtf",
+    "bytes": 6442624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 366,
+      "0": 366
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602195000.xtf",
+    "bytes": 154757824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 8793,
+      "0": 8793
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602201000.xtf",
+    "bytes": 144637824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 8218,
+      "0": 8218
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602202800.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_153_150602205800.xtf",
+    "bytes": 5228224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 297,
+      "0": 297
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603134400.xtf",
+    "bytes": 119293824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 6778,
+      "0": 6778
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603135900.xtf",
+    "bytes": 26313024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 1495,
+      "0": 1495
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603140200.xtf",
+    "bytes": 175825024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 9990,
+      "0": 9990
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603142500.xtf",
+    "bytes": 39953024,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2270,
+      "0": 2270
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603143000.xtf",
+    "bytes": 87807424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 4989,
+      "0": 4989
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603144100.xtf",
+    "bytes": 85466624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 4856,
+      "0": 4856
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603145200.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603152200.xtf",
+    "bytes": 49826624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2831,
+      "0": 2831
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603153000.xtf",
+    "bytes": 42892224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2437,
+      "0": 2437
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603153500.xtf",
+    "bytes": 59911424,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 3404,
+      "0": 3404
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603154300.xtf",
+    "bytes": 235858624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 13401,
+      "0": 13401
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603161300.xtf",
+    "bytes": 159685824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 9073,
+      "0": 9073
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603163500.xtf",
+    "bytes": 33493824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 1903,
+      "0": 1903
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603164100.xtf",
+    "bytes": 37946624,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2156,
+      "0": 2156
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603164600.xtf",
+    "bytes": 47116224,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 2677,
+      "0": 2677
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  },
+  {
+    "file": "15CCT03_SSS_154_150603165300.xtf",
+    "bytes": 23461824,
+    "status": "COMPLETE_FRAMING_VALIDATED",
+    "packet_type_counts": {
+      "108": 1333,
+      "0": 1333
+    },
+    "payload_semantics": "NOT_FULLY_DECODED",
+    "unknown_types_not_interpreted": [
+      "108"
+    ]
+  }
+]

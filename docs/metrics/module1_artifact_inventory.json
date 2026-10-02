@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-02",
+  "base_revision": "41735ce98baba5033671402aa20e86094cde5f4e",
+  "artifacts": {
+    "models/v6/detector_v6_p2_sss/weights/best.pt": {
+      "bytes": 21649993,
+      "sha256": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+      "compatibility": "CLASS_MAP_VERIFIED"
+    },
+    "ai/fusion/weights/gate_d_fusion_model.pkl": {
+      "bytes": 2248,
+      "sha256": "b57dc4e7c9eb713c11a716c72e1087a7f3e942811779d01978527b669ef9d02b",
+      "compatibility": "UNVERIFIED_FOR_CORRECTED_RELEASE"
+    },
+    "ai/reliability/weights/score_policy.json": {
+      "bytes": 618,
+      "sha256": "af473f51fd9bf02a456861cefee98cac595da31b6544859cf7bebf5402ed2cba",
+      "compatibility": "UNVERIFIED_FOR_CORRECTED_RELEASE"
+    },
+    "ai/reliability/weights/reliability_mapping.json": {
+      "bytes": 8316,
+      "sha256": "10ae9df9d08085ce1cd25ccbc5103312932defb96cbc2bded5a38a65b36f5c9c",
+      "compatibility": "UNVERIFIED_FOR_CORRECTED_RELEASE"
+    },
+    "ai/reliability/weights/localization_uncertainty.json": {
+      "bytes": 1239,
+      "sha256": "f432ee372ca2e23502e6fd5336c6bd3f656e227ef84367c597b6669851e6debc",
+      "compatibility": "UNVERIFIED_FOR_CORRECTED_RELEASE"
+    },
+    "ai/reliability/weights/localization_envelope.json": {
+      "bytes": 644,
+      "sha256": "23639821e0d676c6e919412e49673a7904e18d822201764629f6f052a492e774",
+      "compatibility": "UNVERIFIED_FOR_CORRECTED_RELEASE"
+    },
+    "ai/reliability/weights/unknown_detector.pkl": {
+      "bytes": 1293880,
+      "sha256": "b6678d44a8ec73c89392fb0204e2f487ee3ec3f2a01f07d840ed0f68f4915749",
+      "compatibility": "UNVERIFIED_FOR_CORRECTED_RELEASE"
+    }
+  },
+  "notes": "Inventory hashes identify files only; they do not validate calibration. No artifact fitting/rewriting performed."
+}

@@ -5,7 +5,7 @@ import { AnalysisError, responseError } from './errors';
 import { gradioSpaceId } from '../config/env';
 import { classifyGradioError } from './gradioError';
 
-export async function analyzeImage(file: File, signal?: AbortSignal): Promise<AnalyzeResponse> {
+export async function analyzeImage(file: File, signal?: AbortSignal, metadataJson?: string): Promise<AnalyzeResponse> {
   const cancelled = () => { if (signal?.aborted) throw new AnalysisError('REQUEST_CANCELLED', 'The request was cancelled.'); };
   cancelled();
   let client: Client | undefined;
@@ -21,7 +21,7 @@ export async function analyzeImage(file: File, signal?: AbortSignal): Promise<An
     if (upload.files?.length !== 1) throw new AnalysisError('INVALID_API_RESPONSE', 'The Space did not return an uploaded image reference.');
     const response = await fetch('/api/analyze', {
       method: 'POST', signal, headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ file: { path: upload.files[0], orig_name: file.name, mime_type: file.type || (/\.png$/i.test(file.name) ? 'image/png' : 'image/jpeg'), size: file.size } }),
+      body: JSON.stringify({ ...(metadataJson ? { metadata_json: metadataJson } : {}), file: { path: upload.files[0], orig_name: file.name, mime_type: file.type || (/\.png$/i.test(file.name) ? 'image/png' : 'image/jpeg'), size: file.size } }),
     });
     cancelled();
     const payload: unknown = await response.json();

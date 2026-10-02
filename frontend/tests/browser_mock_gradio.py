@@ -10,6 +10,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 PAYLOAD = json.loads((ROOT / 'public/contact-105.json').read_text(encoding='utf-8'))
+CORRECTED_PAYLOAD = json.loads((ROOT / 'tests/fixtures/module1-cpu-response.json').read_text(encoding='utf-8'))
 IMAGE = ROOT / 'public/contact-105.jpg'
 MOCK = 'https://mock.hf.space'
 CONFIG = {
@@ -84,7 +85,7 @@ def scenario(browser, mode):
         elif mode == 'invalid':
             route.fulfill(json={'status': 'COMPLETED'})
         else:
-            route.fulfill(json=PAYLOAD)
+            route.fulfill(json=CORRECTED_PAYLOAD if mode == 'corrected-success' else PAYLOAD)
 
     page.route('**/api/analyze', gateway_route)
     page.goto('http://127.0.0.1:4182/', wait_until='domcontentloaded')
@@ -145,6 +146,6 @@ def scenario(browser, mode):
 
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(executable_path='C:/Program Files/Google/Chrome/Application/chrome.exe', headless=True)
-    for mode in ('quota', 'quota-no-countdown', 'success', 'large-success', 'auth', 'offline', 'invalid', 'cancel'):
+    for mode in ('quota', 'quota-no-countdown', 'success', 'corrected-success', 'large-success', 'auth', 'offline', 'invalid', 'cancel'):
         scenario(browser, mode)
     browser.close()

@@ -1,20 +1,21 @@
+import { acquireAdmission } from './admission.mjs';
 import { describeGradioError } from '../shared/gradio-errors.mjs';
 
 export const SPACE_ID = 'mrintrovert19/sonar-shield-api';
 const ENDPOINT = '/analyze_image_gradio';
-const MAX_BODY = 8192;
+const MAX_BODY = 270 * 1024;
 
 class GatewayError extends Error {
   constructor(code, message, status) { super(message); this.code = code; this.status = status; }
 }
 
 export function validateFile(body) {
-  if (!body || typeof body !== 'object' || Array.isArray(body) || Object.keys(body).some(key => key !== 'file')) throw new GatewayError('INVALID_FILE_REFERENCE', 'Only an uploaded image reference is accepted.', 400);
+  if (!body || typeof body !== 'object' || Array.isArray(body) || Object.keys(body).some(key => !['file', 'metadata_json'].includes(key))) throw new GatewayError('INVALID_FILE_REFERENCE', 'Only an uploaded image reference is accepted.', 400);
   const file = body.file;
   if (!file || typeof file !== 'object' || Array.isArray(file) || Object.keys(file).some(key => !['path', 'orig_name', 'mime_type', 'size'].includes(key))) throw new GatewayError('INVALID_FILE_REFERENCE', 'The uploaded image reference is invalid.', 400);
   // Verified against this Space's Gradio upload response; no URL fetching or arbitrary paths.
   if (typeof file.path !== 'string' || file.path.length > 1024 || !/^\/tmp\/gradio\/[a-f0-9]{64}\/[A-Za-z0-9_. -]+\.(?:jpe?g|png)$/i.test(file.path) || file.path.includes('..')) throw new GatewayError('INVALID_FILE_REFERENCE', 'The file must be a JPG or PNG uploaded to the configured Space.', 400);
-  if (!['image/jpeg', 'image/png'].includes(file.mime_type) || !Number.isSafeInteger(file.size) || file.size <= 0 || typeof file.orig_name !== 'string' || file.orig_name.length > 255 || /[\x00-\x1f/\\]/.test(file.orig_name)) throw new GatewayError('INVALID_FILE_REFERENCE', 'The image metadata is invalid.', 400);
+  if (!['image/jpeg', 'image/png'].includes(file.mime_type) || !Number.isSafeInteger(file.size) || file.size <= 0 || file.size > 32 * 1024 * 1024 || typeof file.orig_name !== 'string' || file.orig_name.length > 255 || /[\x00-\x1f/\\]/.test(file.orig_name)) throw new GatewayError('INVALID_FILE_REFERENCE', 'The image metadata is invalid.', 400);
   return { path: file.path, orig_name: file.orig_name, mime_type: file.mime_type, size: file.size, meta: { _type: 'gradio.FileData' } };
 }
 
@@ -48,13 +49,21 @@ async function readBody(req) {
   catch { throw new GatewayError('INVALID_REQUEST', 'The request contains invalid JSON.', 400); }
 }
 
-export function createGateway({ connect, env = process.env, timeoutMs = 270000, now = Date.now }) {
+export function validateMetadata(body) {
+  if (body.metadata_json === undefined) return undefined;
+  if (typeof body.metadata_json !== 'string' || Buffer.byteLength(body.metadata_json) > 256 * 1024) throw new GatewayError('INVALID_METADATA', 'Metadata must be a JSON sidecar at most 256 KiB.', 400);
+  try { const parsed = JSON.parse(body.metadata_json); if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw Error(); }
+  catch { throw new GatewayError('INVALID_METADATA', 'Metadata must be a JSON object.', 400); }
+  return body.metadata_json;
+}
+
+export function createGateway({ connect, env = process.env, timeoutMs = 270000, now = Date.now, fetcher = fetch }) {
   return async function handler(req, res) {
     res.setHeader('Cache-Control', 'no-store');
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     const send = (status, value) => { if (!res.destroyed && !res.writableEnded) { res.statusCode = status; res.end(JSON.stringify(value)); } };
     if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); send(405, { error: { code: 'METHOD_NOT_ALLOWED', message: 'Use POST for live analysis.' } }); return; }
-    let client; let submission; let timer; let detached = false;
+    let client; let submission; let timer; let detached = false; let lease; let completed = false;
     const controller = new AbortController();
     const disconnect = () => { if (!res.writableEnded) controller.abort(new GatewayError('REQUEST_CANCELLED', 'The request was cancelled. GPU time already used may still count.', 499)); };
     const abortFailure = new Promise((_, reject) => controller.signal.addEventListener('abort', () => reject(controller.signal.reason), { once: true }));
@@ -63,22 +72,26 @@ export function createGateway({ connect, env = process.env, timeoutMs = 270000, 
     res.on('close', disconnect);
     try {
       checkOrigin(req, env);
-      const file = validateFile(await readBody(req));
+      const body = await readBody(req);
+      const file = validateFile(body);
+      const metadata = validateMetadata(body);
       const token = env.HF_TOKEN?.trim();
       if (!token || !/^hf_[A-Za-z0-9]+$/.test(token)) throw new GatewayError('HF_AUTH_NOT_CONFIGURED', 'Live authentication is not configured. Set HF_TOKEN in Vercel and redeploy; verified examples remain available.', 503);
       const space = env.VITE_GRADIO_SPACE_ID?.trim() || SPACE_ID;
       if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(space)) throw new GatewayError('INVALID_GATEWAY_CONFIG', 'The configured Space identifier is invalid.', 503);
       timer = setTimeout(() => controller.abort(new GatewayError('ANALYSIS_TIMEOUT', 'The live request timed out. It may already have used GPU time; retry manually or open a verified example.', 504)), timeoutMs);
+      lease = await acquireAdmission(env, fetcher);
+      if (controller.signal.aborted) throw controller.signal.reason;
       const run = async () => {
         client = await connect(space, { token, events: ['data', 'status'], record_history: false });
         if (controller.signal.aborted || detached) { client.close(); throw controller.signal.reason; }
-        submission = client.submit(ENDPOINT, { image_filepath: file, run_tiled_auxiliary: true });
+        submission = client.submit(ENDPOINT, { image_filepath: file, run_tiled_auxiliary: true, ...(metadata === undefined ? {} : { metadata_json: metadata }) });
         let data;
         for await (const event of submission) {
           if (event.type === 'status' && event.stage === 'error') throw event;
           if (event.type === 'data') data = event.data;
           // Non-queued Gradio submissions emit completion without ending their iterator.
-          if (event.type === 'status' && event.stage === 'complete') break;
+          if (event.type === 'status' && event.stage === 'complete') { completed = true; break; }
         }
         const output = Array.isArray(data) ? data[0] : undefined;
         const payload = typeof output === 'string' ? JSON.parse(output) : output;
@@ -87,16 +100,19 @@ export function createGateway({ connect, env = process.env, timeoutMs = 270000, 
         // No credential from an upstream error or response is allowed back to the browser.
         const serialized = JSON.stringify(payload);
         if (serialized.includes(token) || /hf_[A-Za-z0-9]{10,}/.test(serialized)) throw new GatewayError('INVALID_API_RESPONSE', 'The Space returned unsafe response metadata.', 502);
+        completed = true;
         return payload;
       };
       send(200, await Promise.race([run(), abortFailure]));
     } catch (error) {
-      const described = error instanceof GatewayError ? { code: error.code, message: error.message, status: error.status } : describeGradioError(error, { secret: env.HF_TOKEN?.trim(), now: now(), authenticated: true });
+      const described = (error instanceof GatewayError || error?.admissionError) ? { code: error.code, message: error.message, status: error.status } : describeGradioError(error, { secret: env.HF_TOKEN?.trim(), now: now(), authenticated: true });
       // Log the fixed classification only, never upstream text, headers or credentials.
       if (env.VERCEL) console.warn('Live inference error:', described.code);
       if (described.details?.retryAfterSeconds !== undefined) res.setHeader('Retry-After', String(described.details.retryAfterSeconds));
       send(described.status, { error: described });
     } finally {
+      if (lease && completed && !controller.signal.aborted) await lease.release();
+      // Errors/cancellation retain the lease until expiry: upstream may still run.
       detached = true;
       clearTimeout(timer);
       res.off('close', disconnect);

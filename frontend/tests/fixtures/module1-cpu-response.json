@@ -1,0 +1,409 @@
+{
+  "schema_version": "F8.1",
+  "analysis_id": "ANL-278c62a50fb4452eb5a5d33fe0c61818",
+  "status": "COMPLETED",
+  "input": {
+    "input_id": "IMG-eda4dd0a035c42908068c6510354f1cf",
+    "filename": "contact-105.jpg",
+    "sha256": "6407b4344f90aa1ade206d83c2e9072e6a007c200f3a721212258908225e29e3",
+    "width": 640,
+    "height": 640
+  },
+  "summary": {
+    "candidate_count": 2,
+    "confirmed_count": 0,
+    "review_count": 2,
+    "rejected_count": 0,
+    "unknown_count": 0
+  },
+  "candidates": [
+    {
+      "schema_version": "F7.1",
+      "candidate_id": "CAND-5784f66d7a454a75ab4b3f210023118c",
+      "detection": {
+        "class_id": 0,
+        "class_name": "Crab Pot",
+        "confidence": 0.4070817828178406,
+        "bbox": [
+          328.6137008666992,
+          8.567313194274902,
+          345.580135345459,
+          22.282421112060547
+        ],
+        "source_mode": "TILED"
+      },
+      "classification": {
+        "class_id": 0,
+        "class_name": "Crab Pot",
+        "reliability": null,
+        "presentation": {
+          "reliability_band": "UNCALIBRATED",
+          "uncertainty_level": "UNKNOWN"
+        }
+      },
+      "decision": {
+        "status": "REVIEW",
+        "fusion_score": 0.8326882061614652,
+        "reason_codes": [
+          "POLICY_COMPATIBILITY_UNVERIFIED",
+          "UNCALIBRATED_CLASS_FORCED_REVIEW"
+        ]
+      },
+      "evidence": {
+        "ai_confidence": 0.4070817828178406,
+        "bbox": [
+          328.6137008666992,
+          8.567313194274902,
+          345.580135345459,
+          22.282421112060547
+        ],
+        "geometry": {
+          "width_px": 16.966434478759766,
+          "height_px": 13.715107917785645,
+          "bbox_area_px": 232.69647985622942,
+          "aspect_ratio": 1.2370616826687764
+        },
+        "seabed": {
+          "background_mean": 77.67671614100186,
+          "background_std": 14.514685659407482,
+          "local_contrast": 0.07518602212239245
+        },
+        "shadow": {
+          "shadow_candidate_presence": 0.4041891192991461,
+          "shadow_area_px": 248.3399406869003,
+          "area_ratio": 1.0672268907563025,
+          "adjacency": 0.8823529411764706,
+          "mean_intensity_ratio": 0.5419189981276344
+        },
+        "quality": {
+          "boundary_strength": 0.22134978774287958,
+          "artifact_flags": {
+            "near_image_edge": true,
+            "near_nadir": false,
+            "dropout": false,
+            "extreme_saturation": false,
+            "very_low_dynamic_range": false
+          }
+        }
+      },
+      "localization": {
+        "metadata": {
+          "status": "PIXEL_ONLY",
+          "available_spaces": [
+            "IMAGE_PIXEL"
+          ],
+          "unavailable_spaces": [
+            "SONAR_RELATIVE",
+            "GEOGRAPHIC"
+          ],
+          "reason_code": "NO_SONAR_NAV_METADATA"
+        },
+        "pixel_convention": {
+          "origin": "top-left",
+          "axes": "x rightward, y downward",
+          "indexing": "zero-based continuous",
+          "bounding_box_semantics": "[x_min, y_min, x_max, y_max), max exclusive",
+          "reference": "pixel center of (i,j) is (j + 0.5, i + 0.5)"
+        },
+        "image_geometry": null,
+        "coordinate_provenance": [],
+        "coordinates": {
+          "image": {
+            "coordinate_system": "IMAGE_PIXEL",
+            "x_min": 328.6137008666992,
+            "y_min": 8.567313194274902,
+            "x_max": 345.580135345459,
+            "y_max": 22.282421112060547,
+            "center_x": 337.0969181060791,
+            "center_y": 15.424867153167725,
+            "width_px": 16.966434478759766,
+            "height_px": 13.715107917785645
+          },
+          "normalized_image": {
+            "center_x": 0.5267139345407486,
+            "center_y": 0.02410135492682457,
+            "width_norm": 0.026510053873062135,
+            "height_norm": 0.02142985612154007
+          },
+          "sonar": null,
+          "geographic": null
+        },
+        "physical_dimensions": null
+      },
+      "localization_uncertainty": {
+        "validation_reference": null,
+        "error_envelope": {
+          "status": "NOT_ESTIMABLE",
+          "scope": "UNAVAILABLE",
+          "method": "NONE",
+          "envelope_px": null,
+          "envelope_normalized": null,
+          "reason": "No compatible validated error calibration."
+        }
+      },
+      "quality": {
+        "image": {
+          "flags": [
+            {
+              "code": "ACQUISITION_QUALITY_NOT_ASSESSED",
+              "severity": "INFO"
+            }
+          ]
+        },
+        "detection": {
+          "flags": []
+        },
+        "evidence": {
+          "completeness": {
+            "available": [
+              "geometry",
+              "seabed",
+              "shadow",
+              "artifact_flags"
+            ],
+            "missing": []
+          },
+          "flags": [
+            {
+              "code": "NEAR_IMAGE_EDGE",
+              "severity": "WARNING"
+            }
+          ]
+        },
+        "localization": {
+          "flags": [
+            {
+              "code": "PIXEL_ONLY",
+              "severity": "INFO"
+            }
+          ]
+        },
+        "metadata": {
+          "flags": [
+            {
+              "code": "NAV_METADATA_UNAVAILABLE",
+              "severity": "INFO"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "candidate_id": "CAND-5784f66d7a454a75ab4b3f210023118c",
+        "input_id": "IMG-eda4dd0a035c42908068c6510354f1cf",
+        "source_dataset": "USER_UPLOAD",
+        "source_dataset_version": null,
+        "image_sha256": "6407b4344f90aa1ade206d83c2e9072e6a007c200f3a721212258908225e29e3",
+        "pipeline_version": "M1-v1",
+        "detector_version": "V6-P2",
+        "fusion_version": "D2-v1",
+        "decision_policy_version": "UNVERIFIED_REVIEW_ONLY",
+        "calibration_version": "UNAVAILABLE",
+        "preprocessing_version": "NONE",
+        "coordinate_contract_version": "M1-ground-raster-v1",
+        "detector_artifact_sha256": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+        "fusion_artifact_sha256": "b57dc4e7c9eb713c11a716c72e1087a7f3e942811779d01978527b669ef9d02b",
+        "decision_policy_sha256": null,
+        "classification_calibration_sha256": null,
+        "localization_uncertainty_sha256": null,
+        "processing_timestamp": "2026-10-02T15:40:34.889625+00:00",
+        "runtime_version": "3.12.0"
+      }
+    },
+    {
+      "schema_version": "F7.1",
+      "candidate_id": "CAND-91975001d68e4b7c94e4aee6519931b8",
+      "detection": {
+        "class_id": 0,
+        "class_name": "Crab Pot",
+        "confidence": 0.3231128454208374,
+        "bbox": [
+          264.57159423828125,
+          419.5541534423828,
+          279.11712646484375,
+          433.94793701171875
+        ],
+        "source_mode": "TILED"
+      },
+      "classification": {
+        "class_id": 0,
+        "class_name": "Crab Pot",
+        "reliability": null,
+        "presentation": {
+          "reliability_band": "UNCALIBRATED",
+          "uncertainty_level": "UNKNOWN"
+        }
+      },
+      "decision": {
+        "status": "REVIEW",
+        "fusion_score": 0.7081312027083854,
+        "reason_codes": [
+          "POLICY_COMPATIBILITY_UNVERIFIED",
+          "UNCALIBRATED_CLASS_FORCED_REVIEW"
+        ]
+      },
+      "evidence": {
+        "ai_confidence": 0.3231128454208374,
+        "bbox": [
+          264.57159423828125,
+          419.5541534423828,
+          279.11712646484375,
+          433.94793701171875
+        ],
+        "geometry": {
+          "width_px": 14.5455322265625,
+          "height_px": 14.393783569335938,
+          "bbox_area_px": 209.3652427699417,
+          "aspect_ratio": 1.01054265242322
+        },
+        "seabed": {
+          "background_mean": 113.60434782608695,
+          "background_std": 17.69866477222496,
+          "local_contrast": 0.047227202285089184
+        },
+        "shadow": {
+          "shadow_candidate_presence": 0.30658855604701213,
+          "shadow_area_px": 150.54357932505332,
+          "area_ratio": 0.719047619047619,
+          "adjacency": 1.0,
+          "mean_intensity_ratio": 0.5736185644379301
+        },
+        "quality": {
+          "boundary_strength": 0.16347160658839166,
+          "artifact_flags": {
+            "near_image_edge": false,
+            "near_nadir": false,
+            "dropout": false,
+            "extreme_saturation": false,
+            "very_low_dynamic_range": false
+          }
+        }
+      },
+      "localization": {
+        "metadata": {
+          "status": "PIXEL_ONLY",
+          "available_spaces": [
+            "IMAGE_PIXEL"
+          ],
+          "unavailable_spaces": [
+            "SONAR_RELATIVE",
+            "GEOGRAPHIC"
+          ],
+          "reason_code": "NO_SONAR_NAV_METADATA"
+        },
+        "pixel_convention": {
+          "origin": "top-left",
+          "axes": "x rightward, y downward",
+          "indexing": "zero-based continuous",
+          "bounding_box_semantics": "[x_min, y_min, x_max, y_max), max exclusive",
+          "reference": "pixel center of (i,j) is (j + 0.5, i + 0.5)"
+        },
+        "image_geometry": null,
+        "coordinate_provenance": [],
+        "coordinates": {
+          "image": {
+            "coordinate_system": "IMAGE_PIXEL",
+            "x_min": 264.57159423828125,
+            "y_min": 419.5541534423828,
+            "x_max": 279.11712646484375,
+            "y_max": 433.94793701171875,
+            "center_x": 271.8443603515625,
+            "center_y": 426.7510452270508,
+            "width_px": 14.5455322265625,
+            "height_px": 14.393783569335938
+          },
+          "normalized_image": {
+            "center_x": 0.4247568130493164,
+            "center_y": 0.6667985081672668,
+            "width_norm": 0.022727394104003908,
+            "height_norm": 0.022490286827087404
+          },
+          "sonar": null,
+          "geographic": null
+        },
+        "physical_dimensions": null
+      },
+      "localization_uncertainty": {
+        "validation_reference": null,
+        "error_envelope": {
+          "status": "NOT_ESTIMABLE",
+          "scope": "UNAVAILABLE",
+          "method": "NONE",
+          "envelope_px": null,
+          "envelope_normalized": null,
+          "reason": "No compatible validated error calibration."
+        }
+      },
+      "quality": {
+        "image": {
+          "flags": [
+            {
+              "code": "ACQUISITION_QUALITY_NOT_ASSESSED",
+              "severity": "INFO"
+            }
+          ]
+        },
+        "detection": {
+          "flags": []
+        },
+        "evidence": {
+          "completeness": {
+            "available": [
+              "geometry",
+              "seabed",
+              "shadow",
+              "artifact_flags"
+            ],
+            "missing": []
+          },
+          "flags": []
+        },
+        "localization": {
+          "flags": [
+            {
+              "code": "PIXEL_ONLY",
+              "severity": "INFO"
+            }
+          ]
+        },
+        "metadata": {
+          "flags": [
+            {
+              "code": "NAV_METADATA_UNAVAILABLE",
+              "severity": "INFO"
+            }
+          ]
+        }
+      },
+      "provenance": {
+        "candidate_id": "CAND-91975001d68e4b7c94e4aee6519931b8",
+        "input_id": "IMG-eda4dd0a035c42908068c6510354f1cf",
+        "source_dataset": "USER_UPLOAD",
+        "source_dataset_version": null,
+        "image_sha256": "6407b4344f90aa1ade206d83c2e9072e6a007c200f3a721212258908225e29e3",
+        "pipeline_version": "M1-v1",
+        "detector_version": "V6-P2",
+        "fusion_version": "D2-v1",
+        "decision_policy_version": "UNVERIFIED_REVIEW_ONLY",
+        "calibration_version": "UNAVAILABLE",
+        "preprocessing_version": "NONE",
+        "coordinate_contract_version": "M1-ground-raster-v1",
+        "detector_artifact_sha256": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+        "fusion_artifact_sha256": "b57dc4e7c9eb713c11a716c72e1087a7f3e942811779d01978527b669ef9d02b",
+        "decision_policy_sha256": null,
+        "classification_calibration_sha256": null,
+        "localization_uncertainty_sha256": null,
+        "processing_timestamp": "2026-10-02T15:40:34.890641+00:00",
+        "runtime_version": "3.12.0"
+      }
+    }
+  ],
+  "artifacts": {
+    "visual_audit_url": null,
+    "report_url": null
+  },
+  "processing": {
+    "status": "COMPLETED",
+    "pipeline_version": "M1-v1",
+    "processing_time_ms": 11233
+  }
+}

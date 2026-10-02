@@ -1,4 +1,8 @@
+> Module 1 continuation: Supabase + Vercel is the selected cloud records and durable admission path. [Setup instructions](docs/SUPABASE_VERCEL_SETUP.md). Implementation is locally tested; cloud activation and field/hardware gates remain open. See the [phase ledger](docs/MODULE1_IMPLEMENTATION.md).
+
 # SONAR-SHIELD
+
+Current local Module 1 work: [implementation, phase status, setup and remaining verification](docs/MODULE1_IMPLEMENTATION.md). This branch has corrected F8.1 runtime changes that are not yet deployed; historical/deployed limitations below must be read with that status.
 
 **A human-reviewed side-scan sonar analysis workspace.** Upload a JPG or PNG sonar image, inspect detected candidates and their evidence, record a separate human assessment, and export a browser-generated report. The public site uses a Hugging Face Gradio Space for best-effort live inference. When shared ZeroGPU capacity is exhausted, judges can explicitly open a clearly labeled, previously computed example.
 

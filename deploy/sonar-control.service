@@ -1,0 +1,23 @@
+[Unit]
+Description=SONAR-SHIELD lightweight records and admission
+After=network.target
+
+[Service]
+Type=simple
+User=sonar-control
+Group=sonar-control
+WorkingDirectory=/opt/sonar-shield
+EnvironmentFile=/etc/sonar-shield/control.env
+ExecStart=/opt/sonar-shield/.venv-control/bin/python -m uvicorn ai.api.control_server:app --host 127.0.0.1 --port 8093 --workers 1 --no-access-log
+Restart=on-failure
+RestartSec=5
+MemoryMax=384M
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/sonar-shield
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
