@@ -81,3 +81,5 @@ Deploy the tested source after following [Supabase setup](SUPABASE_VERCEL_SETUP.
 Source attribution: [USGS release metadata](https://cmgds.marine.usgs.gov/catalog/spcmsc/GrandBay_2015-315-FA_metadata.faq.html), local metadata TXT/XML, three FACS Word documents and supplied vessel diagram. USGS release declares public-domain data with attribution requested.
 
 Local regression results: 25 backend/preflight tests passed. The current V8 YAML was deliberately rejected by the guarded dry-run for pointing validation at test data; no model was loaded or trained by that rejected preflight.
+
+Production frontend update: source was published to main; public Supabase config and offline example/report browser smoke passed. Cloud reviewer persistence and service-key/cron behavior remain separate unverified production gates.

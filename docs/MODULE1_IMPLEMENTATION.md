@@ -136,3 +136,8 @@ Supersedes the proposed Oracle hosting path for shared records/admission. Authen
 ### Real-data continuation — 3 October 2026
 
 The user supplied the USGS 15CCT03 XTF survey and equipment documents. All 143 XTF logs have whole-file SHA-256 identities and bounded 32-ping sample parsing. Two CPU windows completed using existing artifacts, producing zero candidates; this is not an accuracy/background claim. Raw timestamp/channel/navigation/depth fields are preserved without invented alignment. Four windows prepared for human annotation with explicitly separate display-only previews. See [USGS_SURVEY_READINESS.md](USGS_SURVEY_READINESS.md) for all phase gates and training commands. No fitting/weight/policy changes occurred. Reference target positions, raw sample orientation, altitude reliability, motion correction, hosted jobs and edge gates remain open.
+
+
+### Published deployment checks — 3 October 2026
+
+Commits 3a809e1 and 3baf889 were pushed to GitHub main. Production public cloud configuration returned HTTP 200 for the selected project; public sign-ups are disabled and email login enabled. Unauthenticated records and maintenance return 401; foreign-origin inference returns 403. An isolated production browser completed verified example -> viewer -> report with preserved source labels, zero inference requests and zero page errors. See [production smoke evidence](metrics/supabase-production-smoke.json). Reviewer-authenticated save/restore, service-key admission RPC, scheduled cleanup and a corrected HF pipeline release remain unverified/not deployed. The initial records HTTP 500 was resolved by sharing plain ESM validation across browser/server. No GPU quota was consumed.

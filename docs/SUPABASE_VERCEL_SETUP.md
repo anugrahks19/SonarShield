@@ -91,3 +91,5 @@ Production gate: verify `/api/records` exposes only public config, sign in as tw
 Official references: [API key boundaries](https://supabase.com/docs/guides/getting-started/api-keys), [Storage policies](https://supabase.com/docs/guides/storage/security/access-control), [free tier](https://supabase.com/pricing), [Vercel cron authorization](https://vercel.com/docs/cron-jobs/manage-cron-jobs).
 
 Deployment correction: Vercel records initially returned HTTP 500 when the JavaScript function imported the frontend TypeScript schema. Browser and server now share a plain ESM schema; the server no longer relies on runtime TypeScript loading. Function and browser validation rules remain the same.
+
+Production update (3 October 2026): public config, auth sign-up/login settings, unauthorized route rejection and verified-example/report browser smoke passed after commit 3baf889. Reviewer-authenticated paired-record persistence, service-key admission and cron execution still require verification. See [evidence](metrics/supabase-production-smoke.json).
