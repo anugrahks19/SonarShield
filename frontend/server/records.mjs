@@ -1,5 +1,5 @@
 import { configuration,rpc } from './supabase.mjs';
-import { analyzeSchema } from '../src/api/schema.ts';
+import { analyzeSchema } from '../shared/analysis-schema.mjs';
 const uuid=/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 export function createRecordsHandler({env=process.env,fetcher=fetch}={}) {
  return async(req,res)=>{

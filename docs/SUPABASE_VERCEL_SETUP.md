@@ -89,3 +89,5 @@ node scripts/test_supabase_sql.mjs
 Production gate: verify `/api/records` exposes only public config, sign in as two reviewers and test owner/team isolation, save/open paired records and restore reviews, check maintenance and persistent admission, then deliberately run one authenticated HF analysis and inspect viewer/report/export source labels. Never claim Module 1 complete until remaining real-survey, hardware and production gates in `MODULE1_IMPLEMENTATION.md` are closed.
 
 Official references: [API key boundaries](https://supabase.com/docs/guides/getting-started/api-keys), [Storage policies](https://supabase.com/docs/guides/storage/security/access-control), [free tier](https://supabase.com/pricing), [Vercel cron authorization](https://vercel.com/docs/cron-jobs/manage-cron-jobs).
+
+Deployment correction: Vercel records initially returned HTTP 500 when the JavaScript function imported the frontend TypeScript schema. Browser and server now share a plain ESM schema; the server no longer relies on runtime TypeScript loading. Function and browser validation rules remain the same.
