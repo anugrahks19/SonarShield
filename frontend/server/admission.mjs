@@ -5,7 +5,10 @@ export async function acquireAdmission(env, fetcher = fetch) {
   if (env.SONAR_ADMISSION_PROVIDER && env.SONAR_ADMISSION_PROVIDER !== 'sqlite') throw failure('LIVE_LIMITER_UNAVAILABLE','Unknown live usage controller.',503);
   const url = env.SONAR_ADMISSION_URL;
   const token = env.SONAR_ADMISSION_TOKEN;
-  if (!url && !token) return null; // Explicitly unprotected legacy deployment.
+  if (!url && !token) {
+    if (env.NODE_ENV === 'production' || env.VERCEL) throw failure('LIVE_LIMITER_UNAVAILABLE','Production live usage control is not configured. No inference was started; verified examples remain available.',503);
+    return null; // Local development only.
+  }
   let parsed;
   try { parsed = new URL(url); } catch { throw failure('LIVE_LIMITER_UNAVAILABLE', 'Live usage control is not configured correctly.', 503); }
   if (parsed.username || parsed.password || parsed.search || parsed.hash || (parsed.protocol !== 'https:' && !(env.NODE_ENV !== 'production' && parsed.protocol === 'http:' && ['localhost','127.0.0.1'].includes(parsed.hostname))) || typeof token !== 'string' || token.length < 32) throw failure('LIVE_LIMITER_UNAVAILABLE', 'Live usage control is not configured correctly.', 503);

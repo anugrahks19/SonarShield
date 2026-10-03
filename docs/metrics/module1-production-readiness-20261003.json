@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-03",
+  "scope": "PUBLIC_PRODUCTION_READINESS_ONLY_NOT_SIGNED_IN_STORAGE_OR_CRON",
+  "public_records_config": 200,
+  "correct_supabase_project": true,
+  "no_private_secret_patterns": true,
+  "auth_settings_status": 200,
+  "signups_disabled": true,
+  "email_login_enabled": true,
+  "anonymous_records_status": 401,
+  "unauthorized_maintenance_status": 401,
+  "foreign_origin_inference_status": 403,
+  "hf_runtime": "RUNNING",
+  "hf_revision": "81f75313bf017534fd34679e15f6f8c736c44db7",
+  "new_inference_calls": 0
+}

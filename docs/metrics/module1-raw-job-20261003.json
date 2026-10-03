@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "status": "BOUNDED_COMPLETE",
+  "configuration": {
+    "artifacts": {
+      "detector": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+      "fusion": "b57dc4e7c9eb713c11a716c72e1087a7f3e942811779d01978527b669ef9d02b"
+    },
+    "pipeline_sha256": "517c400029bed5b6d22cebfe36553eb3680d5cab583018c4c22572783f2297e8",
+    "source_log_sha256": "06432389124dbd163f8ce5c040908da8cb6ad694fa85c3bf517aa1d363cb6f29",
+    "device": "cpu",
+    "max_windows": 4,
+    "rows": 128,
+    "overlap": 16,
+    "tiled": true,
+    "geometry_profile": null,
+    "processing_sources": {
+      "xtf": "5e1e82e80b9734241b2eb99508935bafcbed392f8a877fb21cc90ce6bc00a4a0",
+      "survey_job": "133b0f93bd4d4ab0e459c31021c2d171350016c7bde0fdb07608864bd70c141f",
+      "survey": "d1423380abda5f7be9b41d120258484d03c5781cb50d15cef97a7588c5a71813",
+      "sonar_geometry": "9274bd3d3c8202b84b7cb35e707885b605ecc13457af26b6be60c3c03f059875",
+      "survey_report": "662560e1eb0c88f0dd3b37a4ab210c7c368c82975d682fc41759177bf8011818",
+      "survey_viewer": "ed9a9f6aacd0676b1b494b6bc9000fec5f500de3a07908cf7c879c9eec1894d9"
+    }
+  },
+  "windows_completed": 4,
+  "outputs": [
+    {
+      "image_sha256": "c4521f3c8e79b42978007e22870dfd3469779eef178e602537ad79a1d0931c60",
+      "analysis_sha256": "c06d7c20922e54f1d00667cc443232f8858b5ed5660f308f65032f54f6786736"
+    },
+    {
+      "image_sha256": "76dcadca6f3231d747c7ba810bbec84e6d40508773a49676d269501c5993c55e",
+      "analysis_sha256": "f1321891b02cf7c6c846b5284d2b9099febaa9ef5ae26a0417838c44ef0f067f"
+    },
+    {
+      "image_sha256": "636265c6e7645e2ee1cd7d2eb2e69b308de424b049dd6dbb8e01d7c2905256eb",
+      "analysis_sha256": "97dba3724ecb6db79e7aa1dc899a2720e4e9596c30d985c9ac873215d1712ccb"
+    },
+    {
+      "image_sha256": "d99bbc1694e45902b280dc5c88202a2d7e3468ec1def930fffeed55d8a821fdd",
+      "analysis_sha256": "eee8cc201936e12730005927eb59cd7788a3f56562cab8ee0c25320e70dc37e4"
+    }
+  ],
+  "geographic": "UNAVAILABLE",
+  "rendering": "UNVALIDATED",
+  "reconciled_contact_count": 0,
+  "report_observation_count": 0
+}

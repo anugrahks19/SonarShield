@@ -1,0 +1,13 @@
+{
+  "scope": "SUPPORTED_SONAR_PAYLOADS_ONLY_VENDOR_PACKETS_NOT_INTERPRETED",
+  "files": 143,
+  "bytes": 18205973632,
+  "channel_rows": 2068844,
+  "samples": 8473985024,
+  "failed": 0,
+  "invalid_timestamps": 0,
+  "nonfinite_metadata": 0,
+  "field_geometry": "NOT_VALIDATED",
+  "inference_calls": 0,
+  "training_executed": false
+}

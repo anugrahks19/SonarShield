@@ -29,6 +29,11 @@ class JobTests(unittest.TestCase):
         make=lambda window,**kw:dict(window=window,candidate_id=str(window),class_id=0,channel=0,segment=0,confidence=.8,source_box=[0,8,5,12],**kw)
         first=make(0);second=make(1);third=dict(make(2),channel=1);fourth=dict(make(3),class_id=2);fifth=dict(make(4),segment=1)
         merged=reconcile([first,second,third,fourth,fifth]);self.assertEqual(len(merged),4);self.assertEqual(len(merged[0]['observations']),2)
+    def test_reconcile_rejects_incompatible_rectified_grids(self):
+        first=dict(window=0,candidate_id='a',class_id=0,channel=0,segment=0,confidence=.8,source_box=[0,8,5,12],grid_identity=[20,.5,'PORT'])
+        second=dict(first,window=1,candidate_id='b',grid_identity=[21,.5,'PORT'])
+        self.assertEqual(len(reconcile([first,second])),2)
+
     def test_progress_resume_cancel_and_configuration_identity(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory);log=root/'test.xtf';log.write_bytes(b'MOCK_SOURCE_NOT_XTF');output=root/'run';runtime=FakeRuntime()
@@ -41,3 +46,12 @@ class JobTests(unittest.TestCase):
                 state=run_job(log,root/'cancelled',rows=16,overlap=8,max_windows=2,runtime=other,cancel_file=cancel)
                 self.assertEqual(state['status'],'CANCELLED');self.assertEqual(other.calls,0)
             self.assertFalse((output/'.job.lock').exists())
+
+    def test_resume_rejects_changed_image_output_without_inference(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);log=root/'test.xtf';log.write_bytes(b'MOCK_SOURCE_NOT_XTF');output=root/'run';runtime=FakeRuntime()
+            with patch('ai.runtime.survey_job.packets',side_effect=lambda path:records()):
+                run_job(log,output,rows=16,overlap=8,max_windows=2,runtime=runtime)
+                before=runtime.calls;(output/'window-00000.png').write_bytes(b'changed')
+                with self.assertRaisesRegex(ValueError,'missing or changed'):run_job(log,output,rows=16,overlap=8,max_windows=2,runtime=runtime,resume=True)
+                self.assertEqual(runtime.calls,before)

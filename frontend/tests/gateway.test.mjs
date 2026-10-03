@@ -33,7 +33,7 @@ async function invoke({ events = [{ type: 'data', data: [JSON.stringify(output)]
       },
     };
   };
-  await createGateway({ connect, env: { HF_TOKEN: TOKEN, APP_ORIGIN: ORIGIN, NODE_ENV: 'production', ...environment }, timeoutMs, now: () => Date.parse('2026-10-01T05:00:00Z') })(req, res);
+  await createGateway({ connect, env: { HF_TOKEN: TOKEN, APP_ORIGIN: ORIGIN, NODE_ENV: 'production', SONAR_ADMISSION_URL:'https://controller.invalid', SONAR_ADMISSION_TOKEN:'CONTROLLER_TEST_ONLY_01234567890123456789', ...environment }, fetcher:async()=>new Response(JSON.stringify({lease_id:'a'.repeat(32)})), timeoutMs, now: () => Date.parse('2026-10-01T05:00:00Z') })(req, res);
   await new Promise(resolve => setImmediate(resolve));
   return { res, payload: res.text ? JSON.parse(res.text) : null, calls, closed, cancelled, options, submitted };
 }

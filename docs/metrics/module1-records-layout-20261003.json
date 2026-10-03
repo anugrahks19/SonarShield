@@ -1,0 +1,124 @@
+[
+  {
+    "width": 1440,
+    "scrollWidth": 1440,
+    "buttons": [
+      {
+        "text": "Sign in",
+        "height": 38,
+        "left": 222,
+        "right": 290
+      },
+      {
+        "text": "Sign out",
+        "height": 38,
+        "left": 308,
+        "right": 384
+      },
+      {
+        "text": "Load cloud records",
+        "height": 38,
+        "left": 402,
+        "right": 541.359375
+      },
+      {
+        "text": "Save to cloud",
+        "height": 38,
+        "left": 222,
+        "right": 328.03125
+      },
+      {
+        "text": "Sync reviews to cloud",
+        "height": 38,
+        "left": 346.03125,
+        "right": 500.078125
+      },
+      {
+        "text": "Export complete record",
+        "height": 38,
+        "left": 716.15625,
+        "right": 878.859375
+      },
+      {
+        "text": "Import complete record",
+        "height": 38,
+        "left": 886.859375,
+        "right": 1048.890625
+      },
+      {
+        "text": "Attach navigation metadata",
+        "height": 38,
+        "left": 1056.890625,
+        "right": 1241.59375
+      },
+      {
+        "text": "Delete saved session",
+        "height": 38,
+        "left": 1249.59375,
+        "right": 1399
+      }
+    ],
+    "gap": "8px"
+  },
+  {
+    "width": 390,
+    "scrollWidth": 390,
+    "buttons": [
+      {
+        "text": "Sign in",
+        "height": 38,
+        "left": 30,
+        "right": 360
+      },
+      {
+        "text": "Sign out",
+        "height": 38,
+        "left": 30,
+        "right": 360
+      },
+      {
+        "text": "Load cloud records",
+        "height": 38,
+        "left": 30,
+        "right": 360
+      },
+      {
+        "text": "Save to cloud",
+        "height": 38,
+        "left": 30,
+        "right": 360
+      },
+      {
+        "text": "Sync reviews to cloud",
+        "height": 38,
+        "left": 30,
+        "right": 360
+      },
+      {
+        "text": "Export complete record",
+        "height": 38,
+        "left": 29,
+        "right": 361
+      },
+      {
+        "text": "Import complete record",
+        "height": 38,
+        "left": 29,
+        "right": 361
+      },
+      {
+        "text": "Attach navigation metadata",
+        "height": 38,
+        "left": 29,
+        "right": 361
+      },
+      {
+        "text": "Delete saved session",
+        "height": 38,
+        "left": 29,
+        "right": 361
+      }
+    ],
+    "gap": "8px"
+  }
+]

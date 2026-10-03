@@ -1,0 +1,19 @@
+{
+  "scope": "LOCAL_RELEASE_BROWSER_MOCKED_AUTH_STORAGE_NOT_HOSTED_CLOUD",
+  "saved_real_hf_response_rendered": true,
+  "cloud_save_refresh_login_restore_review_history": true,
+  "report_json_csv_print_source_labels": true,
+  "verified_examples": 4,
+  "page_errors": [],
+  "inference_calls": 0,
+  "mocked_cloud_actions": [
+    "create",
+    "list",
+    "list",
+    "get",
+    "review",
+    "get",
+    "list",
+    "get"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "scope": "REAL_ZERO_CANDIDATE_WINDOW_AND_SYNTHETIC_REVIEW_UI",
+  "review_refresh_export": true,
+  "real_raw_window_rendered": true,
+  "network_calls": 0,
+  "inference_calls_in_browser": 0,
+  "page_errors": []
+}

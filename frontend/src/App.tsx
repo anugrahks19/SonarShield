@@ -28,6 +28,7 @@ import './Phase5.css';
 import './Phase6.css';
 import './Phase7.css';
 import './JudgeFallback.css';
+import './Records.css';
 
 type Phase = 'empty' | 'selected' | 'running' | 'success' | 'error' | 'invalid';
 const navigation = [{ name: 'Overview', icon: LayoutDashboard }, { name: 'Analysis', icon: Activity }, { name: 'Candidates', icon: BarChart3 }, { name: 'Reports', icon: FileText }, { name: 'System', icon: Radio }];
@@ -258,6 +259,7 @@ export default function App() {
         }).catch(() => { if (version === requestVersion.current) notify('error', 'Shared record validation or storage failed. Current image remains available.'); });
       }} />
       <section className="judge-paths" aria-label="Judging paths"><p><strong>Live</strong> processes your uploaded image now. <strong>Verified example</strong> replays a previously completed analysis of the displayed sample image.</p><button type="button" className="secondary" onClick={openExamples}>Explore verified examples</button></section>
+      <section className="record-tools panel" aria-label="Saved analysis record controls"><div className="record-tools-heading"><span className="eyebrow">ANALYSIS RECORD</span><p>Transfer your image, results and reviews, or attach navigation metadata before a live run.</p></div><div className="record-tool-actions">
       <button className="secondary" type="button" disabled={!result || !src} onClick={() => {
         if (!result || !src) return;
         void fetch(src).then(r => r.blob()).then(image => exportRecord(result, image, demo ? 'PRECOMPUTED_EXAMPLE' : 'LIVE_ANALYSIS', Object.values(reviews))).then(text => downloadText(`${safeAnalysisName(result.analysis_id)}.sonar.json`, text, 'application/json')).catch(() => notify('error', 'Could not export the complete analysis record.'));
@@ -294,7 +296,8 @@ export default function App() {
         }; chooser.click();
       }}>Attach navigation metadata</button>
       {metadataJson && <button className="secondary" type="button" disabled={phase === 'running'} onClick={() => setMetadataJson('')}>Remove metadata</button>}
-      <button className="secondary" type="button" onClick={() => void clearSession().then(() => notify('info', 'Saved session deleted. Current view and local reviews remain available.')).catch(() => notify('error', 'Could not delete saved session.'))}>Delete saved session</button>
+      <button className="secondary record-danger" type="button" onClick={() => void clearSession().then(() => notify('info', 'Saved session deleted. Current view and local reviews remain available.')).catch(() => notify('error', 'Could not delete saved session.'))}>Delete saved session</button>
+      </div></section>
       <section className={`upload-bar ${drag ? 'dragging' : ''}`} onDragOver={event => { event.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)} onDrop={event => { event.preventDefault(); setDrag(false); selectFile(event.dataTransfer.files[0]); }}><input ref={inputRef} type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" hidden onChange={event => { selectFile(event.target.files?.[0]); event.currentTarget.value = ''; }} /><div className="upload-icon">↑</div><div className="upload-copy"><strong>{file ? file.name : result?.input.filename ?? 'DROP SONAR IMAGE'}</strong><span>{file ? `${(file.size / 1024 / 1024).toFixed(2)} MB · ${dimensions ? `${dimensions.width} × ${dimensions.height} px · ` : ''}JPG / PNG` : 'Drag a file here or browse · JPG / PNG'}</span></div><div className="upload-actions"><button className="secondary" type="button" onClick={() => inputRef.current?.click()}>Browse image</button><button className="primary" type="button" onClick={run} disabled={!file || phase === 'running'}>{phase === 'running' && !demo ? 'Analyzing…' : 'Run analysis'}</button>{phase === 'running' && file && <button className="secondary" type="button" onClick={() => { analysisAbort.current?.abort(); analysisAbort.current = null; requestVersion.current++; setPhase('selected'); }}>Cancel</button>}</div></section>
       {showExamples && <VerifiedExamples busy={exampleBusy} onConfirm={id => void loadDemo(id)} onClose={closeExamples} />}
       {phase === 'running' && <div className="notice progress" role="status"><span className="spinner" /><div><strong>LIVE ANALYSIS IN PROGRESS</strong><span>Processing your uploaded sonar image. Candidate and evidence results are pending.</span></div></div>}

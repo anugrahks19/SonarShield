@@ -18,3 +18,10 @@ test('misconfiguration, offline controller and rejection fail closed before any 
     assert.equal(connected,0);assert.ok(['LIVE_USAGE_LIMIT','LIVE_LIMITER_UNAVAILABLE'].includes(res.body.error.code));assert.ok(!JSON.stringify(res.body).includes(secret));
   }
 });
+
+test('production and Vercel deployments cannot silently disable usage protection',async()=>{
+  for(const config of [{NODE_ENV:'production'},{VERCEL:'1'}]){
+    await assert.rejects(acquireAdmission(config),error=>error.code==='LIVE_LIMITER_UNAVAILABLE');
+  }
+  assert.equal(await acquireAdmission({NODE_ENV:'development'}),null);
+});

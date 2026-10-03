@@ -1,5 +1,7 @@
 > Module 1 continuation: Supabase + Vercel is the selected cloud records and durable admission path. [Setup instructions](docs/SUPABASE_VERCEL_SETUP.md). Implementation is locally tested; cloud activation and field/hardware gates remain open. See the [phase ledger](docs/MODULE1_IMPLEMENTATION.md).
 
+Current software release and evidence: [Module 1 release](docs/MODULE1_RELEASE_20261003.md), including raw-survey commands, actual CPU benchmarks, cloud checks and remaining field-validation prerequisites.
+
 # SONAR-SHIELD
 
 Current local Module 1 work: [implementation, phase status, setup and remaining verification](docs/MODULE1_IMPLEMENTATION.md). This branch has corrected F8.1 runtime changes that are not yet deployed; historical/deployed limitations below must be read with that status.

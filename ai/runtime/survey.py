@@ -21,6 +21,7 @@ def reconcile(contacts,threshold=0.7):
         duplicate=None
         for previous in kept:
             if (previous['channel'],previous['segment'],previous['class_id'])!=(contact['channel'],contact['segment'],contact['class_id']):continue
+            if previous.get('grid_identity')!=contact.get('grid_identity'):continue
             a=previous['source_box'];b=contact['source_box']
             intersection=max(0,min(a[2],b[2])-max(a[0],b[0]))*max(0,min(a[3],b[3])-max(a[1],b[1]))
             area=(a[2]-a[0])*(a[3]-a[1]);other=(b[2]-b[0])*(b[3]-b[1])

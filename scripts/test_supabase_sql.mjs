@@ -31,4 +31,9 @@ await identity('', 'service_role');const lease=(await db.query('select public.so
 await assert.rejects(db.exec('select public.sonar_admission_acquire()'));
 const uuid=lease.lease_id.replace(/^(.{8})(.{4})(.{4})(.{4})(.{12})$/,'$1-$2-$3-$4-$5');await db.query('select public.sonar_admission_release($1)',[uuid]);
 await db.exec('select public.sonar_admission_acquire()');
+await db.exec("reset role;update public.sonar_leases set expires_at=now()-interval '1 second';");
+const beforeProbe=(await db.query("select jsonb_build_object('settings',(select to_jsonb(s) from public.sonar_settings s),'usage',(select jsonb_agg(to_jsonb(u) order by day) from public.sonar_usage u),'leases',(select jsonb_agg(to_jsonb(l) order by id) from public.sonar_leases l)) as snapshot")).rows[0].snapshot;
+const probe=await db.exec(readFileSync('supabase/verification/module1_usage_probe.sql','utf8'));
+const checks=probe.find(value=>value.rows?.some(row=>row.check_name==='daily_budget'));assert.equal(checks.rows.length,5);assert.ok(checks.rows.every(row=>row.passed));
+const afterProbe=(await db.query("select jsonb_build_object('settings',(select to_jsonb(s) from public.sonar_settings s),'usage',(select jsonb_agg(to_jsonb(u) order by day) from public.sonar_usage u),'leases',(select jsonb_agg(to_jsonb(l) order by id) from public.sonar_leases l)) as snapshot")).rows[0].snapshot;assert.deepEqual(afterProbe,beforeProbe);
 await db.close();console.log('SQL tests passed: migration, isolation, storage policies, immutable review conflicts, two-phase deletion and service-only admission.');

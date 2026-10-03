@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-03",
+  "scope": "USER_ATTESTED_PRODUCTION_NOT_AGENT_BROWSER_SESSION",
+  "signed_in": true,
+  "cloud_record_opened": true,
+  "same_review_note_restored_after_refresh": true,
+  "hosted_sql_probe": "AWAITING_USER_RESULT",
+  "scheduled_cleanup": "UNVERIFIED",
+  "inference_calls_by_agent": 0
+}

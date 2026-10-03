@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "device": "THIS_HOST_CPU_ONLY",
+  "platform": "Windows-11-10.0.22635-SP0",
+  "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "torch": "2.4.1+cu121",
+  "onnxruntime": "1.23.1",
+  "threads": 2,
+  "source_detector_sha256": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+  "original_weights_unchanged": true,
+  "export_sha256": "f09dd26e765950baa50b90108fe0d8f4125392b77398498b2e2aa05c63aaee34",
+  "input_sha256": "6407b4344f90aa1ade206d83c2e9072e6a007c200f3a721212258908225e29e3",
+  "runs": 10,
+  "output_shapes": {
+    "pytorch": [
+      1,
+      9,
+      34000
+    ],
+    "onnx": [
+      1,
+      9,
+      34000
+    ]
+  },
+  "raw_tensor_equivalence_passed": true,
+  "maximum_absolute_error": 0.000762939453125,
+  "rtol": 0.0002,
+  "atol": 0.01,
+  "warm_seconds": {
+    "pytorch": [
+      0.19179079999958049,
+      0.19873489999736194,
+      0.20410859999901731,
+      0.20165540000016335,
+      0.20325930000035441,
+      0.2152100999992399,
+      0.245727600002283,
+      0.24311799999850336,
+      0.24116090000097756,
+      0.23155120000228635
+    ],
+    "onnx": [
+      0.2326028999996197,
+      0.21894479999900796,
+      0.22089010000127018,
+      0.22340290000283858,
+      0.21406500000011874,
+      0.2825054999993881,
+      0.3081132000006619,
+      0.29375379999692086,
+      0.3177529000022332,
+      0.28613469999982044
+    ]
+  },
+  "warm_median_seconds": {
+    "pytorch": 0.2096593499991286,
+    "onnx": 0.2575541999995039
+  },
+  "power": "NOT_MEASURED",
+  "full_pipeline_equivalence": "NOT_CLAIMED",
+  "scope": "ONE_INPUT_RAW_OUTPUT_EQUIVALENCE_NOT_ACCURACY_OR_TARGET_EDGE_CERTIFICATION"
+}

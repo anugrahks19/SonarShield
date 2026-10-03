@@ -1,5 +1,7 @@
 # Module 1 implementation and remaining verification
 
+> Current status: see [Module 1 release, 3 October 2026](MODULE1_RELEASE_20261003.md). It supersedes the historical deployment/raw-workflow status below.
+
 Date: 2 October 2026. Checkout: `E:\GITHUB\a sih 2026`. Branch: `codex/module1-hardening`.
 This is a local implementation report, not a production deployment or a 90% accuracy claim.
 

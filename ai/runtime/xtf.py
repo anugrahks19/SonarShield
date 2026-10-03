@@ -47,30 +47,44 @@ def packets(path):
                     yield dict(timestamp_raw=timestamp,timestamp_timezone='UNVERIFIED',nav_units_code=int(header.NavUnits),channel_type_raw=int(info.TypeOfChannel) if info else None,ship_x_raw=float(ping.ShipXcoordinate),ship_y_raw=float(ping.ShipYcoordinate),sensor_depth_raw=float(ping.SensorDepth),packet_offset=offset,ping_number=int(ping.PingNumber),channel=int(channel.ChannelNumber),samples=samples.copy(),slant_range_m=float(channel.SlantRange),sensor_x_raw=float(ping.SensorXcoordinate),sensor_y_raw=float(ping.SensorYcoordinate),heading_raw=float(ping.SensorHeading),altitude_raw=float(ping.SensorPrimaryAltitude),pitch_raw=float(ping.SensorPitch),roll_raw=float(ping.SensorRoll),heave_raw=float(ping.Heave),navigation_status='UNVERIFIED_UNITS_DATUM_POSE')
             offset+=length
 
-def windows(records,rows=512,overlap=0):
+def windows(records,rows=512,overlap=0,profile=None):
     if not 16<=rows<=512 or not 0<=overlap<rows: raise ValueError('Window rows must be 16-512; overlap must be smaller than rows.')
     buffers={};counts={};segments={};fresh={};signatures={}
     for original in records:
         record=dict(original);channel=record['channel'];block=buffers.setdefault(channel,[])
         signature=(len(record['samples']),str(record['samples'].dtype),record.get('slant_range_m'))
         if channel in signatures and signatures[channel]!=signature:
-            if block and fresh.get(channel,0): yield render(block)
+            if block and fresh.get(channel,0): yield render(block,profile)
             block.clear();segments[channel]=segments.get(channel,0)+1;fresh[channel]=0
         signatures[channel]=signature
         record['_row_index']=counts.get(channel,0);counts[channel]=record['_row_index']+1
         record['_segment']=segments.get(channel,0);block.append(record);fresh[channel]=fresh.get(channel,0)+1
         if len(block)==rows:
-            yield render(block)
+            yield render(block,profile)
             if overlap:del block[:-overlap]
             else:block.clear()
             fresh[channel]=0
     for channel,block in buffers.items():
-        if block and fresh.get(channel,0):yield render(block)
+        if block and fresh.get(channel,0):yield render(block,profile)
 
 
-def render(block):
+def render(block,profile=None):
     raw=np.vstack([record['samples'] for record in block])
     # Deterministic full-scale conversion, recorded explicitly; not a validated enhancement.
     gray=np.rint(raw.astype(np.float64)*(255/np.iinfo(raw.dtype).max)).astype(np.uint8)
+    geometry=None
+    if profile is not None:
+        from ai.runtime.sonar_geometry import rectify
+        gray,geometry=rectify(block,profile)
     from ai.runtime.survey import acquisition_quality
-    return gray,dict(row_indices=[r.get('_row_index',i) for i,r in enumerate(block)],segment=block[0].get('_segment',0),acquisition_quality=acquisition_quality(block),channel=block[0]['channel'],rendering='FULL_SCALE_LINEAR_UNVALIDATED',ping_numbers=[r['ping_number'] for r in block],packet_offsets=[r['packet_offset'] for r in block],navigation_status='UNVERIFIED_UNITS_DATUM_POSE',navigation=[{k:v for k,v in r.items() if k!='samples'} for r in block])
+    reference=dict(row_indices=[r.get('_row_index',i) for i,r in enumerate(block)],segment=block[0].get('_segment',0),acquisition_quality=acquisition_quality(block),channel=block[0]['channel'],rendering='FULL_SCALE_LINEAR_UNVALIDATED',ping_numbers=[r['ping_number'] for r in block],packet_offsets=[r['packet_offset'] for r in block],navigation_status='UNVERIFIED_UNITS_DATUM_POSE',navigation=[{k:v for k,v in r.items() if k!='samples'} for r in block])
+
+    if geometry is not None:
+        reference['geometry']=geometry
+        reference['navigation_status']='OPERATOR_CONFIGURED_NOT_FIELD_VALIDATED'
+        reference['rendering']='FLAT_BOTTOM_GROUND_RANGE_FULL_SCALE_UNVALIDATED_FOR_DETECTOR'
+        quality=reference['acquisition_quality']
+        quality['flags']=[f for f in quality['flags'] if f not in ['CHANNEL_ORIENTATION_UNVERIFIED','NAVIGATION_AND_POSE_UNVERIFIED','MOTION_CORRECTION_NOT_APPLIED']]
+        quality['flags']+=['OPERATOR_GEOMETRY_NOT_FIELD_VALIDATED','FULL_BEAM_MOTION_CORRECTION_UNSUPPORTED','RAW_RENDERING_NOT_DETECTOR_VALIDATED']
+        quality['correction']='FLAT_BOTTOM_SLANT_RANGE_PER_PING_YAW_POSE_LEVER_ARM_ONLY'
+    return gray,reference
