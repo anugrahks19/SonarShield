@@ -1,5 +1,7 @@
 > Module 1 update (3 October 2026): shared cloud records/review restoration and five hosted admission checks are confirmed. [XTF review and accuracy release gate](docs/XTF_ACCURACY_RELEASE.md) · [Future edge-device API](docs/EDGE_DEVICE_API.md). Public XTF inference remains gated; expert annotations, independent field measurements and full motion correction are still outstanding. [Supabase setup](docs/SUPABASE_VERCEL_SETUP.md).
 
+Module 2 has started: [dataset audit findings and controlled 90/90 performance roadmap](docs/MODULE2_PROGRESS.md). The current V8-A revision requires reviewed label and split repairs before new training.
+
 Current PS 26057 requirement status: [compliance matrix](docs/PS26057_COMPLIANCE.md). Local raw uploads run with `python scripts/start_survey_dashboard.py --output-dir .temp/survey-dashboard` after isolated raw/inference dependencies are installed.
 
 Current software release and evidence: [Module 1 release](docs/MODULE1_RELEASE_20261003.md), including raw-survey commands, actual CPU benchmarks, cloud checks and remaining field-validation prerequisites.

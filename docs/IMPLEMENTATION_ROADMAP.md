@@ -1,5 +1,7 @@
 # SONAR-SHIELD implementation roadmap
 
+> Module 2 kickoff (3 October 2026): [current audit findings, ordered work and guarded training commands](MODULE2_PROGRESS.md). M2.01 is partially implemented; no new training or final accuracy claim is authorized by audit completion.
+
 Date: 2 October 2026. Status: planned; creating this document does not implement any phase.
 
 ## Purpose and authority

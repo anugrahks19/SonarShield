@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "scope": "V8_A_AND_DRISHTI_V3_EXACT_HASH_LABEL_LINEAGE_KICKOFF_NOT_FULL_PROVENANCE",
+  "training_started": false,
+  "inference_calls": 0,
+  "groups": [
+    {
+      "dataset": "V8_A",
+      "role": "TRAIN",
+      "image_count": 12401,
+      "valid_box_class_counts": {
+        "2": 1626,
+        "0": 8368,
+        "4": 1179,
+        "1": 1000,
+        "3": 765
+      },
+      "files_with_label_errors": 141,
+      "missing_labels": 0,
+      "empty_labels_not_verified_background": 3595
+    },
+    {
+      "dataset": "DRISHTI_V3",
+      "role": "TRAIN",
+      "image_count": 11485,
+      "valid_box_class_counts": {
+        "2": 1626,
+        "0": 8368,
+        "4": 1178,
+        "1": 1000,
+        "3": 765
+      },
+      "files_with_label_errors": 141,
+      "missing_labels": 0,
+      "empty_labels_not_verified_background": 2680
+    },
+    {
+      "dataset": "DRISHTI_V3",
+      "role": "DEV_CANDIDATE",
+      "image_count": 1130,
+      "valid_box_class_counts": {
+        "0": 1275,
+        "4": 193,
+        "1": 147,
+        "3": 135,
+        "2": 544
+      },
+      "files_with_label_errors": 1,
+      "missing_labels": 0,
+      "empty_labels_not_verified_background": 0
+    },
+    {
+      "dataset": "DRISHTI_V3",
+      "role": "HISTORICAL_VALIDATION",
+      "image_count": 1443,
+      "valid_box_class_counts": {
+        "0": 1275,
+        "4": 193,
+        "1": 147,
+        "3": 120,
+        "2": 544
+      },
+      "files_with_label_errors": 1,
+      "missing_labels": 0,
+      "empty_labels_not_verified_background": 328
+    },
+    {
+      "dataset": "DRISHTI_V3",
+      "role": "HISTORICAL_TEST",
+      "image_count": 1097,
+      "valid_box_class_counts": {
+        "0": 567,
+        "4": 82,
+        "1": 174,
+        "3": 120,
+        "2": 525
+      },
+      "files_with_label_errors": 0,
+      "missing_labels": 0,
+      "empty_labels_not_verified_background": 133
+    },
+    {
+      "dataset": "DRISHTI_V3",
+      "role": "HISTORICAL_BACKGROUND",
+      "image_count": 324,
+      "valid_box_class_counts": {},
+      "files_with_label_errors": 0,
+      "missing_labels": 0,
+      "empty_labels_not_verified_background": 324
+    }
+  ],
+  "image_count": 27880,
+  "exact_hash_cross_role_groups": 1318,
+  "lineage_rows": 920,
+  "unresolved_parent_rows": 0,
+  "protected_parent_training_rows": 0,
+  "configs": [
+    {
+      "file": "datasets/V8-A-TARGETED-HARD-POSITIVE/dataset.yaml",
+      "sha256": "1e39888520d1d6a8709270ca3d95f933f2793d11f0df7fb46bbf4ceb4ca6429d",
+      "train": "images/train",
+      "val": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v3\\test\\images",
+      "test": null,
+      "data": null,
+      "epochs": null
+    },
+    {
+      "file": "datasets/drishti_sss_v3/drishti_v3.yaml",
+      "sha256": "bc12e0fe83e85cc4df3c09e3b812f686cc3f3f50f3725af55a7566d48a144f02",
+      "train": "train/images",
+      "val": "val_clean/images",
+      "test": "test/images",
+      "data": null,
+      "epochs": null
+    },
+    {
+      "file": "models/v8/detector_v8_a_targeted/args.yaml",
+      "sha256": "5b2eef867ef7fc23e9bdc8c683e1e7dd40696a7685bc68594fb214640bcdac10",
+      "train": null,
+      "val": true,
+      "test": null,
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\V8-A-TARGETED-HARD-POSITIVE\\dataset.yaml",
+      "epochs": 80
+    }
+  ],
+  "v8_a_validation_test_informed": true,
+  "final_test_independence_verified": false,
+  "ready_for_new_training": false,
+  "remaining": [
+    "SURVEY_SITE_MISSION_GROUPS",
+    "LICENSE_AND_LABEL_VERIFICATION",
+    "DECODED_PIXEL_AND_NEAR_DUPLICATE_REVIEW",
+    "PRIOR_SELECTION_AND_PRETRAINING_HISTORY",
+    "UNTOUCHED_EXTERNAL_CLASS_COVERAGE",
+    "OTHER_EXISTING_DATASET_REVISIONS"
+  ],
+  "date": "2026-10-03",
+  "lineage_crops_present": 920,
+  "lineage_crops_empty_label": 919,
+  "cross_role_patterns": {
+    "HISTORICAL_BACKGROUND|HISTORICAL_VALIDATION|TRAIN": 1,
+    "DEV_CANDIDATE|HISTORICAL_VALIDATION": 995,
+    "HISTORICAL_BACKGROUND|HISTORICAL_VALIDATION": 322
+  },
+  "train_cross_role_hash_groups": 1,
+  "private_evidence": ".temp/module2-kickoff-audit-20261003",
+  "private_file_sha256": {
+    "crop-lineage-audit.json": "b4c20c97215d090510bb51ca53f7536bc904d9d4627a26cb9fa6e04ac55f472c",
+    "image-inventory.json": "beb866b3a6950d5e94b0073bb936a848e658dceb0b7f1926b66110f4984be382",
+    "summary.json": "92e0b21efeaff039f40954d9a510b0af5b49abd743f17e1258292738618740ef"
+  },
+  "interpretation": "CURRENT_DISK_REVISION_ONLY_NOT_PROOF_OF_PRIOR_RUN_CACHE_CONTENTS"
+}
