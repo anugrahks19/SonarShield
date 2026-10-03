@@ -1,5 +1,7 @@
 # Module 2: controlled route to the 90/90 goal
 
+> Technical dataset correction is now prepared: [local training command, safeguards and remaining scientific gates](MODULE2_TRAINING_READY.md). The prior V8-A dataset and run are preserved; the new revision is explicitly exploratory.
+
 Started 3 October 2026. Goal: class-correct object precision >=90% **and** recall >=90% at the same frozen operating point on independently labelled data. This is a target, not a guarantee or a system-accuracy percentage. An image-only validation result cannot certify raw XTF performance.
 
 ## Current findings: M2.01 kickoff

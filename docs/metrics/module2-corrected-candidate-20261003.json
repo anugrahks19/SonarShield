@@ -1,0 +1,31 @@
+{
+  "purpose": "CONTROLLED_EXPLORATORY_TRAINING_NOT_FINAL_ACCURACY_CERTIFICATION",
+  "version": 1,
+  "source_counts": {
+    "DEV": 1129,
+    "TRAIN": 11339
+  },
+  "corrected_positive_crops": 874,
+  "total_train": 12213,
+  "dev_images": 1129,
+  "excluded": 193,
+  "unknown_site_mission_provenance": true,
+  "near_duplicate_review_complete": false,
+  "expert_annotation_certification": false,
+  "xtf_included": false,
+  "test_or_calib_used_for_training_validation": false,
+  "source_lineage_sha256": "60c0a2b33d12d5a5ad61fbce9e0dcca316f83f728d53c2133b23e6654a6bcda8",
+  "weights_sha256": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+  "date": "2026-10-03",
+  "training_started": false,
+  "dataset": "E:\\GITHUB\\a sih 2026\\datasets\\controlled_v8a_20261003",
+  "manifest_sha256": "93aaee6ac8479e8cce032f9fe4421178ea32b13db693cb1deb614ed8057c6882",
+  "exclusion_reason_counts": {
+    "Source box extends outside image; exclude image rather than invent a correction.": 142,
+    "Duplicate image or cross-DEV overlap.": 2,
+    "Exact byte/pixel overlap with historical TEST/background.": 3,
+    "Parent excluded or not in TRAIN.": 46
+  },
+  "source_labels_recertified_by_expert": false,
+  "production_weights_changed": false
+}
