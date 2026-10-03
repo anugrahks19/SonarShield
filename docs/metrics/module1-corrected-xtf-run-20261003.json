@@ -1,0 +1,97 @@
+{
+  "scope": "USER_ACTUAL_XTF_RERUN_CORRECTED_RENDERING_NOT_ACCURACY_VALIDATION",
+  "job": "f18b31d1a3794793a448180707728c31",
+  "source_bytes": 55071424,
+  "windows": [
+    {
+      "window": 0,
+      "channel": 0,
+      "candidate_count": 1,
+      "rendering": "LOG1P_PERCENTILE_UNVALIDATED",
+      "metadata": {
+        "version": "LOG1P_PERCENTILE_V1",
+        "transform": "LOG1P",
+        "percentiles": [
+          1,
+          99.5
+        ],
+        "log_low": 0.6931471805599453,
+        "log_high": 6.591673732008658,
+        "raw_min": 0.0,
+        "raw_max": 4346.0,
+        "raw_median": 27.0,
+        "output_zero_fraction": 0.012165069580078125,
+        "detector_validation": "UNVALIDATED_RENDERING_DOMAIN",
+        "zero_samples_preserved": true
+      }
+    },
+    {
+      "window": 1,
+      "channel": 1,
+      "candidate_count": 3,
+      "rendering": "LOG1P_PERCENTILE_UNVALIDATED",
+      "metadata": {
+        "version": "LOG1P_PERCENTILE_V1",
+        "transform": "LOG1P",
+        "percentiles": [
+          1,
+          99.5
+        ],
+        "log_low": 0.6931471805599453,
+        "log_high": 5.937536205082426,
+        "raw_min": 0.0,
+        "raw_max": 4083.0,
+        "raw_median": 25.0,
+        "output_zero_fraction": 0.019205093383789062,
+        "detector_validation": "UNVALIDATED_RENDERING_DOMAIN",
+        "zero_samples_preserved": true
+      }
+    },
+    {
+      "window": 2,
+      "channel": 0,
+      "candidate_count": 1,
+      "rendering": "LOG1P_PERCENTILE_UNVALIDATED",
+      "metadata": {
+        "version": "LOG1P_PERCENTILE_V1",
+        "transform": "LOG1P",
+        "percentiles": [
+          1,
+          99.5
+        ],
+        "log_low": 0.6931471805599453,
+        "log_high": 6.520621127558696,
+        "raw_min": 0.0,
+        "raw_max": 4381.0,
+        "raw_median": 25.0,
+        "output_zero_fraction": 0.013019561767578125,
+        "detector_validation": "UNVALIDATED_RENDERING_DOMAIN",
+        "zero_samples_preserved": true
+      }
+    },
+    {
+      "window": 3,
+      "channel": 1,
+      "candidate_count": 0,
+      "rendering": "LOG1P_PERCENTILE_UNVALIDATED",
+      "metadata": {
+        "version": "LOG1P_PERCENTILE_V1",
+        "transform": "LOG1P",
+        "percentiles": [
+          1,
+          99.5
+        ],
+        "log_low": 0.6931471805599453,
+        "log_high": 5.942799375126701,
+        "raw_min": 0.0,
+        "raw_max": 1849.0,
+        "raw_median": 25.0,
+        "output_zero_fraction": 0.018428802490234375,
+        "detector_validation": "UNVALIDATED_RENDERING_DOMAIN",
+        "zero_samples_preserved": true
+      }
+    }
+  ],
+  "hf_inference_calls": 0,
+  "training": false
+}

@@ -1,0 +1,12 @@
+{
+  "scope": "CORRECTED_USER_XTF_WITH_REAL_CANDIDATES_BROWSER_FLOW",
+  "window_candidate_count": 3,
+  "candidate_selection": true,
+  "human_review_refresh_export": true,
+  "ai_decisions_remain_review": true,
+  "corrected_image_not_legacy_preview": true,
+  "styled_index": true,
+  "sidebar_no_overflow": true,
+  "page_errors": [],
+  "hf_inference_calls": 0
+}

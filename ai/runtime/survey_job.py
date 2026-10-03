@@ -29,7 +29,7 @@ def run_job(log,output,device='cpu',max_windows=10,rows=512,overlap=64,tiled=Tru
         runtime.initialize()
         identity=dict(artifacts=runtime.hashes,pipeline_sha256=sha256_file(Path(__file__).with_name('pipeline.py')),source_log_sha256=sha256_file(log),device=device,max_windows=max_windows,rows=rows,overlap=overlap,tiled=tiled)
         identity['geometry_profile']=profile.model_dump(mode='json') if profile is not None else None
-        identity['processing_sources']={name:sha256_file(Path(__file__).with_name(name+'.py')) for name in ['xtf','survey_job','survey','sonar_geometry','survey_report','survey_viewer']}
+        identity['processing_sources']={name:sha256_file(Path(__file__).with_name(name+'.py')) for name in ['xtf','survey_job','survey','sonar_geometry','sonar_rendering','survey_report','survey_viewer']}
         old=json.loads(state_path.read_text()) if state_path.exists() else None
         if old and not resume:raise ValueError('Existing job: use resume or a new output directory.')
         if old and old['configuration']!=identity:raise ValueError('Resume configuration/source disagrees with original job.')
@@ -80,8 +80,8 @@ def run_job(log,output,device='cpu',max_windows=10,rows=512,overlap=64,tiled=Tru
         state['geographic']='OPERATOR_CONFIGURED_NOT_FIELD_VALIDATED' if profile is not None else 'UNAVAILABLE'
         from ai.runtime.survey_report import write_report
         state['report_observation_count']=write_report(output,identity,state)
-        links=''.join(f'<li><a href="window-{i:05d}.html">Window {i}: image, evidence, human review</a></li>' for i in range(state['windows_completed']) if (output/f'window-{i:05d}.html').exists())
-        (output/'index.html').write_text('<!doctype html><meta charset="utf-8"><title>SONAR-SHIELD offline survey</title><h1>LOCAL RAW SURVEY INFERENCE</h1><p>No new inference runs when opening these files. Calibration unavailable; geometry not field validated.</p><a href="report.csv">CSV report</a> | <a href="report.json">JSON report</a> | <a href="contacts.geojson">Geographic observations</a><ul>'+links+'</ul>',encoding='utf-8')
+        from ai.runtime.survey_viewer import write_index
+        write_index(output,state)
         write_json(state_path,state);return state
     except BaseException as exc:
         if state is not None:state['status']='CANCELLED' if isinstance(exc,KeyboardInterrupt) else 'FAILED';state['error_type']=type(exc).__name__;write_json(state_path,state)

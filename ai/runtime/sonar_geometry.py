@@ -134,9 +134,10 @@ def rectify(block,profile):
     projected=np.vstack(image)
     if not np.isfinite(projected).all():
         raise ValueError('Ground grid reaches an unsupported source sample bin.')
-    gray=np.rint(projected*255/np.iinfo(block[0]['samples'].dtype).max).clip(0,255).astype(np.uint8)
+    from ai.runtime.sonar_rendering import scale_samples
+    gray,rendering_metadata=scale_samples(projected)
     for i,n in enumerate(nav): n['track_distance_m']=distances[i]
-    geometry=dict(version=profile.version,profile=profile.model_dump(mode='json'),navigation=nav,width=width,height=len(block),status='OPERATOR_CONFIGURED_NOT_FIELD_VALIDATED',model='FLAT_BOTTOM_NEAR_LEVEL',ground_resolution_m=profile.ground_resolution_m,side=side.side,supported_corrections=['SLANT_TO_GROUND_FLAT_BOTTOM','PER_PING_YAW','POSE_ROTATED_GPS_LEVER_ARM'],unsupported_corrections=['FULL_BEAM_PITCH_ROLL_FOOTPRINT','UNALIGNED_HEAVE','SLOPING_BOTTOM'],water_column_removed=True)
+    geometry=dict(rendering_metadata=rendering_metadata,version=profile.version,profile=profile.model_dump(mode='json'),navigation=nav,width=width,height=len(block),status='OPERATOR_CONFIGURED_NOT_FIELD_VALIDATED',model='FLAT_BOTTOM_NEAR_LEVEL',ground_resolution_m=profile.ground_resolution_m,side=side.side,supported_corrections=['SLANT_TO_GROUND_FLAT_BOTTOM','PER_PING_YAW','POSE_ROTATED_GPS_LEVER_ARM'],unsupported_corrections=['FULL_BEAM_PITCH_ROLL_FOOTPRINT','UNALIGNED_HEAVE','SLOPING_BOTTOM'],water_column_removed=True)
     return gray,geometry
 
 

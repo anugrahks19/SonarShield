@@ -70,19 +70,20 @@ def windows(records,rows=512,overlap=0,profile=None):
 
 def render(block,profile=None):
     raw=np.vstack([record['samples'] for record in block])
-    # Deterministic full-scale conversion, recorded explicitly; not a validated enhancement.
-    gray=np.rint(raw.astype(np.float64)*(255/np.iinfo(raw.dtype).max)).astype(np.uint8)
+    from ai.runtime.sonar_rendering import scale_samples
+    gray,rendering_metadata=scale_samples(raw)
     geometry=None
     if profile is not None:
         from ai.runtime.sonar_geometry import rectify
         gray,geometry=rectify(block,profile)
     from ai.runtime.survey import acquisition_quality
-    reference=dict(row_indices=[r.get('_row_index',i) for i,r in enumerate(block)],segment=block[0].get('_segment',0),acquisition_quality=acquisition_quality(block),channel=block[0]['channel'],rendering='FULL_SCALE_LINEAR_UNVALIDATED',ping_numbers=[r['ping_number'] for r in block],packet_offsets=[r['packet_offset'] for r in block],navigation_status='UNVERIFIED_UNITS_DATUM_POSE',navigation=[{k:v for k,v in r.items() if k!='samples'} for r in block])
+    reference=dict(row_indices=[r.get('_row_index',i) for i,r in enumerate(block)],segment=block[0].get('_segment',0),acquisition_quality=acquisition_quality(block),channel=block[0]['channel'],rendering='LOG1P_PERCENTILE_UNVALIDATED',rendering_metadata=rendering_metadata,ping_numbers=[r['ping_number'] for r in block],packet_offsets=[r['packet_offset'] for r in block],navigation_status='UNVERIFIED_UNITS_DATUM_POSE',navigation=[{k:v for k,v in r.items() if k!='samples'} for r in block])
 
     if geometry is not None:
         reference['geometry']=geometry
+        reference['rendering_metadata']=geometry['rendering_metadata']
         reference['navigation_status']='OPERATOR_CONFIGURED_NOT_FIELD_VALIDATED'
-        reference['rendering']='FLAT_BOTTOM_GROUND_RANGE_FULL_SCALE_UNVALIDATED_FOR_DETECTOR'
+        reference['rendering']='FLAT_BOTTOM_GROUND_RANGE_LOG1P_PERCENTILE_UNVALIDATED_FOR_DETECTOR'
         quality=reference['acquisition_quality']
         quality['flags']=[f for f in quality['flags'] if f not in ['CHANNEL_ORIENTATION_UNVERIFIED','NAVIGATION_AND_POSE_UNVERIFIED','MOTION_CORRECTION_NOT_APPLIED']]
         quality['flags']+=['OPERATOR_GEOMETRY_NOT_FIELD_VALIDATED','FULL_BEAM_MOTION_CORRECTION_UNSUPPORTED','RAW_RENDERING_NOT_DETECTOR_VALIDATED']

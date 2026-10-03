@@ -1,0 +1,16 @@
+{
+  "scope": "EXACT_USER_REPORTED_EXISTING_XTF_JOB_PRESENTATION_FIX",
+  "original_png_median": 0.0,
+  "source_preview_median": 125.0,
+  "source_preview_std": 52.227088426272786,
+  "old_analysis_unchanged": true,
+  "index_styled": true,
+  "preview_pair_verified": true,
+  "utf8_labels": true,
+  "empty_review_controls_disabled": true,
+  "unavailable_map_hidden": true,
+  "expanded_raster_height_min": 260,
+  "desktop_sidebar_mobile_no_overflow": true,
+  "page_errors": [],
+  "inference_calls_in_browser": 0
+}

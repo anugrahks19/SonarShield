@@ -14,7 +14,7 @@ Updated 3 October 2026. This document supersedes older deployment and raw-workfl
 | Raw workflow | Bounded raw-log â†’ PNG â†’ local analysis â†’ interactive offline viewer â†’ human review â†’ CSV/JSON/GeoJSON; resumable hashed outputs; grid-aware overlap reconciliation | Four real windows processed with zero candidates; no geographic values invented |
 | Geometry/quality | Explicit source-bound operator profile; per-ping WGS84 heading projection, pose-rotated lever arm, flat-bottom slant correction, estimated raster dimensions; quality/gap/saturation warnings | Synthetic mathematical tests; real orientation/pose/altitude/datum alignment and known contacts not independently verified |
 | Offline/exports | Private native bundle, unchanged-checkpoint ONNX export and raw-tensor comparison | Not a full ONNX pipeline-equivalence or target-edge certification |
-| Release | 47 frontend tests, 40 backend tests, lint/typecheck/build/secret-pattern scan, SQL regression, browser viewer/review/report and four examples | Current task consumes zero HF inference runs |
+| Release | 47 frontend tests, 43 backend tests, lint/typecheck/build/secret-pattern scan, SQL regression, browser viewer/review/report and four examples | Current task consumes zero HF inference runs |
 
 ## Run the actual raw workflow
 
@@ -86,3 +86,18 @@ Real browser verification used `15CCT03_SSS_153_150602205800.xtf` (5,228,224 byt
 Reports now include original pixel box corners/dimensions, detector score percentages and acquisition flags. Zero rows are retained and disclosed, with candidate-level dropout-intersection warnings. Pitch/roll departures and unresolved heave trigger review warnings. A single ping cannot establish along-track dimensions, so its height is explicitly unavailable. No pixels or motion measurements are fabricated to hide data loss.
 
 Remaining scientific capabilities are full beam/terrain/heave correction using verified synchronized inputs and independent field accuracy. These stay partial in the PS compliance matrix; missing samples cannot be recovered from absent measurements. Calibration belongs to Module 2. Target edge hardware and power are unavailable; the actual Windows benchmark remains the only hardware certification scope.
+
+
+## XTF rendering defect repaired after user visual report
+
+The prior full-scale UINT16 rendering lost usable sonar contrast: the actual user log had median amplitudes 25-27 on a 65,535 storage scale, producing median PNG value zero. The prior "browser passed" gate checked navigation and export, and did not adequately validate image visibility or result-page styling. It must not be interpreted as validation of the original rendering's usability.
+
+Default raw conversion now uses deterministic log1p amplitude mapping with 1st/99.5th percentile endpoints, preserving zero/dropout samples and recording all transform parameters per window. It is not a learned enhancement and not a validated detector preprocessing domain. Existing model weights/thresholds remain unchanged. Independent raw-log labels are needed to assess detection accuracy under this conversion.
+
+The exact 55,071,424-byte user log was rerun on local CPU as a new job with four windows, producing 1/3/1/0 REVIEW candidates. This establishes functioning image input and candidate/report flow, not correct hazard identification. Browser verification checked real candidate selection, review refresh/export, readable controls and sidebar layout; no HF inference calls occurred.
+
+Existing jobs keep their original PNG and analysis JSON hashes. Their repaired viewers may use source-derived contrast previews clearly labelled as display-only; old results are not relabelled as corrected inference. The new corrected job uses its actual analyzed PNG. Do not resume a job across changed rendering/source identity; create a new job.
+
+Index and window pages now share dark workspace styling, UTF-8 labels, proper input/buttons, a readable candidate summary and collapsed technical evidence. Empty geographic plots are hidden; review controls are disabled until selecting an actual candidate. Default inspection display expands ping rows and labels the independent axis scaling; native pixel aspect remains available. Physical dimensions must never be inferred from stretched display pixels.
+
+Relevant evidence: `module1-xtf-visual-fix-20261003.json`, `module1-corrected-xtf-run-20261003.json`, `module1-corrected-xtf-browser-20261003.json`. Three additional amplitude-rendering regressions bring backend/preflight tests to 43. Full motion/field accuracy and target-edge certification remain open as stated above.
