@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "status": "BOUNDED_COMPLETE",
+  "configuration": {
+    "artifacts": {
+      "detector": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+      "fusion": "b57dc4e7c9eb713c11a716c72e1087a7f3e942811779d01978527b669ef9d02b"
+    },
+    "pipeline_sha256": "517c400029bed5b6d22cebfe36553eb3680d5cab583018c4c22572783f2297e8",
+    "source_log_sha256": "c6acb314bae7f20896d5a890f312332350b6b77262d6c249cdb1fe0b1de1f27a",
+    "device": "cpu",
+    "max_windows": 1,
+    "rows": 128,
+    "overlap": 16,
+    "tiled": true,
+    "geometry_profile": null,
+    "processing_sources": {
+      "xtf": "5e1e82e80b9734241b2eb99508935bafcbed392f8a877fb21cc90ce6bc00a4a0",
+      "survey_job": "de22d733970f468b1d5ea475f92c5526470512a5c6057347835b0e591bd80068",
+      "survey": "45ac8da679359b20ea9e262abf34fc0c828f8e5011c096296bb85959b454ad14",
+      "sonar_geometry": "fc6f86db06e9688097773aa3e2afcb93cc94bf8b2be235edf4760d15c7638d68",
+      "survey_report": "7f647054539d255de8aeb53a35b93ec4d9ff9f96aadf43328e375c03233515ac",
+      "survey_viewer": "a7361a3bfc3a7e727d41d599aab091ab54cfc39dff64126c40d76b6b1da44135"
+    }
+  },
+  "windows_completed": 1,
+  "outputs": [
+    {
+      "image_sha256": "16c8e2113c11a2a84f28c0b676727ff3d2fd5a024aa1351426c613187c9d1503",
+      "analysis_sha256": "a13bd24342c65560a3846e213fa6339ae167f40601d96dd04297d92aa1ff1480"
+    }
+  ],
+  "geographic": "UNAVAILABLE",
+  "rendering": "UNVALIDATED",
+  "reconciled_contact_count": 0,
+  "report_observation_count": 0
+}

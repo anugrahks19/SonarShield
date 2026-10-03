@@ -7,7 +7,7 @@ if args.output.exists():parser.error('Choose a new output file; existing bundles
 files=[]
 for folder in ['api','runtime','schemas','detection','evidence']:
     files.extend(sorted((root/'ai'/folder).glob('*.py')))
-files.extend([root/'scripts/offline_analyze.py',root/'scripts/benchmark_offline.py',root/'scripts/analyze_xtf.py',root/'scripts/validate_survey_positions.py',root/'scripts/verify_xtf_semantics.py',root/'scripts/benchmark_export.py',root/'requirements-export.txt',root/'requirements-inference.txt',root/'requirements-raw.txt',root/'requirements-benchmark.txt',root/'models/v6/detector_v6_p2_sss/weights/best.pt',root/'ai/fusion/weights/gate_d_fusion_model.pkl'])
+files.extend([root/'scripts/offline_analyze.py',root/'scripts/benchmark_offline.py',root/'scripts/analyze_xtf.py',root/'scripts/start_survey_dashboard.py',root/'scripts/validate_survey_positions.py',root/'scripts/verify_xtf_semantics.py',root/'scripts/benchmark_export.py',root/'requirements-export.txt',root/'requirements-inference.txt',root/'requirements-raw.txt',root/'requirements-benchmark.txt',root/'models/v6/detector_v6_p2_sss/weights/best.pt',root/'ai/fusion/weights/gate_d_fusion_model.pkl'])
 for path in files:
     if not path.is_file():parser.error('Required local bundle component is missing: '+str(path.relative_to(root)))
 manifest={'format':'SONAR_SHIELD_NATIVE_OFFLINE','version':1,'model_parameters':'UNCHANGED','calibration':'UNAVAILABLE_REVIEW_ONLY','licensing':'PRIVATE_LOCAL_BUNDLE_VERIFY_ARTIFACT_RIGHTS_BEFORE_REDISTRIBUTION','files':[]}

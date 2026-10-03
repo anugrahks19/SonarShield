@@ -1,5 +1,7 @@
 > Module 1 continuation: Supabase + Vercel is the selected cloud records and durable admission path. [Setup instructions](docs/SUPABASE_VERCEL_SETUP.md). Implementation is locally tested; cloud activation and field/hardware gates remain open. See the [phase ledger](docs/MODULE1_IMPLEMENTATION.md).
 
+Current PS 26057 requirement status: [compliance matrix](docs/PS26057_COMPLIANCE.md). Local raw uploads run with `python scripts/start_survey_dashboard.py --output-dir .temp/survey-dashboard` after isolated raw/inference dependencies are installed.
+
 Current software release and evidence: [Module 1 release](docs/MODULE1_RELEASE_20261003.md), including raw-survey commands, actual CPU benchmarks, cloud checks and remaining field-validation prerequisites.
 
 # SONAR-SHIELD

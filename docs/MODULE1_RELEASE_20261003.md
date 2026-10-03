@@ -9,12 +9,12 @@ Updated 3 October 2026. This document supersedes older deployment and raw-workfl
 | Backend/contracts | Correct model identity, common analysis runtime, provenance, explicit unavailable calibration, REVIEW decisions | Frozen artifacts unchanged |
 | Records UI | Cloud fields, action groups, review-history entries and portable-record toolbar match workspace spacing; desktop and mobile layout checked | Local release browser |
 | Records/reports | Paired-image hash validation, local refresh restore, cloud save/open, immutable review revisions, JSON/CSV/print and complete-record transfers | Browser cloud walkthrough mocked; user confirms hosted sign-in/open and identical review note after refresh/restore |
-| Usage controls | Production fails closed without durable admission; concurrency, finite daily budget, expiry/release and service-only RPC checks; protected daily maintenance | Embedded PostgreSQL checks passed; hosted SQL probe/actual scheduled cleanup need confirmation |
+| Usage controls | Production fails closed without durable admission; concurrency, finite daily budget, expiry/release and service-only RPC checks; protected daily maintenance | Embedded PostgreSQL checks passed; all five hosted checks passed in user screenshot; two user-reported maintenance HTTP 200 invocations; automatic scheduling and actual expired-image deletion not observed |
 | Real XTF input | All 143 logs decoded for supported sonar packets: 2,068,844 channel rows and 8,473,985,024 samples; no failed files, invalid timestamps or nonfinite metadata | Vendor-specific packets are not interpreted; decoding is not field validation |
 | Raw workflow | Bounded raw-log â†’ PNG â†’ local analysis â†’ interactive offline viewer â†’ human review â†’ CSV/JSON/GeoJSON; resumable hashed outputs; grid-aware overlap reconciliation | Four real windows processed with zero candidates; no geographic values invented |
 | Geometry/quality | Explicit source-bound operator profile; per-ping WGS84 heading projection, pose-rotated lever arm, flat-bottom slant correction, estimated raster dimensions; quality/gap/saturation warnings | Synthetic mathematical tests; real orientation/pose/altitude/datum alignment and known contacts not independently verified |
 | Offline/exports | Private native bundle, unchanged-checkpoint ONNX export and raw-tensor comparison | Not a full ONNX pipeline-equivalence or target-edge certification |
-| Release | 46 frontend tests, 34 backend tests, lint/typecheck/build/secret-pattern scan, SQL regression, browser viewer/review/report and four examples | Current task consumes zero HF inference runs |
+| Release | 47 frontend tests, 40 backend tests, lint/typecheck/build/secret-pattern scan, SQL regression, browser viewer/review/report and four examples | Current task consumes zero HF inference runs |
 
 ## Run the actual raw workflow
 
@@ -59,6 +59,30 @@ Private 640px ONNX export produced matching raw output shape `[1,9,34000]`, maxi
 
 ## Honest closure boundary
 
-Software can be completed and local release verified with available inputs. Full Module 1 certification still requires independently measured survey targets and verified sensor geometry, confirmation of the hosted usage/maintenance checks, and actual target hardware if edge certification is required. No separate edge device is available. These are evidence prerequisites, not substitutes for tests or permission to invent measurements. Module 2 remains responsible for verified calibration, labeled validation and any training; no automatic 90% precision/recall guarantee is made.
+Software can be completed and local release verified with available inputs. Full Module 1 certification still requires independently measured survey targets and verified sensor geometry, observed automatic maintenance scheduling/expired-image deletion, and actual target hardware if edge certification is required. No separate edge device is available. These are evidence prerequisites, not substitutes for tests or permission to invent measurements. Module 2 remains responsible for verified calibration, labeled validation and any training; no automatic 90% precision/recall guarantee is made.
 
 Evidence is saved under `docs/metrics/module1-*-20261003.json`. Private weights, ONNX exports, raw logs and reviewer credentials are excluded from Git.
+
+
+## Latest closure work: browser raw uploads and production checks
+
+The user's Supabase screenshot confirms all five usage-control checks passed. The user also supplied two successful HTTP 200 `/api/maintenance` logs at 11:00:30.82 and 11:00:54.95 IST on 3 October 2026. These establish authenticated maintenance invocation, not observed deletion of an actual expired image or automatic execution at the daily scheduled time. Existing cleanup tests prove failed Storage deletion does not prune the database record.
+
+A loopback-only raw dashboard now accepts streamed XTF uploads up to 2 GiB, rejects uploads when existing stored data plus the new input exceeds the 4 GiB admission budget (generated output can add to that budget), permits one active CPU job and at most 100 windows per job, and offers explicit cancellation/resume. Host/origin/session checks reject cross-site requests; only generated result filenames can be read. Dashboard restarts restore job listings without starting inference. Keep this local; it is not an internet-hosted raw-data service. Jobs interrupted during inference can resume only after their previous process is confirmed stopped; stale job locks are not removed automatically.
+
+Setup reuses the existing inference packages through a separate virtual environment; it does not modify the active training environment:
+
+```powershell
+Set-Location "E:\GITHUB\a sih 2026"
+python -m venv --system-site-packages .venv-survey
+.\.venv-survey\Scripts\python.exe -m pip install -r requirements-raw.txt
+.\.venv-survey\Scripts\python.exe scripts/start_survey_dashboard.py --output-dir .temp/survey-dashboard --port 8766
+```
+
+Open `http://127.0.0.1:8766/`. Choose an XTF file, optionally attach a reviewed geometry profile, select bounded window settings and click **Upload and run local CPU analysis**. Then **Open viewer and reports**. Results remain explicitly local inference; this does not change the Vercel live-first/verified-example paths. A fresh system also needs the packages in `requirements-inference.txt` and the licensed frozen artifacts; missing dependencies fail explicitly.
+
+Real browser verification used `15CCT03_SSS_153_150602205800.xtf` (5,228,224 bytes, larger than Vercel's gateway body limit), one real CPU window, verified source hash, local reports/export, desktop/mobile layouts and zero external requests/HF calls. A separate synthetic geometry fixture verified selecting geographic markers, saving/restoring reviews and exporting; it is not a measured field-accuracy result. The raw viewer's geographic display is a local WGS84 extent plot without an online basemap.
+
+Reports now include original pixel box corners/dimensions, detector score percentages and acquisition flags. Zero rows are retained and disclosed, with candidate-level dropout-intersection warnings. Pitch/roll departures and unresolved heave trigger review warnings. A single ping cannot establish along-track dimensions, so its height is explicitly unavailable. No pixels or motion measurements are fabricated to hide data loss.
+
+Remaining scientific capabilities are full beam/terrain/heave correction using verified synchronized inputs and independent field accuracy. These stay partial in the PS compliance matrix; missing samples cannot be recovered from absent measurements. Calibration belongs to Module 2. Target edge hardware and power are unavailable; the actual Windows benchmark remains the only hardware certification scope.

@@ -1,0 +1,6 @@
+"""Start the local raw-survey dashboard. Never trains or binds a public interface."""
+import sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from ai.runtime.survey_dashboard import main
+if __name__=='__main__':main()

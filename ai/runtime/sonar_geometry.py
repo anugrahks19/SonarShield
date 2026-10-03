@@ -156,7 +156,8 @@ def project_box(box,geometry):
     lat,lon,heading,track=at_y(cy)
     cx=(x1+x2)/2;across=(cx if geometry['side']=='STARBOARD' else cx-width)*geometry['ground_resolution_m']
     angle=math.radians(heading);lat,lon=offset_position(lat,lon,-across*math.sin(angle),across*math.cos(angle))
-    dimensions=dict(width_m=(x2-x1)*geometry['ground_resolution_m'],height_m=abs(at_y(y2)[3]-at_y(y1)[3]),method='RECTIFIED_ACROSS_RANGE_AND_SENSOR_TRACK_EXTENTS',status='ESTIMATED_NOT_FIELD_VALIDATED')
+    height_m=abs(at_y(y2)[3]-at_y(y1)[3]) if height>1 else None
+    dimensions=dict(width_m=(x2-x1)*geometry['ground_resolution_m'],height_m=height_m,height_status='UNAVAILABLE_SINGLE_PING' if height_m is None else 'ESTIMATED_TRACK_EXTENT',method='RECTIFIED_ACROSS_RANGE_AND_SENSOR_TRACK_EXTENTS',status='ESTIMATED_NOT_FIELD_VALIDATED')
     return dict(geographic=dict(coordinate_system='WGS84',latitude=lat,longitude=lon,heading_deg=heading),sonar=dict(coordinate_system='SONAR_RELATIVE',range_m=abs(across),across_track_m=across,along_track_m=track),physical_dimensions=dimensions)
 
 

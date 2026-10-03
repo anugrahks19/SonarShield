@@ -1,0 +1,9 @@
+{
+  "scope": "SYNTHETIC_GEOGRAPHIC_MAP_REVIEW_EXPORT_NOT_FIELD_VALIDATION",
+  "geographic_marker_selection": true,
+  "review_refresh_export": true,
+  "real_raw_window_rendered": true,
+  "network_calls": 0,
+  "inference_calls_in_browser": 0,
+  "page_errors": []
+}

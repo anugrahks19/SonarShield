@@ -58,6 +58,8 @@ def run_job(log,output,device='cpu',max_windows=10,rows=512,overlap=64,tiled=Tru
                     from ai.runtime.sonar_geometry import attach_localization
                     attach_localization(candidate,reference['geometry'])
                 y1,y2=candidate['detection']['bbox'][1::2]
+                zero_rows=reference['acquisition_quality']['zero_sample_row_indices']
+                if any(y1<=row+.5<y2 for row in zero_rows):candidate['quality']['image']['flags'].append(dict(code='CANDIDATE_INTERSECTS_ACQUISITION_DROPOUT',severity='WARNING'))
                 candidate['source_ping_reference']=dict(channel=reference['channel'],row_min=y1,row_max=y2,ping_numbers=reference['ping_numbers'][max(0,int(y1)):min(len(reference['ping_numbers']),int(y2)+1)])
                 for flag in reference['acquisition_quality']['flags']:candidate['quality']['image']['flags'].append(dict(code=flag,severity='WARNING'))
             write_json(output/f'window-{index:05d}.json',response)

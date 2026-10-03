@@ -49,7 +49,8 @@ class GeometryTests(unittest.TestCase):
 
     def test_single_row_and_outside_box(self):
         _,g=rectify(rows()[:1],profile())
-        self.assertEqual(project_box([0,0,2,1],g)['physical_dimensions']['height_m'],0)
+        self.assertIsNone(project_box([0,0,2,1],g)['physical_dimensions']['height_m'])
+        self.assertEqual(project_box([0,0,2,1],g)['physical_dimensions']['height_status'],'UNAVAILABLE_SINGLE_PING')
         with self.assertRaises(ValueError):project_box([-1,0,2,1],g)
 
 if __name__=='__main__':unittest.main()

@@ -7,12 +7,18 @@ def acquisition_quality(block):
     numbers=[row['ping_number'] for row in block]
     gaps=sum(b>a+1 for a,b in zip(numbers,numbers[1:])); reversals=sum(b<=a for a,b in zip(numbers,numbers[1:]))
     flags=[]
+    zero_rows=np.flatnonzero(np.all(data==0,axis=1)).tolist()
+    pose=[(r.get('pitch_raw'),r.get('roll_raw'),r.get('heave_raw')) for r in block]
+    supplied_pose=all(all(isinstance(v,(int,float)) and np.isfinite(v) for v in row) for row in pose)
+    if supplied_pose and any(abs(p)>2 or abs(r)>2 for p,r,h in pose):flags.append('NONLEVEL_ACQUISITION_REQUIRES_REVIEW')
+    if supplied_pose and any(abs(h)>1e-6 for p,r,h in pose):flags.append('UNALIGNED_HEAVE_CORRECTION_UNAVAILABLE')
+    if not supplied_pose:flags.append('POSE_MISSING_OR_NONFINITE')
     if zeros: flags.append('ZERO_SAMPLE_ROWS')
     if saturation>=0.2: flags.append('HIGH_FULL_SCALE_SATURATION_HEURISTIC')
     if gaps: flags.append('PING_SEQUENCE_GAPS')
     if reversals: flags.append('PING_SEQUENCE_NONMONOTONIC')
     flags.extend(['CHANNEL_ORIENTATION_UNVERIFIED','NAVIGATION_AND_POSE_UNVERIFIED','MOTION_CORRECTION_NOT_APPLIED'])
-    return dict(zero_row_fraction=float(zeros),full_scale_fraction=saturation,ping_sequence_gaps=gaps,ping_sequence_reversals=reversals,flags=flags,assessment='DETERMINISTIC_FLAGS_NOT_FIELD_VALIDATED',correction='NONE_ORIGINAL_SAMPLES_RETAINED')
+    return dict(zero_sample_row_indices=zero_rows,missing_samples_reconstructed=False,pose_assessment='PRESENT_RAW_UNVERIFIED' if supplied_pose else 'UNAVAILABLE',zero_row_fraction=float(zeros),full_scale_fraction=saturation,ping_sequence_gaps=gaps,ping_sequence_reversals=reversals,flags=flags,assessment='DETERMINISTIC_FLAGS_NOT_FIELD_VALIDATED',correction='NONE_ORIGINAL_SAMPLES_RETAINED')
 
 def reconcile(contacts,threshold=0.7):
     # Only comparable same-channel/render-segment/sample-grid contacts can merge.

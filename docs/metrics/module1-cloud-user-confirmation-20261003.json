@@ -4,7 +4,31 @@
   "signed_in": true,
   "cloud_record_opened": true,
   "same_review_note_restored_after_refresh": true,
-  "hosted_sql_probe": "AWAITING_USER_RESULT",
-  "scheduled_cleanup": "UNVERIFIED",
-  "inference_calls_by_agent": 0
+  "hosted_sql_probe": {
+    "scope": "USER_SCREENSHOT_HOSTED_SUPABASE",
+    "checks": {
+      "concurrent_limit": true,
+      "daily_budget": true,
+      "lease_expiry": true,
+      "retention_rpc_permissions": true,
+      "service_only_admission": true
+    }
+  },
+  "scheduled_cleanup": "MANUAL_INVOCATION_SUCCESS_CONFIRMED_AUTOMATIC_SCHEDULE_NOT_OBSERVED",
+  "inference_calls_by_agent": 0,
+  "maintenance_invocations": {
+    "scope": "USER_REPORTED_VERCEL_LOG",
+    "method": "GET",
+    "path": "/api/maintenance",
+    "statuses": [
+      200,
+      200
+    ],
+    "times_local": [
+      "2026-10-03 11:00:30.82",
+      "2026-10-03 11:00:54.95"
+    ],
+    "timezone": "Asia/Calcutta"
+  },
+  "expired_storage_deletion": "NO_EXPIRED_IMAGE_FIXTURE_OBSERVED"
 }

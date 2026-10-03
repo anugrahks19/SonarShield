@@ -1,0 +1,13 @@
+{
+  "scope": "REAL_XTF_BROWSER_UPLOAD_TO_LOCAL_CPU_VIEWER_REPORT",
+  "upload_bytes": 5228224,
+  "gateway_body_limit_bypassed": true,
+  "windows": 1,
+  "source_hash_verified": true,
+  "source_label_verified": true,
+  "desktop_mobile_no_overflow": true,
+  "page_errors": [],
+  "external_network_requests": [],
+  "hf_inference_calls": 0,
+  "training": false
+}
