@@ -1,0 +1,306 @@
+{
+  "date": "2026-10-03",
+  "private_pool": ".temp/xtf-independent-review",
+  "images": 162,
+  "source_logs": 28,
+  "split_counts": {
+    "DEV": 116,
+    "CALIBRATION": 22,
+    "TEST": 24
+  },
+  "sampling": "DETERMINISTIC_RESERVOIR_PER_CHANNEL_NO_PREDICTION_SELECTION",
+  "scope": "ONE_SURVEY_DAY_GROUPED_NOT_INDEPENDENT_EXTERNAL_VALIDATION",
+  "test_day": "150603",
+  "calibration_day": "150602",
+  "all_images_unreviewed": true,
+  "qualified_annotations_supplied": false,
+  "precision": null,
+  "recall": null,
+  "public_xtf_enabled": false,
+  "evaluation_blocked_before_inference": true,
+  "training_started": false,
+  "hf_calls": 0,
+  "sources": [
+    {
+      "source_file": "15CCT03_SSS_150528172600.xtf",
+      "sha256": "06432389124dbd163f8ce5c040908da8cb6ad694fa85c3bf517aa1d363cb6f29",
+      "day": "150528",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 53,
+        "1": 53
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150528184100.xtf",
+      "sha256": "37f476abd589469dba3adb21bf228a76d00d9665caf73eff67aa6f083373d0aa",
+      "day": "150528",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 53,
+        "1": 53
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150528204600.xtf",
+      "sha256": "432060debdd56a0bff1c6d2dedb0d9a18ce9539024569476e7fcb7954e2792cf",
+      "day": "150528",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 37,
+        "1": 37
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150528222700.xtf",
+      "sha256": "fe9bfa025eea27a35b800da095567b851ab3f687627cbc28667f5d41c9a4f94c",
+      "day": "150528",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 9,
+        "1": 9
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150529141200.xtf",
+      "sha256": "fcfbf12aa6ca3178ff92c92fee0b1d6393054495e102176c51fcbbc9f0cf0eb8",
+      "day": "150529",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 23,
+        "1": 23
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150529151300.xtf",
+      "sha256": "c2929f5ebb043b72ad0b0fab3851fa5128e475cb899b779fc74c3a9f0c76ff4e",
+      "day": "150529",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 44,
+        "1": 44
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150529171500.xtf",
+      "sha256": "3ffdf567dcfe28cf09a5524c2898a8f2259f79777a868eb3aa150c7728988429",
+      "day": "150529",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 17,
+        "1": 17
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150529202100.xtf",
+      "sha256": "378a8594d01ccb5979aa62f04592ffc0a1e895bdb0983aff2e3d5c8badcf1eb0",
+      "day": "150529",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 13,
+        "1": 13
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150530143000.xtf",
+      "sha256": "2ae5bf2e9ae5d5ebc89c0d9e822b905256931bebf30015c22cdca5483cd9fb2f",
+      "day": "150530",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 16,
+        "1": 16
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150530161900.xtf",
+      "sha256": "525e2e5d2440904d3d692ccc3fa670c663b07287ac2f94f89b65751e541d7da4",
+      "day": "150530",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 53,
+        "1": 53
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150530184400.xtf",
+      "sha256": "b40a7a3288e4e33277f7b7f603c23ea564f3f6e1ea4dd0784ab825bfe9c7ab65",
+      "day": "150530",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 53,
+        "1": 53
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150530204400.xtf",
+      "sha256": "8910079dfce385ba60068a1ab03b325cfe8972eff0b12a99f04c9ed1816d212c",
+      "day": "150530",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 28,
+        "1": 28
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150531150400.xtf",
+      "sha256": "782393320a87608118b7e438cb3aff0769182c62a87b98e1377b28c77e0d22b2",
+      "day": "150531",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 12,
+        "1": 12
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150531165500.xtf",
+      "sha256": "fad525c512d300a7068ebc7ebd7c1795f033ac8335d4ac8bdbcdea95e95851b1",
+      "day": "150531",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 5,
+        "1": 5
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150531192200.xtf",
+      "sha256": "2b40cec0df9d86406b5181b3c24e0bd42aebe9ea9f586b5b2e7d817d3ff2cd8c",
+      "day": "150531",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 16,
+        "1": 16
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150531205200.xtf",
+      "sha256": "09b7aded441a7eec5f8984b333efe28c4d000e56888b7b6763ab637a3dfe46ee",
+      "day": "150531",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 25,
+        "1": 25
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150601141000.xtf",
+      "sha256": "fa665af1b0d9a40f20ef1d0dffd5ad32980b943e6f683a5fd5b6e7559ef64657",
+      "day": "150601",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 1,
+        "1": 1
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150601163000.xtf",
+      "sha256": "f48c2913b7ac86d2fcdf7f86d0a526a47a93c9e2ed7dedf62be58164c63a0449",
+      "day": "150601",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 23,
+        "1": 23
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150601182800.xtf",
+      "sha256": "914fd64aab0a0898c754871c8b837d6ad6497bbe513df924a2dc148b1e56821e",
+      "day": "150601",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 40,
+        "1": 40
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150601202400.xtf",
+      "sha256": "966b3f3b5e820f341536daea7247fdea9fe80ffdd3a7b84fe6afb6864df157a6",
+      "day": "150601",
+      "split": "DEV",
+      "windows_seen_by_channel": {
+        "0": 21,
+        "1": 21
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_150602133300.xtf",
+      "sha256": "d055ecc68e441340a0c3765187099025ef6d6b072fa07b6264f9e2d86ac8ee00",
+      "day": "150602",
+      "split": "CALIBRATION",
+      "windows_seen_by_channel": {
+        "0": 4,
+        "1": 4
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_153_150602154200.xtf",
+      "sha256": "6f760b7231354381dda367791f68f7c08601af05a8768870ae79ac3a0f8620e0",
+      "day": "150602",
+      "split": "CALIBRATION",
+      "windows_seen_by_channel": {
+        "0": 38,
+        "1": 38
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_153_150602180300.xtf",
+      "sha256": "00950c6bb4ff1c6ee0ca2178d0782aaac835f65aa7ae796cba86e4adfbc54fe5",
+      "day": "150602",
+      "split": "CALIBRATION",
+      "windows_seen_by_channel": {
+        "0": 5,
+        "1": 5
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_153_150602205800.xtf",
+      "sha256": "c6acb314bae7f20896d5a890f312332350b6b77262d6c249cdb1fe0b1de1f27a",
+      "day": "150602",
+      "split": "CALIBRATION",
+      "windows_seen_by_channel": {
+        "0": 2,
+        "1": 2
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_154_150603134400.xtf",
+      "sha256": "98f1b2d9fdb797b9300751ff0d0fe8a6cda789b9ffa2fe3176b8bca168a6912a",
+      "day": "150603",
+      "split": "TEST",
+      "windows_seen_by_channel": {
+        "0": 27,
+        "1": 27
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_154_150603144100.xtf",
+      "sha256": "a4194d046f084580491d7f20de96dfcc8bb5f3913f18b383523cc2352bfdf547",
+      "day": "150603",
+      "split": "TEST",
+      "windows_seen_by_channel": {
+        "0": 19,
+        "1": 19
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_154_150603154300.xtf",
+      "sha256": "745bdf1d36ae3152c77e5ee2202093547d6004a212b1cb7ccc0a69d5927b5a83",
+      "day": "150603",
+      "split": "TEST",
+      "windows_seen_by_channel": {
+        "0": 53,
+        "1": 53
+      }
+    },
+    {
+      "source_file": "15CCT03_SSS_154_150603165300.xtf",
+      "sha256": "8a0f352988fd136033d5e2feac6db750e0fad52c57fd93240f062043b23b2af0",
+      "day": "150603",
+      "split": "TEST",
+      "windows_seen_by_channel": {
+        "0": 6,
+        "1": 6
+      }
+    }
+  ],
+  "rendering_source_sha256": "01c8eb4228379f2c1ecaf2129b2998fe72ef50390ea77545509b139ee8a3b284"
+}

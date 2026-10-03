@@ -1,0 +1,28 @@
+{
+  "scope": "BLIND_ANNOTATION_UI_SYNTHETIC_REVIEW_NOT_ACCURACY_VALIDATION",
+  "images": 162,
+  "source_logs": 28,
+  "split_counts": {
+    "DEV": 116,
+    "CALIBRATION": 22,
+    "TEST": 24
+  },
+  "days": [
+    "150528",
+    "150529",
+    "150530",
+    "150531",
+    "150601",
+    "150602",
+    "150603"
+  ],
+  "hashes_valid": true,
+  "duplicate_rasters": 0,
+  "original_pixel_box_mapping": true,
+  "unreviewed_not_background": true,
+  "local_review_refresh_export": true,
+  "desktop_mobile_no_overflow": true,
+  "page_errors": [],
+  "hf_inference_calls": 0,
+  "training_started": false
+}

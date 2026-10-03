@@ -1,5 +1,7 @@
 # Module 1 implementation and remaining verification
 
+> Latest continuation: [XTF blind review pool, accuracy gate and current closure ledger](XTF_ACCURACY_RELEASE.md); [future edge-device API](EDGE_DEVICE_API.md). Hosted cloud verification is confirmed. Target-device certification is deferred; field validation, qualified raw annotations and full motion correction remain open.
+
 > Current status: see [Module 1 release, 3 October 2026](MODULE1_RELEASE_20261003.md). It supersedes the historical deployment/raw-workflow status below.
 
 Date: 2 October 2026. Checkout: `E:\GITHUB\a sih 2026`. Branch: `codex/module1-hardening`.

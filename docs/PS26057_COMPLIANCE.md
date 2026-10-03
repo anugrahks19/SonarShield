@@ -16,6 +16,12 @@ Updated 3 October 2026. Software changes do not retrain the detector or justify 
 | Resource/abuse controls | Five hosted SQL checks passed; shared admission/daily budget/lease boundaries; server-only secrets; manual maintenance invocations HTTP 200 | Finite HF service-account quota; automatic cron occurrence and actual expired-image deletion not directly observed |
 | Lightweight offline/edge operation | Native private offline bundle, actual Windows CPU full-pipeline timing/RSS and private ONNX raw-tensor comparison | No Raspberry Pi/Jetson/drone benchmark or power measurement; tensor comparison is not full exported-pipeline accuracy validation |
 
+## Latest additions: independent raw review and future edge API
+
+162 blind annotation windows from 28 logs over seven days have been prepared: 116 DEV, 22 CALIBRATION, 24 TEST. Whole-day separation reduces adjacent-window leakage; these remain one unlabelled survey, not independent external field evidence. The frozen class-correct evaluator blocks unreviewed data and reports object precision/recall, not system accuracy. Public raw inference is still gated. See [review instructions and release criteria](XTF_ACCURACY_RELEASE.md).
+
+An authenticated, bounded local [edge-device image API](EDGE_DEVICE_API.md) returns the existing F8 analysis contract. A real CPU request returned HTTP 200 with verified frozen artifact hashes and REVIEW-only decisions; no training or HF quota was consumed. This is not an AUV hardware certification.
+
 ## Current evidence gates
 
 47 frontend/server tests, 43 backend/preflight tests, embedded PostgreSQL isolation/admission/retention checks, release lint/typecheck/build/secret-pattern scan, live-response rendering and mocked cloud roundtrip, user-confirmed hosted cloud roundtrip, real local raw upload/report browser walkthrough and synthetic geographic interaction passed. No HF inference calls or training were required for this closure task.
@@ -24,9 +30,9 @@ Updated 3 October 2026. Software changes do not retrain the detector or justify 
 
 1. Known target locations/dimensions and independently reviewed source geometry for real-survey accuracy.
 2. Verified beam/pose/vertical conventions and independent acquisition references for full motion correction. This also requires further processing implementation; it is not merely a missing test.
-3. Actual target edge-device access/resource budget and measured power.
+3. Physical edge-device certification is deferred at the user's request. The new authenticated image API supplies a future integration contract; real device throughput, power and vehicle compatibility remain unmeasured.
 4. Independent labeled validation and verified calibration in Module 2 for precision/recall or 90% claims.
 
-Module 1 remains partially open on the field/full-motion and target-hardware gates. Hosted records and database usage controls now have real evidence. See [release commands and detailed evidence](MODULE1_RELEASE_20261003.md).
+Module 1 remains partially open on field accuracy/full-motion processing and public XTF validation. Physical edge certification is a future milestone rather than a required present prototype gate. Hosted records and database usage controls now have real evidence. See [release commands and detailed evidence](MODULE1_RELEASE_20261003.md).
 
 The original full-scale XTF rendering was defective for low-amplitude UINT16 samples. It was corrected after a user visual report; the exact log now has a visible image and a real-candidate review/export walkthrough. Candidate counts do not establish field accuracy. See the release report for legacy-preview pairing and corrected-run evidence.

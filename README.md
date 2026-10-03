@@ -1,4 +1,4 @@
-> Module 1 continuation: Supabase + Vercel is the selected cloud records and durable admission path. [Setup instructions](docs/SUPABASE_VERCEL_SETUP.md). Implementation is locally tested; cloud activation and field/hardware gates remain open. See the [phase ledger](docs/MODULE1_IMPLEMENTATION.md).
+> Module 1 update (3 October 2026): shared cloud records/review restoration and five hosted admission checks are confirmed. [XTF review and accuracy release gate](docs/XTF_ACCURACY_RELEASE.md) · [Future edge-device API](docs/EDGE_DEVICE_API.md). Public XTF inference remains gated; expert annotations, independent field measurements and full motion correction are still outstanding. [Supabase setup](docs/SUPABASE_VERCEL_SETUP.md).
 
 Current PS 26057 requirement status: [compliance matrix](docs/PS26057_COMPLIANCE.md). Local raw uploads run with `python scripts/start_survey_dashboard.py --output-dir .temp/survey-dashboard` after isolated raw/inference dependencies are installed.
 
@@ -6,7 +6,7 @@ Current software release and evidence: [Module 1 release](docs/MODULE1_RELEASE_2
 
 # SONAR-SHIELD
 
-Current local Module 1 work: [implementation, phase status, setup and remaining verification](docs/MODULE1_IMPLEMENTATION.md). This branch has corrected F8.1 runtime changes that are not yet deployed; historical/deployed limitations below must be read with that status.
+Module 1: [implementation ledger](docs/MODULE1_IMPLEMENTATION.md) and [current closure boundary](docs/XTF_ACCURACY_RELEASE.md). The corrected F8.1 image backend is deployed; the raw XTF dashboard and edge adapter remain local. Historical limitations below must be read with the current release evidence.
 
 **A human-reviewed side-scan sonar analysis workspace.** Upload a JPG or PNG sonar image, inspect detected candidates and their evidence, record a separate human assessment, and export a browser-generated report. The public site uses a Hugging Face Gradio Space for best-effort live inference. When shared ZeroGPU capacity is exhausted, judges can explicitly open a clearly labeled, previously computed example.
 

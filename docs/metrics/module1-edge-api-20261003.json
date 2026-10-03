@@ -1,0 +1,18 @@
+{
+  "scope": "REAL_NATIVE_CPU_EDGE_API_CONTRACT_NOT_ACCURACY_VALIDATION",
+  "http_status": 200,
+  "runtime_seconds": 8.654330199999094,
+  "source": "LOCAL_EDGE_INFERENCE",
+  "device_id": "windows-qa",
+  "input_sha256": "6407b4344f90aa1ade206d83c2e9072e6a007c200f3a721212258908225e29e3",
+  "candidate_count": 2,
+  "artifacts": {
+    "detector": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+    "fusion": "b57dc4e7c9eb713c11a716c72e1087a7f3e942811779d01978527b669ef9d02b"
+  },
+  "schema_valid": true,
+  "decisions_review_only": true,
+  "token_in_response": false,
+  "hf_inference_calls": 0,
+  "training_started": false
+}
