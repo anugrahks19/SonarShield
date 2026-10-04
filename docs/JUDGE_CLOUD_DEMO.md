@@ -29,3 +29,9 @@ After judging, revoke sessions and disable/ban or delete the Auth demo user thro
 ## Verification
 
 Local SQL tests cover readiness, private isolation, altered/live response rejection, idempotent creation, review length/history, deletion/team restrictions, ordinary reviewer behavior and administrator retention. Browser checks cover login/sample/history, review sync, refresh/reopen, source labels and mobile layout with zero inference calls. [Evidence](metrics/judge-cloud-demo-20261004.json).
+
+## Three selectable reports upgrade
+
+The Analysis page offers Contact 103, Contact 104 and Contact 105 as named cloud cards after demo sign-in. Open cloud record restores the paired image, result and reviews, navigates to `/analysis`, and brings the viewer into view. View report opens that selected analysis report. All three remain PRECOMPUTED EXAMPLE — NOT LIVE INFERENCE.
+
+For an already activated demo account, run `supabase/verification/upgrade_judge_demo_three.sql` once in the Supabase SQL Editor. It preserves the account, Contact 105 and existing notes; do not recreate the user or rerun the fresh-account activation script. Then redeploy the frontend and select Sign in as demo judge to seed the three immutable paired examples. The database permits only these three exact fixtures for this public account. Existing retention and review limits still apply.

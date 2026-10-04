@@ -26,6 +26,12 @@ const cid=sample.candidates[0].candidate_id;
 await db.query('select public.sonar_review_save($1,$2,0,$3,$4)',[record.id,cid,'NEEDS_INVESTIGATION','demo note']);
 await db.query('select public.sonar_review_save($1,$2,1,$3,$4)',[record.id,cid,'NEEDS_INVESTIGATION','judge revision']);
 assert.equal((await db.query('select public.sonar_record_get($1) as value',[record.id])).rows[0].value.review_history.length,2);
+// Upgrade after an existing Contact 105 and its notes have been stored.
+await identity('','service_role');await db.exec('reset role');await db.exec(readFileSync('supabase/migrations/202610040002_judge_demo_three.sql','utf8'));
+await identity('','anon');assert.equal((await db.query('select public.sonar_judge_demo_catalog_ready() as ready')).rows[0].ready,true);await assert.rejects(db.exec('select * from public.sonar_judge_demo_examples'));
+await identity(demo);assert.equal((await db.query('select public.sonar_record_get($1) as value',[record.id])).rows[0].value.review_history.length,2);
+for(const n of [103,104]){const a=JSON.parse(readFileSync(`frontend/public/contact-${n}.json`,'utf8'));const bytes=readFileSync(`frontend/public/contact-${n}.jpg`).length;await db.query('select public.sonar_record_create($1::jsonb,$2,$3,$4,$5,null)',[JSON.stringify(a),'PRECOMPUTED_EXAMPLE',a.input.sha256,bytes,'image/jpeg']);}
+assert.equal((await db.query('select public.sonar_record_list() as value')).rows[0].value.records.length,3);
 await assert.rejects(db.query('select public.sonar_review_save($1,$2,2,$3,$4)',[record.id,cid,'CONFIRMED','x'.repeat(2001)]));
 await assert.rejects(db.query('select public.sonar_delete_begin($1)',[record.id]));
 await assert.rejects(db.query('delete from storage.objects where name=$1',[record.image_path]).then(r=>{assert.equal(r.affectedRows,0);throw Error('delete policy rejects');}));
