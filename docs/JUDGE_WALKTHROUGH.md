@@ -42,3 +42,7 @@ Show the local raw dashboard only as a supported bounded prototype. Navigation/d
 2. For an HF runtime rollback, use a previously verified full source-and-artifact revision. Do not substitute new weights under old fusion/policy/calibration. The local `rollback-d1.pt` is an experimental baseline, not a deployed-runtime backup.
 3. Restore paired browser records through Import complete record, or reopen an authorized cloud record. Review histories stay separate from original analysis.
 4. Verify the fallback/viewer/review/report labels after recovery. Real live inference remains a deliberate separate check.
+
+## Public demo reviewer
+
+[Activate the dedicated judge sandbox](JUDGE_CLOUD_DEMO.md) to test a precomputed cloud record and public review history without your private login. Supabase activation is required; the UI checks readiness before enabling the button.

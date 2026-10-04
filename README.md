@@ -2,7 +2,7 @@
 
 AI-assisted side-scan sonar candidate detection and human review for **PS 26057**, Ministry of Earth Sciences / NIOT.
 
-[Public workspace](https://sonarshield26.vercel.app/analysis) · [Judge walkthrough](docs/JUDGE_WALKTHROUGH.md) · [Architecture](docs/ARCHITECTURE.md) · [Demo downloads](submission/README.md) · [Submission package](docs/MODULE2_M212_SUBMISSION.md) · [Requirements matrix](docs/PS26057_COMPLIANCE.md)
+[Public workspace](https://sonarshield26.vercel.app/analysis) · [Judge walkthrough](docs/JUDGE_WALKTHROUGH.md) · [Cloud demo setup](docs/JUDGE_CLOUD_DEMO.md) · [Architecture](docs/ARCHITECTURE.md) · [Demo downloads](submission/README.md) · [Submission package](docs/MODULE2_M212_SUBMISSION.md) · [Requirements matrix](docs/PS26057_COMPLIANCE.md)
 
 ## Current release: 4 October 2026
 

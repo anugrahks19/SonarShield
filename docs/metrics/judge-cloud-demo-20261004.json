@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-04",
+  "status": "IMPLEMENTED_LOCAL_QA_PASSED_HOSTED_ACTIVATION_PENDING",
+  "frontend_release_tests": 49,
+  "seed_tests": 2,
+  "sql_guards": "PASSED",
+  "browser": {
+    "mode": "MOCKED_SUPABASE_REAL_BROWSER_NOT_HOSTED_AUTH",
+    "sample_revisions": 2,
+    "judge_revision_restored": true,
+    "reseed_idempotent": true,
+    "private_mutation_controls_disabled": true,
+    "mobile_no_horizontal_overflow": true,
+    "inference_calls": 0,
+    "page_errors": []
+  },
+  "real_hf_calls": 0,
+  "hosted_auth_user_and_schema": "REQUIRES_PROJECT_ADMIN_ACTIVATION",
+  "shared_password_intentionally_public": true
+}
