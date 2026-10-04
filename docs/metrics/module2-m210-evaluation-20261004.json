@@ -1,0 +1,115 @@
+{
+  "phase": "M2.10_FINAL_POST_TRAINING_MEASUREMENT",
+  "run_completed_epochs": 10,
+  "scope": "HISTORICALLY_USED_DEV_INHERITED_LABELS_NOT_INDEPENDENT_TEST_OR_XTF_ACCURACY",
+  "checkpoint": "E:\\GITHUB\\a sih 2026\\models\\controlled\\m2_submission_ft10_warmupfix_02\\weights\\best.pt",
+  "checkpoint_sha256": {
+    "best.pt": "8e62f838be12ca362e3384e871bac98da9b2ac23249082a86ab9ce5ece25135a",
+    "last.pt": "5c8153d416f1121b486ea68ba9690b34ae8ef349394a8b91aa18ad64c1b95429"
+  },
+  "checkpoint_states": [
+    {
+      "file": "last.pt",
+      "raw_checkpoint_epoch": -1,
+      "matching_csv_epochs": [
+        10
+      ],
+      "run_completed_epochs": 10,
+      "target_epochs": 10,
+      "optimizer_present": false
+    },
+    {
+      "file": "best.pt",
+      "raw_checkpoint_epoch": -1,
+      "matching_csv_epochs": [
+        6
+      ],
+      "run_completed_epochs": 10,
+      "target_epochs": 10,
+      "optimizer_present": false
+    }
+  ],
+  "images": 1129,
+  "matching": "CLASS_CORRECT_CONFIDENCE_ORDERED_ONE_TO_ONE_IOU_GE_0.50",
+  "confidence_threshold": 0.25,
+  "nms_iou": 0.7,
+  "imgsz": 640,
+  "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "precision_type": "OBJECT_MICRO_AT_FIXED_CONFIDENCE",
+  "object_metrics": {
+    "tp": 992,
+    "fp": 312,
+    "fn": 1301,
+    "precision": 0.7607361963190185,
+    "recall": 0.4326210204971653
+  },
+  "mAP50": 0.703489331499804,
+  "mAP50_95": 0.4989043333058042,
+  "ultralytics_validation_mean_precision": 0.766256869995706,
+  "ultralytics_validation_mean_recall": 0.6908009898790908,
+  "ultralytics_pr_scope": "MEAN_CLASS_PRECISION_RECALL_AT_VALIDATOR_SELECTED_F1_POINT_DIFFERENT_FROM_FIXED_0.25",
+  "inference_time": {
+    "batch": 1,
+    "precision": "FP32",
+    "gpu_model_forward_mean_ms": 8.225654472926623,
+    "gpu_model_forward_median_ms": 6.741799999872455,
+    "gpu_model_forward_p95_ms": 12.451400001737056,
+    "directory_walk_wall_ms_per_image": 12.135226483613858,
+    "includes_fusion_or_cloud_network": false
+  },
+  "false_positives_per_image": 0.2763507528786537,
+  "per_class": {
+    "0": {
+      "name": "crab_pot",
+      "tp": 345,
+      "fp": 137,
+      "fn": 930,
+      "precision": 0.7157676348547718,
+      "recall": 0.27058823529411763
+    },
+    "1": {
+      "name": "submarine_pipeline",
+      "tp": 147,
+      "fp": 2,
+      "fn": 0,
+      "precision": 0.9865771812080537,
+      "recall": 1.0
+    },
+    "2": {
+      "name": "shipwreck",
+      "tp": 242,
+      "fp": 105,
+      "fn": 302,
+      "precision": 0.6974063400576369,
+      "recall": 0.44485294117647056
+    },
+    "3": {
+      "name": "ghost_net",
+      "tp": 135,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "4": {
+      "name": "mine_cylinder",
+      "tp": 123,
+      "fp": 68,
+      "fn": 69,
+      "precision": 0.643979057591623,
+      "recall": 0.640625
+    }
+  },
+  "training_restarted": false,
+  "dataset_manifest_sha256": "f2f8fff98d631725cd3066726056943bc9b2910abce49a380cc6521f7205f796",
+  "hf_inference_calls": 0,
+  "final_accuracy_claim_allowed": false,
+  "comparison_to_d1": {
+    "precision_delta_pp": 0.10697823690564157,
+    "recall_delta_pp": -0.43610989969472547,
+    "map50_delta_pp": -0.3582347122427887,
+    "map50_95_delta_pp": -0.11731904722238617,
+    "fp_delta": -5,
+    "promotion": "NOT_PROMOTED_MIXED_RESULTS"
+  }
+}

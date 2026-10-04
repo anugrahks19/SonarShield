@@ -5,13 +5,14 @@ from ultralytics import YOLO
 from torchvision.ops import batched_nms
 
 class TiledDetector:
-    def __init__(self, model_path, conf=0.15, iou=0.7):
+    def __init__(self, model_path, conf=0.15, iou=0.7, device=None):
         """
         SAHI-style coarse-to-fine detector.
         """
         self.model = YOLO(model_path)
         self.conf = conf
         self.iou = iou
+        self.device = device
         
     def predict(self, image, trigger_conf=0.20, tile_size=384, overlap=0.25, pure_tiled=False):
         """
@@ -22,7 +23,7 @@ class TiledDetector:
         
         if not pure_tiled:
             # 1. Global Inference
-            global_results = self.model(image, conf=self.conf, iou=self.iou, imgsz=640, verbose=False)[0]
+            global_results = self.model(image, conf=self.conf, iou=self.iou, imgsz=640, verbose=False, device=self.device)[0]
             
             for box in global_results.boxes:
                 b = box.xyxy[0].cpu().numpy()
@@ -57,7 +58,7 @@ class TiledDetector:
                     tile[0:tile_h, 0:tile_w] = image[y1:y2, x1:x2]
                     
                     # Inference on tile (resized to 640 internally by YOLO)
-                    tile_results = self.model(tile, conf=self.conf, iou=self.iou, imgsz=640, verbose=False)[0]
+                    tile_results = self.model(tile, conf=self.conf, iou=self.iou, imgsz=640, verbose=False, device=self.device)[0]
                     
                     for box in tile_results.boxes:
                         b = box.xyxy[0].cpu().numpy()

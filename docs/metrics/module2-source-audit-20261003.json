@@ -1,0 +1,782 @@
+{
+  "phase": "M2.04_SOURCE_AUDIT",
+  "status": "TECHNICAL_INVENTORY_COMPLETE_SCIENTIFIC_APPROVAL_PENDING",
+  "raster_entries": 116686,
+  "unique_byte_images": 25712,
+  "raw_xtf_logs": 143,
+  "groups": [
+    {
+      "dataset": "AI4Shipwrecks",
+      "rasters": 251,
+      "unique_byte_images": 251,
+      "roles": {
+        "UNKNOWN": 25,
+        "HISTORICAL_TEST": 85,
+        "HISTORICAL_TRAIN": 141
+      },
+      "label_types": {
+        "PIXEL_MASK_REVIEW_REQUIRED": 251
+      },
+      "issue_images": 0,
+      "issue_counts": {},
+      "native_or_declared_class_boxes": {},
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "China-Offshore-SSS-AI",
+      "rasters": 3255,
+      "unique_byte_images": 3255,
+      "roles": {
+        "UNKNOWN": 3255
+      },
+      "label_types": {
+        "IMAGE_LEVEL_ONLY": 3255
+      },
+      "issue_images": 3255,
+      "issue_counts": {
+        "DETECTION_BOXES_UNAVAILABLE": 3255
+      },
+      "native_or_declared_class_boxes": {},
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "MILCONOMBO Side-Scan Sonar Mine Dataset",
+      "rasters": 1170,
+      "unique_byte_images": 1170,
+      "roles": {
+        "UNKNOWN": 1170
+      },
+      "label_types": {
+        "YOLO_NATIVE_MILCO_NOMBO": 1170
+      },
+      "issue_images": 1,
+      "issue_counts": {
+        "line 2: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "1": 231,
+        "0": 436
+      },
+      "empty_yolo_labels_not_confirmed_background": 866
+    },
+    {
+      "dataset": "SSS_UXO",
+      "rasters": 307,
+      "unique_byte_images": 307,
+      "roles": {
+        "UNKNOWN": 307
+      },
+      "label_types": {
+        "UNKNOWN": 307
+      },
+      "issue_images": 307,
+      "issue_counts": {
+        "NO_LOCAL_ANNOTATIONS": 307
+      },
+      "native_or_declared_class_boxes": {},
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "V8-A-TARGETED-HARD-POSITIVE",
+      "rasters": 12419,
+      "unique_byte_images": 12419,
+      "roles": {
+        "UNKNOWN": 18,
+        "HISTORICAL_TRAIN": 12401
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 12419
+      },
+      "issue_images": 159,
+      "issue_counts": {
+        "MISSING_LABEL": 18,
+        "line 2: invalid YOLO fields/class/bounds": 44,
+        "line 1: invalid YOLO fields/class/bounds": 80,
+        "line 3: invalid YOLO fields/class/bounds": 8,
+        "line 6: invalid YOLO fields/class/bounds": 5,
+        "line 7: invalid YOLO fields/class/bounds": 1,
+        "line 5: invalid YOLO fields/class/bounds": 2,
+        "line 4: invalid YOLO fields/class/bounds": 3,
+        "line 11: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 8368,
+        "2": 1626,
+        "4": 1179,
+        "1": 1000,
+        "3": 765
+      },
+      "empty_yolo_labels_not_confirmed_background": 3595
+    },
+    {
+      "dataset": "Vessel_config_diagram.jpg",
+      "rasters": 1,
+      "unique_byte_images": 1,
+      "roles": {
+        "UNKNOWN": 1
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 1
+      },
+      "issue_images": 1,
+      "issue_counts": {
+        "MISSING_LABEL": 1
+      },
+      "native_or_declared_class_boxes": {},
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "ai4shipwreck_bbox_audit",
+      "rasters": 30,
+      "unique_byte_images": 30,
+      "roles": {
+        "UNKNOWN": 30
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 30
+      },
+      "issue_images": 30,
+      "issue_counts": {
+        "MISSING_LABEL": 30
+      },
+      "native_or_declared_class_boxes": {},
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "ai4shipwreck_bbox_audit_v2",
+      "rasters": 26,
+      "unique_byte_images": 26,
+      "roles": {
+        "UNKNOWN": 26
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 26
+      },
+      "issue_images": 26,
+      "issue_counts": {
+        "MISSING_LABEL": 26
+      },
+      "native_or_declared_class_boxes": {},
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "controlled_v8a_20261003",
+      "rasters": 13342,
+      "unique_byte_images": 13342,
+      "roles": {
+        "CURRENT_TRAIN": 12213,
+        "CURRENT_DEV": 1129
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 13342
+      },
+      "issue_images": 0,
+      "issue_counts": {},
+      "native_or_declared_class_boxes": {
+        "0": 10032,
+        "2": 2555,
+        "4": 1637,
+        "1": 1147,
+        "3": 900
+      },
+      "empty_yolo_labels_not_confirmed_background": 2675
+    },
+    {
+      "dataset": "crab_pot",
+      "rasters": 6674,
+      "unique_byte_images": 6674,
+      "roles": {
+        "HISTORICAL_TEST": 398,
+        "HISTORICAL_TRAIN": 5721,
+        "HISTORICAL_VALIDATION": 555
+      },
+      "label_types": {
+        "NATIVE_JSONL": 6674
+      },
+      "issue_images": 83,
+      "issue_counts": {
+        "NATIVE_BOX_OUTSIDE_IMAGE": 85
+      },
+      "native_or_declared_class_boxes": {},
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "drishti_sss",
+      "rasters": 11879,
+      "unique_byte_images": 11872,
+      "roles": {
+        "HISTORICAL_TEST": 1098,
+        "HISTORICAL_TRAIN": 9596,
+        "HISTORICAL_VALIDATION": 1185
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 11879
+      },
+      "issue_images": 84,
+      "issue_counts": {
+        "line 2: invalid YOLO fields/class/bounds": 19,
+        "line 1: invalid YOLO fields/class/bounds": 48,
+        "line 6: invalid YOLO fields/class/bounds": 5,
+        "line 7: invalid YOLO fields/class/bounds": 1,
+        "line 5: invalid YOLO fields/class/bounds": 2,
+        "line 4: invalid YOLO fields/class/bounds": 3,
+        "line 3: invalid YOLO fields/class/bounds": 7,
+        "line 11: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 9226,
+        "4": 1017,
+        "1": 1321,
+        "3": 1140,
+        "2": 2623
+      },
+      "empty_yolo_labels_not_confirmed_background": 2187
+    },
+    {
+      "dataset": "drishti_sss_v2",
+      "rasters": 12177,
+      "unique_byte_images": 12171,
+      "roles": {
+        "HISTORICAL_TRAIN": 10708,
+        "HISTORICAL_VALIDATION": 1469
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 12177
+      },
+      "issue_images": 85,
+      "issue_counts": {
+        "line 2: invalid YOLO fields/class/bounds": 20,
+        "line 1: invalid YOLO fields/class/bounds": 48,
+        "line 6: invalid YOLO fields/class/bounds": 5,
+        "line 7: invalid YOLO fields/class/bounds": 1,
+        "line 5: invalid YOLO fields/class/bounds": 2,
+        "line 4: invalid YOLO fields/class/bounds": 3,
+        "line 3: invalid YOLO fields/class/bounds": 7,
+        "line 11: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 8659,
+        "2": 2238,
+        "4": 1371,
+        "1": 1147,
+        "3": 1020
+      },
+      "empty_yolo_labels_not_confirmed_background": 3054
+    },
+    {
+      "dataset": "drishti_sss_v3",
+      "rasters": 15479,
+      "unique_byte_images": 14154,
+      "roles": {
+        "HISTORICAL_BACKGROUND": 324,
+        "HISTORICAL_TEST": 1097,
+        "HISTORICAL_TRAIN": 11485,
+        "HISTORICAL_VALIDATION": 1443,
+        "HISTORICAL_DEV": 1130
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 15479
+      },
+      "issue_images": 143,
+      "issue_counts": {
+        "line 2: invalid YOLO fields/class/bounds": 46,
+        "line 1: invalid YOLO fields/class/bounds": 80,
+        "line 3: invalid YOLO fields/class/bounds": 8,
+        "line 6: invalid YOLO fields/class/bounds": 5,
+        "line 7: invalid YOLO fields/class/bounds": 1,
+        "line 5: invalid YOLO fields/class/bounds": 2,
+        "line 4: invalid YOLO fields/class/bounds": 3,
+        "line 11: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 11485,
+        "4": 1646,
+        "1": 1468,
+        "3": 1140,
+        "2": 3239
+      },
+      "empty_yolo_labels_not_confirmed_background": 3465
+    },
+    {
+      "dataset": "drishti_sss_v4",
+      "rasters": 17934,
+      "unique_byte_images": 15507,
+      "roles": {
+        "HISTORICAL_BACKGROUND": 324,
+        "HISTORICAL_TEST": 1098,
+        "HISTORICAL_TRAIN": 13939,
+        "HISTORICAL_VALIDATION": 1443,
+        "HISTORICAL_DEV": 1130
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 17934
+      },
+      "issue_images": 423,
+      "issue_counts": {
+        "line 1: invalid YOLO fields/class/bounds": 360,
+        "line 2: invalid YOLO fields/class/bounds": 46,
+        "line 3: invalid YOLO fields/class/bounds": 8,
+        "line 6: invalid YOLO fields/class/bounds": 5,
+        "line 7: invalid YOLO fields/class/bounds": 1,
+        "line 5: invalid YOLO fields/class/bounds": 2,
+        "line 4: invalid YOLO fields/class/bounds": 3,
+        "line 11: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 12832,
+        "4": 2177,
+        "1": 1468,
+        "3": 1140,
+        "2": 3535
+      },
+      "empty_yolo_labels_not_confirmed_background": 3466
+    },
+    {
+      "dataset": "drishti_sss_v7",
+      "rasters": 11495,
+      "unique_byte_images": 11495,
+      "roles": {
+        "HISTORICAL_TRAIN": 11495
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 11495
+      },
+      "issue_images": 141,
+      "issue_counts": {
+        "line 2: invalid YOLO fields/class/bounds": 44,
+        "line 1: invalid YOLO fields/class/bounds": 80,
+        "line 3: invalid YOLO fields/class/bounds": 8,
+        "line 6: invalid YOLO fields/class/bounds": 5,
+        "line 7: invalid YOLO fields/class/bounds": 1,
+        "line 5: invalid YOLO fields/class/bounds": 2,
+        "line 4: invalid YOLO fields/class/bounds": 3,
+        "line 11: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 8368,
+        "2": 1626,
+        "4": 1178,
+        "1": 1000,
+        "3": 765
+      },
+      "empty_yolo_labels_not_confirmed_background": 2690
+    },
+    {
+      "dataset": "gate_a_NORMALIZED",
+      "rasters": 1130,
+      "unique_byte_images": 1130,
+      "roles": {
+        "HISTORICAL_VALIDATION": 1130
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 1130
+      },
+      "issue_images": 1,
+      "issue_counts": {
+        "line 2: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 1275,
+        "4": 193,
+        "1": 147,
+        "3": 135,
+        "2": 544
+      },
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "gate_a_NORMALIZED_CLAHE",
+      "rasters": 1130,
+      "unique_byte_images": 1130,
+      "roles": {
+        "HISTORICAL_VALIDATION": 1130
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 1130
+      },
+      "issue_images": 1,
+      "issue_counts": {
+        "line 2: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 1275,
+        "4": 193,
+        "1": 147,
+        "3": 135,
+        "2": 544
+      },
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "gate_a_NORMALIZED_DENOISE",
+      "rasters": 1130,
+      "unique_byte_images": 1130,
+      "roles": {
+        "HISTORICAL_VALIDATION": 1130
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 1130
+      },
+      "issue_images": 1,
+      "issue_counts": {
+        "line 2: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 1275,
+        "4": 193,
+        "1": 147,
+        "3": 135,
+        "2": 544
+      },
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "gate_a_NORMALIZED_DENOISE_CLAHE",
+      "rasters": 1130,
+      "unique_byte_images": 1130,
+      "roles": {
+        "HISTORICAL_VALIDATION": 1130
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 1130
+      },
+      "issue_images": 1,
+      "issue_counts": {
+        "line 2: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 1275,
+        "4": 193,
+        "1": 147,
+        "3": 135,
+        "2": 544
+      },
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "gate_a_SOURCE_STATE_UNKNOWN",
+      "rasters": 1130,
+      "unique_byte_images": 1130,
+      "roles": {
+        "HISTORICAL_VALIDATION": 1130
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 1130
+      },
+      "issue_images": 1,
+      "issue_counts": {
+        "line 2: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 1275,
+        "4": 193,
+        "1": 147,
+        "3": 135,
+        "2": 544
+      },
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "quarantine",
+      "rasters": 1,
+      "unique_byte_images": 1,
+      "roles": {
+        "UNKNOWN": 1
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 1
+      },
+      "issue_images": 0,
+      "issue_counts": {},
+      "native_or_declared_class_boxes": {},
+      "empty_yolo_labels_not_confirmed_background": 1
+    },
+    {
+      "dataset": "v3_crab_crops",
+      "rasters": 1000,
+      "unique_byte_images": 1000,
+      "roles": {
+        "UNKNOWN": 1000
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 1000
+      },
+      "issue_images": 57,
+      "issue_counts": {
+        "line 1: invalid YOLO fields/class/bounds": 32,
+        "line 2: invalid YOLO fields/class/bounds": 25,
+        "line 3: invalid YOLO fields/class/bounds": 1
+      },
+      "native_or_declared_class_boxes": {
+        "0": 984
+      },
+      "empty_yolo_labels_not_confirmed_background": 0
+    },
+    {
+      "dataset": "v3_hard_negatives",
+      "rasters": 392,
+      "unique_byte_images": 392,
+      "roles": {
+        "UNKNOWN": 392
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 392
+      },
+      "issue_images": 0,
+      "issue_counts": {},
+      "native_or_declared_class_boxes": {},
+      "empty_yolo_labels_not_confirmed_background": 392
+    },
+    {
+      "dataset": "v3_normal_negatives",
+      "rasters": 750,
+      "unique_byte_images": 750,
+      "roles": {
+        "UNKNOWN": 750
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 750
+      },
+      "issue_images": 0,
+      "issue_counts": {},
+      "native_or_declared_class_boxes": {},
+      "empty_yolo_labels_not_confirmed_background": 750
+    },
+    {
+      "dataset": "v4_hard_positives",
+      "rasters": 2454,
+      "unique_byte_images": 1353,
+      "roles": {
+        "UNKNOWN": 2454
+      },
+      "label_types": {
+        "YOLO_CANONICAL_OR_UNVERIFIED": 2454
+      },
+      "issue_images": 280,
+      "issue_counts": {
+        "line 1: invalid YOLO fields/class/bounds": 280
+      },
+      "native_or_declared_class_boxes": {
+        "0": 1347,
+        "2": 296,
+        "4": 531
+      },
+      "empty_yolo_labels_not_confirmed_background": 0
+    }
+  ],
+  "crab_native_category_counts": {
+    "Crab-Pot": 9311
+  },
+  "crab_native_box_count": 9311,
+  "metadata_issues": [],
+  "exact_duplicate_groups": 16494,
+  "exact_cross_role_groups": 13739,
+  "decoded_pixel_cross_role_groups": 0,
+  "current_train_exact_overlap_with_native_source_test_groups": 10,
+  "crab_filename_family_cross_role_groups": 0,
+  "controlled_images_with_native_maybe_category_by_name": 0,
+  "near_candidate_pairs": 20000,
+  "near_crowded_bucket_events": 5680,
+  "near_candidate_limit": 20000,
+  "decoded_unique_byte_images": 18729,
+  "metadata_hashes": {
+    "datasets\\crab_pot\\test\\metadata.jsonl": "e090a0080f567fb6b8071246cc232edfcb2fca96a49ab642816ec51905ce58cf",
+    "datasets\\crab_pot\\train\\metadata.jsonl": "846556a1a5bb70568520558b2099194868772c23dd4e437afad2b22a32898dc4",
+    "datasets\\crab_pot\\valid\\metadata.jsonl": "c72615c7381b68aa80c1c1f767de8767541e9f88310d57e7237975efec6c57f5",
+    "datasets\\China-Offshore-SSS-AI\\metadata\\image_manifest.csv": "070fb83d2827b8712b3d2c87e8fcad35b3785dfe4da651ddf7ba5daac4425063"
+  },
+  "training_configs": [
+    {
+      "file": "models\\controlled\\v8a_labels_fixed_01\\args.yaml",
+      "sha256": "8515c0a25c3f0f74952b3e2675975dfbb83e0708852fb9efcb4232cb09294629",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\controlled_v8a_20261003\\data.yaml",
+      "epochs": 80
+    },
+    {
+      "file": "models\\v1\\detector_v1\\args.yaml",
+      "sha256": "82fee95170fd06882645459e9bea57a9252aeca798de5d1f6e0c8f7070cfe49f",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss\\drishti.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v1\\detector_v1-2\\args.yaml",
+      "sha256": "fc60b4f603dec00314372cec0b74666fd7b408ac758aecc383a3e08b4eee5795",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss\\drishti.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v2\\detector_v2_hn\\args.yaml",
+      "sha256": "030fe766cad578019b52ddd8eabe3020acc87484d1386a02b656e7d2f6fe6e45",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v2\\drishti_v2.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v2\\detector_v2_hn-2\\args.yaml",
+      "sha256": "d3a9cb3b34e8ae08ecb1e4d5861887252aea4e63ea861e92672265e104e0cb55",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v2\\drishti_v2.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v2\\detector_v2_hn-3\\args.yaml",
+      "sha256": "e9d02bc90d6267fbc1ed07ecd713c4b2e4b4a4c8cbf215ce887fd969ce5dad2a",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v2\\drishti_v2.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v2\\detector_v2_hn-4\\args.yaml",
+      "sha256": "cb65b4e3dcb5a3f20e1eedf967adb98465e72cb79cdf9dbe68f77a517e40f2c2",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v2\\drishti_v2.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v3\\detector_v3\\args.yaml",
+      "sha256": "abc52b05692c89c333b2d1ad2e6929d13a2ec01a122a56bc2ee4f6f99db76a01",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v3\\drishti_v3.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v3\\detector_v3-2\\args.yaml",
+      "sha256": "e2d694bfcbe820831336158e484ff80e412c4af7c5fdee6b26481b24d337fc01",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v3\\drishti_v3.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v4\\detector_v4\\args.yaml",
+      "sha256": "78b330045537530b7afe3fb906664237f675d2c934db973804d3b8e77b51e711",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v4\\drishti_v4.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v4\\detector_v4-2\\args.yaml",
+      "sha256": "07639fc64cf42b83ec687ce81a90773f311189bc686235450df2f34c00057cd2",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v4\\drishti_v4.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v4\\detector_v4-3\\args.yaml",
+      "sha256": "b1ce1db8178f110eb5f9ff1520158d46c85040b91e094450e456bd09ef5a5fbf",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v4\\drishti_v4.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v5\\detector_v5_m640\\args.yaml",
+      "sha256": "fcda9b11b91c98e04f0c75424fa842a90d6fd204bd11fc49dc02fa3f82676c1e",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v3\\drishti_v3.yaml",
+      "epochs": 50
+    },
+    {
+      "file": "models\\v6\\detector_v6_p2_sss\\args.yaml",
+      "sha256": "194d375aa66c496f1c02c63a21fbeef83f266505ec930242921aac16a017d2e0",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v3\\drishti_v3.yaml",
+      "epochs": 80
+    },
+    {
+      "file": "models\\v7\\detector_v7_b_targeted\\args.yaml",
+      "sha256": "d0675628c1e61192ade0671bebe17e5d63f2dd8f4a3f7d148758e5e298a09033",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v7\\drishti_v7_b.yaml",
+      "epochs": 80
+    },
+    {
+      "file": "models\\v7\\detector_v7_b_targeted-2\\args.yaml",
+      "sha256": "db74a3f4c9f9046913cf2f99b87e32fc8a16106a9b21cf327a632c24e6f5c364",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v7\\drishti_v7_b.yaml",
+      "epochs": 80
+    },
+    {
+      "file": "models\\v7\\detector_v7_b_targeted-3\\args.yaml",
+      "sha256": "f25a463e7ab1c1a761e4cad7ddfbf1d8ef2e8197081f334bc6f861d997db23ec",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v7\\drishti_v7_b.yaml",
+      "epochs": 80
+    },
+    {
+      "file": "models\\v7\\detector_v7_b_targeted-run2\\args.yaml",
+      "sha256": "e7fda9d80417ab34a362f8651e0a4bf07d64f26471df44e87ea86c97c249a8ca",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v7\\drishti_v7_b.yaml",
+      "epochs": 80
+    },
+    {
+      "file": "models\\v7\\detector_v7_b_targeted-run2-2\\args.yaml",
+      "sha256": "301f046fd0314b2bb19f3010e2501c54e4037be44731845581c1befae7005e52",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\drishti_sss_v7\\drishti_v7_b.yaml",
+      "epochs": 80
+    },
+    {
+      "file": "models\\v8\\detector_v8_a_targeted\\args.yaml",
+      "sha256": "5b2eef867ef7fc23e9bdc8c683e1e7dd40696a7685bc68594fb214640bcdac10",
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\V8-A-TARGETED-HARD-POSITIVE\\dataset.yaml",
+      "epochs": 80
+    }
+  ],
+  "mapping_decisions": {
+    "Crab-Pot": "candidate class 0 only after pairing/semantic review",
+    "Maybe-Crab-Pot": "ambiguous; neither automatic positive nor background",
+    "MILCO": "candidate generic mine-like contact; cylinder shape not established",
+    "NOMBO": "non-mine source category; not automatic mine_cylinder; review project debris semantics",
+    "China folder labels": "classification only; detection boxes unavailable",
+    "AI4Shipwrecks masks": "review foreground semantics and instance fragmentation before boxes",
+    "ghost_net": "synthetic scope only until real labelled evidence"
+  },
+  "license_status": {
+    "crab_pot": "CONFLICT: local and publisher card header CC-BY-SA-4.0 vs body GPL; seek maintainer clarification",
+    "drishti_revisions": "local copied README claims CC-BY-SA-4.0; component licenses and modified membership not fully verified",
+    "China-Offshore-SSS-AI": "local README has no explicit license grant identified; upstream clarification needed",
+    "AI4Shipwrecks": "derived README claims CC-BY-4.0; primary publisher fetch 403, not verified here",
+    "MILCONOMBO": "Publisher Figshare v2 identifies CC BY 4.0; local native archive identity against publisher checksums remains unverified.",
+    "SSS_UXO": "prior audit claims CC-BY-NC-SA; primary terms not verified here"
+  },
+  "ready_for_reviewed_training": false,
+  "training_calls": 0,
+  "inference_calls": 0,
+  "limits": [
+    "Exact cross-role groups include historical aliases; counts do not all represent independent leakage.",
+    "Decoded pixel and near screening covers primary sources plus controlled/Drishti V3 unique byte images; other revisions are byte-indexed only.",
+    "Near screening uses dhash bands with bounded candidates; it cannot certify absence of near duplicates.",
+    "Filename families/years/regions are proxies, not verified acquisition identities.",
+    "Historical training/selection and upstream pretraining overlap are not fully known.",
+    "No annotations, dataset files, splits or model parameters changed."
+  ],
+  "mask_pair_audit": {
+    "pairs": 251,
+    "dimension_mismatches": 0,
+    "all_black_masks": 111
+  },
+  "near_priority_protected_role_candidates": 5885,
+  "near_screening_hit_candidate_cap": true,
+  "primary_source_checks": [
+    {
+      "url": "https://huggingface.co/datasets/PINGEcosystem/sss-crab-pot-detection-ds/blob/main/README.md",
+      "finding": "Native XYWH schema and uncertain class described; metadata license CC-BY-SA-4.0 conflicts with body GPL."
+    },
+    {
+      "url": "https://figshare.com/articles/dataset/_i_Side-scan_sonar_imaging_for_Mine_detection_i_/24574879",
+      "finding": "Native MILCO/NOMBO classes, 1170 images, CC BY 4.0."
+    },
+    {
+      "url": "https://umfieldrobotics.github.io/ai4shipwrecks/",
+      "finding": "Author project verified; dataset download publisher returned 403, license not independently verified."
+    },
+    {
+      "url": "https://zenodo.org/records/10808161",
+      "finding": "SubPipeMini2 includes SSS detection annotations; license field not exposed in retrieved page."
+    }
+  ],
+  "verification": {
+    "raster_counts_reconciled": true,
+    "all_byte_groups_reconciled": true,
+    "all_metadata_hashes_unchanged": true,
+    "annotations_not_modified": true,
+    "checkpoint_unchanged": true
+  },
+  "artifact_hashes": {
+    "ambiguous-crab-current-pairs.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "annotation-review-queue.json": "d7aef6bc0c60643d2205d5a713adb2062ca796a236fcd57b04fbf96fd6fd1990",
+    "crab-family-cross-role.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "current-train-native-test-overlaps.json": "bcada1921504c546b6ac672087f4d1036b3e9c46f98698f77bb14e7ae606460b",
+    "decoded-cross-role.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "exact-duplicate-groups.json": "7ebe44613486ff18bee74e6f6150821518333ee6d5ffea56ee8f486d366ef719",
+    "inventory.json": "aa5513297a600426183b80e2160a6f67f39ec20fb726eaf5a22173e428b7542f",
+    "near-review-candidates.json": "e3d1ac5d43bb0c19a57363f1b949403075a5cdc530cbbad8eddc1d4ae9b2c79c",
+    "priority-near-review.json": "f8afc601d4073d761ad28bbcea00b0a548ee5e732486febdf72dd648d578c228",
+    "mask-pair-audit.json": "bd6b82121427e52728fb45073eb41aa5eb5d25ccf7476af993c83628bce89678"
+  }
+}

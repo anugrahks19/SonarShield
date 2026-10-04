@@ -1,8 +1,36 @@
+## M2.12 submission packaging — 4 October 2026
+
+Judge documentation, architecture, factual results, editable deck and hashed local backup package completed and verified. See [submission scope](MODULE2_M212_SUBMISSION.md). No further training or model deployment. Independent accuracy and compatibility gates remain open. Older phase entries below are historical.
+
+## Current status — M2.11, 4 October 2026
+
+M2.10 completed 10/10 epochs and was measured; it did not win the final precision-floor comparison. M2.11 local release QA and detector-only freeze completed. Selected M2.08: P80.10%, R41.43%, FP236 on reused historical DEV. The 80/80 goal is unmet. Production weights remain unchanged; compatibility/calibration and real authenticated live verification are not established by this phase. See [M2.11 report](MODULE2_M211_RELEASE.md). M2.12 packaging is next; no third training run planned. Older status entries below are historical.
+
+## Latest M2.10 status — 4 October 2026
+
+Final short-run preparation corrects the inherited fine-tune bias warmup (0.1 versus main LR 0.0001). Starts from D1; <=10 epochs with a 45-minute epoch-boundary budget. User command: `scripts/train_module2_final.py --execute`. No training started by the agent or deployment changes. [Recipe and evidence](MODULE2_M210_FINAL_RUN.md). Training/evaluation remain pending; no third run planned.
+
+## Latest M2.09 result — 4 October 2026
+
+Threshold selection is complete: M2.08 DEV candidate reaches 80.10% micro precision / 41.43% recall / 236 FP at threshold 0.3653043210506439. Requiring >=80% precision per class yields 85.93% overall precision / 37.03% recall / 139 FP. The 80/80 goal remains unmet. No training, promotion or deployment. See [M2.09 report](MODULE2_M209_OPERATING_POINTS.md).
+
+## Latest M2.08 status — 4 October 2026
+
+The submission deadline plan supersedes historical phase numbering below. M2.08 now prepares TRAIN-only targeted sampling and a <=15-epoch D1 fine-tune. No fitting was launched. Details: [small-target preparation](MODULE2_M208_SMALL_TARGETS.md) and [M2.08–M2.12 deadline plan](MODULE2_SUBMISSION_PLAN.md). Use `scripts/train_module2_submission.py --execute`; do not use the older 80-epoch D2 command. Scientific validation and 80/80 improvement remain pending.
+
 # Module 2: controlled route to the 90/90 goal
+
+
+> **Submission override — 4 October 2026:** M2.08–M2.12 now follow [the deadline plan](MODULE2_SUBMISSION_PLAN.md): one short D1 fine-tune, at most one conditional second learned run, then freeze, QA and packaging. The earlier 80-epoch D2 launch is superseded; no training has been started by the agent.
+
+
+> 80+ execution roadmap: **M2.01 Preserve and benchmark completed** on 3 October 2026. See [preserved baseline](MODULE2_BASELINE.md) and [ordered plan](MODULE2_80PLUS_PLAN.md). This closes baseline preservation only; the historical M2.01 scientific source audit below remains partial. **M2.02 failure diagnosis completed**: [report](MODULE2_DIAGNOSIS.md). **M2.03 resolution/tiling comparison completed**: [report](MODULE2_RESOLUTION.md). Keep 640 as the reference; no tested strategy meets 80/80. **M2.04 technical source audit completed**: [report](MODULE2_SOURCE_AUDIT.md). Source semantic/rights/acquisition approval remains pending. **M2.05 review workspace prepared**: [review instructions and safeguards](MODULE2_ANNOTATION_REVIEW.md). **Automatic M2.05 screening completed**: [M2.06 handoff](MODULE2_AUTOMATIC_HANDOFF.md), 9,369 eligible inherited TRAIN candidates and 2,844 exclusions. **M2.06 technical dataset build completed**: [revision, verification and M2.07 handoff](MODULE2_CURATED_DATASET.md). New revision contains 9,369 TRAIN / 1,129 historical DEV, verified copies and exploratory integrity preflight. **M2.07 D1 preparation verified**: [launch and recovery instructions](MODULE2_D1_TRAINING.md). Eight launcher tests and real dataset/GPU/checkpoint/disk preflight passed. **Update 4 October 2026: user completed D1 80/80 epochs and fresh DEV measurement passed**: [results](MODULE2_D1_RESULTS.md). At confidence 0.25: P 75.97%, R 43.70%, FP 317; mAP50 70.71%, mAP50-95 50.01%. **M2.08 D1 analysis and D2 preparation completed**: [evidence, mosaic ablation and launch](MODULE2_D2_EXPERIMENT.md). Full threshold/size diagnostics and 960 probe did not meet 80/80; 960 regressed overall. Nine D2 launcher tests and real preflight passed. D2 user training/evaluation remain pending; expert approval, confirmed negatives and independent evaluation remain unverified. No training was resumed by the agent; D1 was subsequently run by the user.
 
 > Technical dataset correction is now prepared: [local training command, safeguards and remaining scientific gates](MODULE2_TRAINING_READY.md). The prior V8-A dataset and run are preserved; the new revision is explicitly exploratory.
 
 Started 3 October 2026. Goal: class-correct object precision >=90% **and** recall >=90% at the same frozen operating point on independently labelled data. This is a target, not a guarantee or a system-accuracy percentage. An image-only validation result cannot certify raw XTF performance.
+
+> Phase numbering: the current 80+ sequence uses M2.07 for D1 training and M2.08 for controlled variants. The historical 90/90 list below uses earlier numbering and is retained as context, not the current execution order.
 
 ## Current findings: M2.01 kickoff
 

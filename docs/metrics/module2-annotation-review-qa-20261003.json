@@ -1,0 +1,11 @@
+{
+  "browser_errors": [],
+  "save_restore_export_passed": true,
+  "mask_and_pair_views_passed": true,
+  "mobile_no_overflow": true,
+  "unauthenticated_write_rejected": true,
+  "arbitrary_reference_rejected": true,
+  "external_requests": 0,
+  "real_review_decisions_written": 0,
+  "inference_calls": 0
+}

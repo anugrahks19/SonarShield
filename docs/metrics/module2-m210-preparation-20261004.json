@@ -1,0 +1,120 @@
+{
+  "phase": "M2.10",
+  "status": "VERIFIED_PREPARATION_USER_TRAINING_PENDING",
+  "tests_passed": 5,
+  "preflight": {
+    "phase": "M2.10_WARMUP_FIX",
+    "mode": "FRESH_Final warmup-corrected FT",
+    "manifest_sha256": "f2f8fff98d631725cd3066726056943bc9b2910abce49a380cc6521f7205f796",
+    "data_sha256": "6a091d635edc4dce462dd7a10ca631f3c6f0c8f77c7b2e5d539f75e57ecfda33",
+    "checkpoint": "E:\\GITHUB\\a sih 2026\\models\\controlled\\m2_d1_curated_r01_640_01\\weights\\best.pt",
+    "checkpoint_sha256": "fde6a1e39e927b4f8908b389d73d9ba753435ac53cbad56eb2443c73d3888cef",
+    "completed_epochs_before_resume": 0,
+    "settings": {
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\mechanically_curated_r01_20261003\\data.yaml",
+      "epochs": 10,
+      "device": "0",
+      "batch": 8,
+      "project": "E:\\GITHUB\\a sih 2026\\models\\controlled",
+      "name": "m2_submission_ft10_warmupfix_02",
+      "exist_ok": false,
+      "imgsz": 640,
+      "workers": 0,
+      "optimizer": "AdamW",
+      "lr0": 0.0001,
+      "lrf": 0.01,
+      "warmup_epochs": 1.0,
+      "warmup_bias_lr": 0.0001,
+      "hsv_h": 0.0,
+      "hsv_s": 0.0,
+      "hsv_v": 0.0,
+      "degrees": 5.0,
+      "translate": 0.05,
+      "scale": 0.2,
+      "shear": 0.0,
+      "perspective": 0.0,
+      "flipud": 0.0,
+      "fliplr": 0.5,
+      "mosaic": 0.0,
+      "mixup": 0.0,
+      "auto_augment": null,
+      "erasing": 0.0,
+      "close_mosaic": 10,
+      "seed": 0,
+      "deterministic": true,
+      "amp": true,
+      "patience": 5,
+      "save": true,
+      "save_period": 1,
+      "cache": false
+    },
+    "versions": {
+      "ultralytics": "8.4.163",
+      "torch": "2.4.1+cu121",
+      "numpy": "1.26.4",
+      "PyYAML": "6.0.1"
+    },
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "detector_strides": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "dataset_preflight": {
+      "counts": {
+        "TRAIN": 9369,
+        "DEV": 1129
+      },
+      "class_box_counts": {
+        "TRAIN": {
+          "2": 1959,
+          "0": 8757,
+          "4": 1240,
+          "1": 1000,
+          "3": 765
+        },
+        "DEV": {
+          "0": 1275,
+          "4": 192,
+          "1": 147,
+          "3": 135,
+          "2": 544
+        }
+      },
+      "manifest_sha256": "f2f8fff98d631725cd3066726056943bc9b2910abce49a380cc6521f7205f796",
+      "purpose": "CONTROLLED_EXPLORATORY_TRAINING_NOT_FINAL_ACCURACY_CERTIFICATION",
+      "final_test_independence": "NOT_CERTIFIED",
+      "xtf_accuracy": "NOT_ESTABLISHED"
+    },
+    "scientifically_approved": false,
+    "disk_free_bytes": 20065366016,
+    "estimated_required_disk_bytes": 3706015880,
+    "confirmed_negative_images": 0,
+    "small_target_sampling_change": true,
+    "sampling_sha256": "08dd6e21a304348d5636444c470bba366617ebb55813618753217dcd3c60f799",
+    "sampling_plan": ".temp/module2-experiments/m2-smalltarget-sampling-20261004-r02.json",
+    "major_factor_changed": "BIAS_WARMUP_BOUNDED_FROM_0.1_TO_0.0001_AND_WARMUP_3_TO_1_EPOCH_WITH_10_EPOCH_DEADLINE_SCHEDULE",
+    "training_budget_seconds": 2700,
+    "training_started": false
+  },
+  "evidence_for_correction": {
+    "previous_lr0": 0.0001,
+    "previous_warmup_bias_lr": 0.1,
+    "ratio": 1000.0,
+    "previous_warmup_epochs": 3.0,
+    "recorded_epoch1_bias_lr": 0.0667284,
+    "recorded_epoch2_bias_lr": 0.033424,
+    "claim": "Configuration mismatch verified; contribution to metric regressions is not isolated."
+  },
+  "script_sha256": {
+    "train_module2_final.py": "dfc6d36dc3ed77a9f46353f57bfa96a4cebda36890d63e136ce13826d21d21ca",
+    "evaluate_module2_final.py": "f07b8a458f19358775e3bf931b7d8a5e8c7a34f52e9c45346b5faac4c06af577",
+    "test_module2_final.py": "865662d89d773638205428d3fb346111570f56b14bdbbe650beeae092220a263"
+  },
+  "agent_training_calls": 0,
+  "hf_calls": 0,
+  "production_changes": 0,
+  "third_run_planned": false,
+  "accuracy_80_80_established": false
+}

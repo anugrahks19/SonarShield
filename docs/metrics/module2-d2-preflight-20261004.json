@@ -1,0 +1,91 @@
+{
+  "phase": "M2.08",
+  "mode": "FRESH_D2",
+  "manifest_sha256": "f2f8fff98d631725cd3066726056943bc9b2910abce49a380cc6521f7205f796",
+  "data_sha256": "6a091d635edc4dce462dd7a10ca631f3c6f0c8f77c7b2e5d539f75e57ecfda33",
+  "checkpoint": "E:\\GITHUB\\a sih 2026\\models\\v6\\detector_v6_p2_sss\\weights\\best.pt",
+  "checkpoint_sha256": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+  "completed_epochs_before_resume": 0,
+  "settings": {
+    "data": "E:\\GITHUB\\a sih 2026\\datasets\\mechanically_curated_r01_20261003\\data.yaml",
+    "epochs": 80,
+    "device": "0",
+    "batch": 8,
+    "project": "E:\\GITHUB\\a sih 2026\\models\\controlled",
+    "name": "m2_d2_curated_r01_mosaic0_640_01",
+    "exist_ok": false,
+    "imgsz": 640,
+    "workers": 0,
+    "optimizer": "AdamW",
+    "lr0": 0.001,
+    "lrf": 0.01,
+    "hsv_h": 0.0,
+    "hsv_s": 0.0,
+    "hsv_v": 0.0,
+    "degrees": 5.0,
+    "translate": 0.1,
+    "scale": 0.5,
+    "shear": 0.0,
+    "perspective": 0.0,
+    "flipud": 0.0,
+    "fliplr": 0.5,
+    "mosaic": 0.0,
+    "mixup": 0.1,
+    "auto_augment": null,
+    "erasing": 0.0,
+    "close_mosaic": 10,
+    "seed": 0,
+    "deterministic": true,
+    "amp": true,
+    "patience": 20,
+    "save": true,
+    "save_period": 1,
+    "cache": false
+  },
+  "versions": {
+    "ultralytics": "8.4.163",
+    "torch": "2.4.1+cu121",
+    "numpy": "1.26.4",
+    "PyYAML": "6.0.1"
+  },
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "detector_strides": [
+    4,
+    8,
+    16,
+    32
+  ],
+  "dataset_preflight": {
+    "counts": {
+      "TRAIN": 9369,
+      "DEV": 1129
+    },
+    "class_box_counts": {
+      "TRAIN": {
+        "2": 1959,
+        "0": 8757,
+        "4": 1240,
+        "1": 1000,
+        "3": 765
+      },
+      "DEV": {
+        "0": 1275,
+        "4": 192,
+        "1": 147,
+        "3": 135,
+        "2": 544
+      }
+    },
+    "manifest_sha256": "f2f8fff98d631725cd3066726056943bc9b2910abce49a380cc6521f7205f796",
+    "purpose": "CONTROLLED_EXPLORATORY_TRAINING_NOT_FINAL_ACCURACY_CERTIFICATION",
+    "final_test_independence": "NOT_CERTIFIED",
+    "xtf_accuracy": "NOT_ESTABLISHED"
+  },
+  "scientifically_approved": false,
+  "disk_free_bytes": 21502062592,
+  "estimated_required_disk_bytes": 12799280204,
+  "confirmed_negative_images": 0,
+  "small_target_sampling_change": false,
+  "major_factor_changed": "MOSAIC_0_8_TO_0_0_ONLY_VERSUS_D1",
+  "training_started": false
+}

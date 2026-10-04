@@ -1,0 +1,175 @@
+{
+  "phase": "M2.01_PRESERVE_AND_BENCHMARK",
+  "verified_at_utc": "2026-10-03T14:23:00.501341+00:00",
+  "status": "COMPLETE_FOR_PINNED_EXPLORATORY_BASELINE",
+  "dataset": "datasets/controlled_v8a_20261003",
+  "run": "models/controlled/v8a_labels_fixed_01",
+  "dataset_verification": {
+    "counts": {
+      "DEV": 1129,
+      "TRAIN": 12213
+    },
+    "class_box_counts": {
+      "DEV": {
+        "0": 1275,
+        "4": 192,
+        "1": 147,
+        "3": 135,
+        "2": 544
+      },
+      "TRAIN": {
+        "2": 2011,
+        "0": 8757,
+        "4": 1445,
+        "1": 1000,
+        "3": 765
+      }
+    },
+    "manifest_sha256": "93aaee6ac8479e8cce032f9fe4421178ea32b13db693cb1deb614ed8057c6882",
+    "purpose": "CONTROLLED_EXPLORATORY_TRAINING_NOT_FINAL_ACCURACY_CERTIFICATION",
+    "final_test_independence": "NOT_CERTIFIED",
+    "xtf_accuracy": "NOT_ESTABLISHED"
+  },
+  "checkpoint_states": [
+    {
+      "file": "last.pt",
+      "completed_epochs": 60,
+      "target_epochs": 80,
+      "optimizer_present": true
+    },
+    {
+      "file": "best.pt",
+      "completed_epochs": 59,
+      "target_epochs": 80,
+      "optimizer_present": true
+    }
+  ],
+  "archive_sha256": {
+    "best.pt": "8756f872eba701edd8a75163d4991defe03945501649290008d08579326a6e93",
+    "last.pt": "3e4c4c10edb17f0b2cd28e3fae6244caf41a6528bfe9ea3c11b77c20eb975f11",
+    "args.yaml": "8515c0a25c3f0f74952b3e2675975dfbb83e0708852fb9efcb4232cb09294629",
+    "results.csv": "097a8375b0721fb12989e75576fb9a75d71b8c246afba3d0a15e95b7c77b16ca",
+    "data.yaml": "7419b0f76a36ab3f8a7b1f5968beb25e934373cce2c99a0b88685f9046db8fb9",
+    "manifest.json": "93aaee6ac8479e8cce032f9fe4421178ea32b13db693cb1deb614ed8057c6882",
+    "READY.json": "b56339d09851732d1a1f59d6b25488ff2525d281f5db060d3135ec041ffca21d",
+    "evaluation.json": "58e91c8109ca148ded406fa2fc74fc82a47dd16d5eb06b5859d192616dd93522",
+    "per-image.json": "da7f93e25ebee962dcdbed30123607a461545154e5a3d783eb63d751ef14a15d",
+    "evaluator.py": "b8b50e4793b4a2734326b3661f33fa0c92dbd48cbdcc3624225b5a55933510cc"
+  },
+  "package_versions": {
+    "ultralytics": "8.4.163",
+    "torch": "2.4.1+cu121",
+    "numpy": "1.26.4",
+    "PyYAML": "6.0.1"
+  },
+  "baseline": {
+    "scope": "HISTORICALLY_USED_DEV_INHERITED_LABELS_NOT_INDEPENDENT_TEST_OR_XTF_ACCURACY",
+    "checkpoint": "E:\\GITHUB\\a sih 2026\\models\\controlled\\v8a_labels_fixed_01\\weights\\best.pt",
+    "checkpoint_sha256": {
+      "best.pt": "8756f872eba701edd8a75163d4991defe03945501649290008d08579326a6e93",
+      "last.pt": "3e4c4c10edb17f0b2cd28e3fae6244caf41a6528bfe9ea3c11b77c20eb975f11"
+    },
+    "checkpoint_states": [
+      {
+        "file": "last.pt",
+        "completed_epochs": 60,
+        "target_epochs": 80,
+        "optimizer_present": true
+      },
+      {
+        "file": "best.pt",
+        "completed_epochs": 59,
+        "target_epochs": 80,
+        "optimizer_present": true
+      }
+    ],
+    "images": 1129,
+    "matching": "CLASS_CORRECT_CONFIDENCE_ORDERED_ONE_TO_ONE_IOU_GE_0.50",
+    "confidence_threshold": 0.25,
+    "nms_iou": 0.7,
+    "imgsz": 640,
+    "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "precision_type": "OBJECT_MICRO_AT_FIXED_CONFIDENCE",
+    "object_metrics": {
+      "tp": 897,
+      "fp": 284,
+      "fn": 1396,
+      "precision": 0.7595258255715496,
+      "recall": 0.3911905800261666
+    },
+    "mAP50": 0.7188887672358897,
+    "mAP50_95": 0.5004729854484663,
+    "ultralytics_validation_mean_precision": 0.76415189893258,
+    "ultralytics_validation_mean_recall": 0.7023426332925483,
+    "ultralytics_pr_scope": "MEAN_CLASS_PRECISION_RECALL_AT_VALIDATOR_SELECTED_F1_POINT_DIFFERENT_FROM_FIXED_0.25",
+    "inference_time": {
+      "batch": 1,
+      "precision": "FP32",
+      "gpu_model_forward_mean_ms": 9.91618963700564,
+      "gpu_model_forward_median_ms": 7.440300003509037,
+      "gpu_model_forward_p95_ms": 17.509299999801442,
+      "directory_walk_wall_ms_per_image": 14.000184765278194,
+      "includes_fusion_or_cloud_network": false
+    },
+    "false_positives_per_image": 0.25155004428697963,
+    "per_class": {
+      "0": {
+        "name": "crab_pot",
+        "tp": 268,
+        "fp": 103,
+        "fn": 1007,
+        "precision": 0.7223719676549866,
+        "recall": 0.21019607843137256
+      },
+      "1": {
+        "name": "submarine_pipeline",
+        "tp": 147,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.9932432432432432,
+        "recall": 1.0
+      },
+      "2": {
+        "name": "shipwreck",
+        "tp": 229,
+        "fp": 137,
+        "fn": 315,
+        "precision": 0.6256830601092896,
+        "recall": 0.4209558823529412
+      },
+      "3": {
+        "name": "ghost_net",
+        "tp": 135,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.9854014598540146,
+        "recall": 1.0
+      },
+      "4": {
+        "name": "mine_cylinder",
+        "tp": 118,
+        "fp": 41,
+        "fn": 74,
+        "precision": 0.7421383647798742,
+        "recall": 0.6145833333333334
+      }
+    },
+    "training_restarted": false,
+    "hf_inference_calls": 0,
+    "final_accuracy_claim_allowed": false
+  },
+  "verification": {
+    "all_manifest_inputs_verified": true,
+    "archived_bytes_verified": true,
+    "evaluation_counts_reconciled": true,
+    "source_unchanged_during_snapshot": true
+  },
+  "limits": [
+    "Historically used DEV with inherited labels; not independent final evaluation.",
+    "No new accuracy, XTF, provenance or calibration certification.",
+    "Timing is GPU detector forward only, not full application latency.",
+    "Training interruption cause remains unknown."
+  ],
+  "new_training_calls": 0,
+  "new_inference_calls": 0
+}

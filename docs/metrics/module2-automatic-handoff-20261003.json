@@ -1,0 +1,58 @@
+{
+  "phase": "M2.05_AUTOMATIC_TECHNICAL_CURATION",
+  "m2_06_technical_preparation_can_continue": true,
+  "approved_dataset_ready": false,
+  "expert_annotation_certification": false,
+  "rights_approval_complete": false,
+  "survey_group_independence_verified": false,
+  "training_ready": false,
+  "training_started": false,
+  "inference_calls": 0,
+  "source_labels_changed": 0,
+  "source_manifest_sha256": "93aaee6ac8479e8cce032f9fe4421178ea32b13db693cb1deb614ed8057c6882",
+  "audit_inventory_sha256": "aa5513297a600426183b80e2160a6f67f39ec20fb726eaf5a22173e428b7542f",
+  "audit_similarity_sha256": "f8afc601d4073d761ad28bbcea00b0a548ee5e732486febdf72dd648d578c228",
+  "native_metadata_hashes": {
+    "E:\\GITHUB\\a sih 2026\\datasets\\crab_pot\\test\\metadata.jsonl": "e090a0080f567fb6b8071246cc232edfcb2fca96a49ab642816ec51905ce58cf",
+    "E:\\GITHUB\\a sih 2026\\datasets\\crab_pot\\train\\metadata.jsonl": "846556a1a5bb70568520558b2099194868772c23dd4e437afad2b22a32898dc4",
+    "E:\\GITHUB\\a sih 2026\\datasets\\crab_pot\\valid\\metadata.jsonl": "c72615c7381b68aa80c1c1f767de8767541e9f88310d57e7237975efec6c57f5"
+  },
+  "eligible_train_images": 9369,
+  "excluded_train_images": 2844,
+  "historical_dev_images": 1129,
+  "eligible_train_boxes_by_class": {
+    "2": 1959,
+    "0": 8757,
+    "4": 1240,
+    "1": 1000,
+    "3": 765
+  },
+  "historical_dev_boxes_by_class": {
+    "0": 1275,
+    "4": 192,
+    "1": 147,
+    "3": 135,
+    "2": 544
+  },
+  "native_crab_train_screen": {
+    "structurally_valid_unharmonized": 5638,
+    "quarantined": 83
+  },
+  "exclusion_counts_nonexclusive": {
+    "EMPTY_LABEL_NOT_CONFIRMED_BACKGROUND": 2675,
+    "HISTORICAL_TEST_OR_BACKGROUND_IDENTITY_OR_PARENT": 10,
+    "SIMILARITY_QUARANTINE_NOT_PROVEN_DUPLICATE": 464
+  },
+  "limitations": [
+    "Mechanical checks cannot confirm object identity, missing objects, mask foreground semantics or target-free backgrounds.",
+    "Similarity screening is capped; quarantines are conservative, not proven duplicates.",
+    "Previously exposed DEV/TEST cannot become untouched final evaluation.",
+    "No new native-class mapping, mask conversion, XTF pseudo-labels, or auto-clipping.",
+    "Synthetic ghost-net performance is not real-net evidence."
+  ],
+  "handoff_artifact_hashes": {
+    "eligible-inherited-train.json": "bfab2aa1d3258c5e124af3cc4e915ce8160c31d1b74ff4eb95dc0fd9a97f15eb",
+    "historical-dev.json": "69792cf4bd06e55223c6355b5ed81ddc7105040615479c3dce7fda4de31b1097",
+    "exclusions.json": "0586073b631c4e35739a9cc008f54cdc0be563a9f0773e0402415be59a07022c"
+  }
+}

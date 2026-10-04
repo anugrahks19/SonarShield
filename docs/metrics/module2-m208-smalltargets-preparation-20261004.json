@@ -1,0 +1,171 @@
+{
+  "phase": "M2.08_SMALL_TARGET_PREPARATION",
+  "status": "VERIFIED_PREPARATION_TRAINING_NOT_STARTED",
+  "tests_passed": 10,
+  "preflight": {
+    "phase": "M2.08_SUBMISSION",
+    "mode": "FRESH_Submission FT",
+    "manifest_sha256": "f2f8fff98d631725cd3066726056943bc9b2910abce49a380cc6521f7205f796",
+    "data_sha256": "6a091d635edc4dce462dd7a10ca631f3c6f0c8f77c7b2e5d539f75e57ecfda33",
+    "checkpoint": "E:\\GITHUB\\a sih 2026\\models\\controlled\\m2_d1_curated_r01_640_01\\weights\\best.pt",
+    "checkpoint_sha256": "fde6a1e39e927b4f8908b389d73d9ba753435ac53cbad56eb2443c73d3888cef",
+    "completed_epochs_before_resume": 0,
+    "settings": {
+      "data": "E:\\GITHUB\\a sih 2026\\datasets\\mechanically_curated_r01_20261003\\data.yaml",
+      "epochs": 15,
+      "device": "0",
+      "batch": 8,
+      "project": "E:\\GITHUB\\a sih 2026\\models\\controlled",
+      "name": "m2_submission_ft15_smalltargets_01",
+      "exist_ok": false,
+      "imgsz": 640,
+      "workers": 0,
+      "optimizer": "AdamW",
+      "lr0": 0.0001,
+      "lrf": 0.01,
+      "hsv_h": 0.0,
+      "hsv_s": 0.0,
+      "hsv_v": 0.0,
+      "degrees": 5.0,
+      "translate": 0.05,
+      "scale": 0.2,
+      "shear": 0.0,
+      "perspective": 0.0,
+      "flipud": 0.0,
+      "fliplr": 0.5,
+      "mosaic": 0.0,
+      "mixup": 0.0,
+      "auto_augment": null,
+      "erasing": 0.0,
+      "close_mosaic": 10,
+      "seed": 0,
+      "deterministic": true,
+      "amp": true,
+      "patience": 5,
+      "save": true,
+      "save_period": 1,
+      "cache": false
+    },
+    "versions": {
+      "ultralytics": "8.4.163",
+      "torch": "2.4.1+cu121",
+      "numpy": "1.26.4",
+      "PyYAML": "6.0.1"
+    },
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "detector_strides": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "dataset_preflight": {
+      "counts": {
+        "TRAIN": 9369,
+        "DEV": 1129
+      },
+      "class_box_counts": {
+        "TRAIN": {
+          "2": 1959,
+          "0": 8757,
+          "4": 1240,
+          "1": 1000,
+          "3": 765
+        },
+        "DEV": {
+          "0": 1275,
+          "4": 192,
+          "1": 147,
+          "3": 135,
+          "2": 544
+        }
+      },
+      "manifest_sha256": "f2f8fff98d631725cd3066726056943bc9b2910abce49a380cc6521f7205f796",
+      "purpose": "CONTROLLED_EXPLORATORY_TRAINING_NOT_FINAL_ACCURACY_CERTIFICATION",
+      "final_test_independence": "NOT_CERTIFIED",
+      "xtf_accuracy": "NOT_ESTABLISHED"
+    },
+    "scientifically_approved": false,
+    "disk_free_bytes": 21497077760,
+    "estimated_required_disk_bytes": 4355404310,
+    "confirmed_negative_images": 0,
+    "small_target_sampling_change": true,
+    "sampling_sha256": "08dd6e21a304348d5636444c470bba366617ebb55813618753217dcd3c60f799",
+    "sampling_plan": ".temp/module2-experiments/m2-smalltarget-sampling-20261004-r02.json",
+    "major_factor_changed": "DEADLINE_FINE_TUNE_MULTIPLE_CHANGES_NOT_CONTROLLED_ABLATION",
+    "training_budget_seconds": 4500,
+    "training_started": false
+  },
+  "loader_smoke": {
+    "real_cpu_loader_smoke_passed": true,
+    "train_images": 9369,
+    "dev_images": 1129,
+    "batches_per_epoch": 1172,
+    "batch_shape": [
+      8,
+      3,
+      640,
+      640
+    ],
+    "valid_transformed_boxes": 15,
+    "train_sampler": "EpochSampler",
+    "dev_sampler": "SequentialSampler",
+    "training_calls": 0,
+    "inference_calls": 0
+  },
+  "sampling_summary": {
+    "version": 1,
+    "scope": "TRAIN_ONLY_EXPLORATORY_NOT_EXPERT_APPROVED",
+    "manifest_sha256": "f2f8fff98d631725cd3066726056943bc9b2910abce49a380cc6521f7205f796",
+    "samples_per_epoch": 9369,
+    "uniform_mass": 0.4,
+    "group_mass": {
+      "small_crab": 0.25,
+      "small_medium_wreck": 0.15,
+      "pipeline": 0.05,
+      "net": 0.05,
+      "mine": 0.1
+    },
+    "targeted_mass": 0.6,
+    "group_counts": {
+      "small_medium_wreck": 477,
+      "small_crab": 1619,
+      "mine": 873,
+      "pipeline": 1000,
+      "net": 765
+    },
+    "uniform_image_draws_by_group": {
+      "small_medium_wreck": 477,
+      "small_crab": 1619,
+      "mine": 873,
+      "pipeline": 1000,
+      "net": 765
+    },
+    "expected_image_draws_by_group": {
+      "small_crab": 2989.8500000000004,
+      "small_medium_wreck": 1596.1499999999999,
+      "pipeline": 868.45,
+      "net": 774.4500000000002,
+      "mine": 1286.1000000000001
+    },
+    "expected_box_presentations_by_class": {
+      "0": 7500.104972205065,
+      "1": 868.45,
+      "2": 4433.9745283018865,
+      "3": 774.4500000000002,
+      "4": 1826.7628865979382
+    },
+    "note": "Expectations before augmentation, not new independent samples or measured accuracy.",
+    "dev_images_unchanged": 1129,
+    "source_labels_changed": 0
+  },
+  "training_calls": 0,
+  "hf_inference_calls": 0,
+  "accuracy_improvement_measured": false,
+  "run_exists": false,
+  "script_sha256": {
+    "module2_targeted_sampling.py": "1d9166e8d74514044864b1e51f6c225584e205d3bda59d9238d03fc5967c67f5",
+    "train_module2_submission.py": "24387a308ac0261e6818b93f4504a194ac83599d06cf990c5457fd610dc30143",
+    "evaluate_module2_submission.py": "3adcbcd6a409544cea5ff3ed007037db97e11fcc090206c6ee0dcd3fe68a6807"
+  }
+}

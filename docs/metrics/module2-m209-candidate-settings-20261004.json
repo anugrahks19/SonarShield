@@ -1,0 +1,29 @@
+{
+  "model": "M2.08",
+  "policy": "GLOBAL",
+  "metrics": {
+    "threshold": 0.3653043210506439,
+    "tp": 950,
+    "fp": 236,
+    "fn": 1343,
+    "precision": 0.8010118043844857,
+    "recall": 0.4143044047099869,
+    "f1": 0.546133946536361
+  },
+  "thresholds": {
+    "0": 0.3653043210506439,
+    "1": 0.3653043210506439,
+    "2": 0.3653043210506439,
+    "3": 0.3653043210506439,
+    "4": 0.3653043210506439
+  },
+  "scope": "EXPLORATORY_DEV_NOT_PRODUCTION_APPROVED",
+  "deployed": false,
+  "calibrated_probability": false,
+  "confidence_comparison": "post-NMS score >= threshold",
+  "nms_iou": 0.7,
+  "imgsz": 640,
+  "checkpoint_sha256": "0e8767f1424e3338d3d092235d24093a3a540f54d51389ddd42c0605e01c36c0",
+  "dataset_manifest_sha256": "f2f8fff98d631725cd3066726056943bc9b2910abce49a380cc6521f7205f796",
+  "goal_80_precision_80_recall_met": false
+}

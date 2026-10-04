@@ -1,8 +1,10 @@
-fastapi
-uvicorn
-ultralytics
+ultralytics==8.4.163
 scikit-learn==1.4.1.post1
-opencv-python-headless
-pydantic
-python-multipart
-joblib
+numpy==1.26.4
+opencv-python-headless==4.10.0.84
+pydantic==2.12.5
+joblib==1.4.2
+Pillow>=10.0,<13
+spaces==0.51.3
+
+opencv-python==4.10.0.84

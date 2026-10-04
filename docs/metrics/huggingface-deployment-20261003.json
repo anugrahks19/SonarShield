@@ -1,0 +1,73 @@
+{
+  "previous_revision": "4529cb8df5b67527a901afaea8b3e02c259c2014",
+  "deployed_revision": "81f75313bf017534fd34679e15f6f8c736c44db7",
+  "files": [
+    "app.py",
+    "README.md",
+    "requirements.txt",
+    "ai/api/candidate_schema.py",
+    "ai/api/classification_schema.py",
+    "ai/api/coordinate_schema.py",
+    "ai/api/f6_schema.py",
+    "ai/api/f8_api_schema.py",
+    "ai/runtime/pipeline.py",
+    "ai/runtime/localization.py",
+    "ai/schemas/class_map.py",
+    "ai/detection/tiled_detector.py",
+    "ai/evidence/artifact_detection.py",
+    "ai/evidence/boundary_analysis.py",
+    "ai/evidence/evidence_extractor.py",
+    "ai/evidence/object_geometry.py",
+    "ai/evidence/seabed_context.py",
+    "ai/evidence/shadow_analysis.py",
+    "ai/evidence/__init__.py"
+  ],
+  "weights_unchanged": true,
+  "live_verification": "passed via production Vercel gateway",
+  "runtime": "RUNNING",
+  "working_rollback_revision": "317714ba5d6e1eb5f6ca791f5745b20f6f0612da",
+  "verification_date": "2026-10-03",
+  "verification": {
+    "passed": true,
+    "gateway_status": 200,
+    "schema_version": "F8.1",
+    "summary": {
+      "candidate_count": 2,
+      "confirmed_count": 0,
+      "review_count": 2,
+      "rejected_count": 0,
+      "unknown_count": 0
+    },
+    "input_sha256_verified": true,
+    "pipeline_version": "M1-v1",
+    "reliability_unavailable": true
+  },
+  "inference_calls_for_verification": 1,
+  "source_sha256": {
+    "app.py": "00e8a4881664fab4909bb78964fc1accda91214cf9e29ebc5677292c183636e2",
+    "README.md": "7925e82ef3d21e0459d696c99d353c9d3797b07bd59fe02cdc7607d28d811283",
+    "requirements.txt": "02a2f956c37c4131e8277afc8919fd0dcbe91c9007e689a33708c168630c5767",
+    "ai/api/candidate_schema.py": "5b8b8b2a837cfb9ea30c35db03349f5830e6f3cbd39d3570fd793b0d573a9923",
+    "ai/api/classification_schema.py": "08fd036631c746369f881ce1de11e2c884e13749749c82fcca3f904d06b70553",
+    "ai/api/coordinate_schema.py": "462e4e11fea46dabc9188994926ff61bd819c85d1fbf754b7a0940d37ac7af8e",
+    "ai/api/f6_schema.py": "d0d20409ff044ab9fc10e896ede41a6e9f655ead57e13e65c138529866574521",
+    "ai/api/f8_api_schema.py": "308ae0c44947c3326136b13d7741fc8cfa3002a79c4e283988d809ca1c20b50c",
+    "ai/runtime/pipeline.py": "517c400029bed5b6d22cebfe36553eb3680d5cab583018c4c22572783f2297e8",
+    "ai/runtime/localization.py": "2f8e6db8b86130c435c7f865e4b220a1a55030c61140d478706ce5ed1096e5af",
+    "ai/schemas/class_map.py": "e24d56cb99bd9f931bcda0cb0a4e3ba8649d7ed64d5da2e74273a7bc51cf2546",
+    "ai/detection/tiled_detector.py": "1c86632fd4026f4facc9903df81d5924c595629e9ddac1972a0d632f16f600e8",
+    "ai/evidence/artifact_detection.py": "1af1b228fb4d7e33a63746956f1cef4c7794f714e597c7388cf90f140b96e9b8",
+    "ai/evidence/boundary_analysis.py": "a60ef18b2fadaa23738c60ab480aa641363c48aaf3169f402a8549f12ff4a226",
+    "ai/evidence/evidence_extractor.py": "d0b28e9d60cf66b8cf58f9db10ae047666ff6576858cac81071a226636fe5ad6",
+    "ai/evidence/object_geometry.py": "9da1dc7c98522103e3e4b26287cb5354d64e33ffbfd2ab08fc98099513bd239f",
+    "ai/evidence/seabed_context.py": "1c5a0ac7b329500284b2d7bb15ccd198bc576dc4abf0268e22a6c939b1264398",
+    "ai/evidence/shadow_analysis.py": "49bef20006fc13dc5f97af5cccf22444a4b5f5212c721ee5814a346c65e9cd4e",
+    "ai/evidence/__init__.py": "25c63c58f2b35056207b1c15d5ec8a22e4f5272359ccc2630729e53d2cf163f2"
+  },
+  "limits": [
+    "Existing frozen weights unchanged; no training",
+    "Unverified policy/calibration: candidates remain REVIEW",
+    "HF authenticated account quota remains finite",
+    "Full browser walkthrough was not repeated during this deployment"
+  ]
+}

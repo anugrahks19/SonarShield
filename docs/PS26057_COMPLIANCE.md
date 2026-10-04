@@ -1,3 +1,7 @@
+## Latest release boundary — 4 October 2026
+
+M2.11 local QA passed 47 frontend, 52 backend and four freeze tests, 12 metric reconciliations and five browser scenarios. M2.12 packages this evidence. New M2.08 weights are experimental and not deployed; 80/80 remains unmet. Public XTF, independent geometry/motion validation and compatible calibration remain open. [Final release report](MODULE2_M211_RELEASE.md) · [Submission package](MODULE2_M212_SUBMISSION.md). The requirement boundaries below still apply.
+
 # PS 26057: current prototype compliance
 
 Updated 3 October 2026. Software changes do not retrain the detector or justify a new accuracy claim. This is a prototype, not certified survey or cleanup navigation.

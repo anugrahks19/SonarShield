@@ -1,186 +1,143 @@
-> Module 1 update (3 October 2026): shared cloud records/review restoration and five hosted admission checks are confirmed. [XTF review and accuracy release gate](docs/XTF_ACCURACY_RELEASE.md) · [Future edge-device API](docs/EDGE_DEVICE_API.md). Public XTF inference remains gated; expert annotations, independent field measurements and full motion correction are still outstanding. [Supabase setup](docs/SUPABASE_VERCEL_SETUP.md).
-
-Module 2 has started: [dataset audit findings and controlled 90/90 performance roadmap](docs/MODULE2_PROGRESS.md). The current V8-A revision requires reviewed label and split repairs before new training.
-
-Current PS 26057 requirement status: [compliance matrix](docs/PS26057_COMPLIANCE.md). Local raw uploads run with `python scripts/start_survey_dashboard.py --output-dir .temp/survey-dashboard` after isolated raw/inference dependencies are installed.
-
-Current software release and evidence: [Module 1 release](docs/MODULE1_RELEASE_20261003.md), including raw-survey commands, actual CPU benchmarks, cloud checks and remaining field-validation prerequisites.
-
 # SONAR-SHIELD
 
-Module 1: [implementation ledger](docs/MODULE1_IMPLEMENTATION.md) and [current closure boundary](docs/XTF_ACCURACY_RELEASE.md). The corrected F8.1 image backend is deployed; the raw XTF dashboard and edge adapter remain local. Historical limitations below must be read with the current release evidence.
+AI-assisted side-scan sonar candidate detection and human review for **PS 26057**, Ministry of Earth Sciences / NIOT.
 
-**A human-reviewed side-scan sonar analysis workspace.** Upload a JPG or PNG sonar image, inspect detected candidates and their evidence, record a separate human assessment, and export a browser-generated report. The public site uses a Hugging Face Gradio Space for best-effort live inference. When shared ZeroGPU capacity is exhausted, judges can explicitly open a clearly labeled, previously computed example.
+[Public workspace](https://sonarshield26.vercel.app/analysis) · [Judge walkthrough](docs/JUDGE_WALKTHROUGH.md) · [Architecture](docs/ARCHITECTURE.md) · [Demo downloads](submission/README.md) · [Submission package](docs/MODULE2_M212_SUBMISSION.md) · [Requirements matrix](docs/PS26057_COMPLIANCE.md)
 
-[Open the app](https://sonarshield26.vercel.app/) · [Architecture](docs/ARCHITECTURE.md) · [Training and validation](docs/TRAINING_AND_VALIDATION.md) · [Frontend details](frontend/README.md)
+## Current release: 4 October 2026
 
-> **Scope of this documentation:** It describes the checked-in source and the public deployment observed on 1 October 2026. The frozen F9 runtime examples, local FastAPI `/analyze` path, and hosted Gradio wrapper are distinct. Their evidence must not be merged into one accuracy or release claim. See [Known limitations](#known-limitations-and-open-work).
+The public prototype supports JPG/PNG live analysis through an authenticated HF gateway, inspectable candidates, human review and reports. Explicit precomputed examples remain usable when ZeroGPU rejects inference. Browser persistence and optional authenticated Supabase records preserve paired images, results and review history.
 
-## What problem are we solving?
+**The new M2.08 detector is frozen locally as an experimental detector-only candidate, not deployed.** Its compatible fusion and calibration are not established. Current production uses the earlier V6-based runtime with REVIEW decisions and unavailable calibration. No model has demonstrated the requested 80% precision and 80% recall together. Public raw XTF inference remains disabled.
 
-Side-scan sonar images contain small contacts against noisy seabed texture. A detector can identify candidate objects, but a box alone does not explain *why* the contact deserves attention, whether the input supports a geographic location, or what a reviewer decided. SONAR-SHIELD combines candidate detection with image-derived evidence, a fusion score and decision policy, provenance and quality fields, and an inspection interface. **A candidate is a lead for review, not a confirmed object or a navigation instruction.**
-
-The five detector labels in the training configuration are crab pot, submarine pipeline, shipwreck, ghost net, and mine cylinder. The currently documented decision-validation scope is narrower: crab pot, shipwreck, and mine; pipeline and ghost net require review. A [class-ID mismatch in the checked-in backend](#known-limitations-and-open-work) must be fixed and revalidated before any class-specific production claim.
-
-## One-minute system map
+## Architecture and data flow
 
 ```mermaid
 flowchart LR
-    J[Judge / analyst] --> UI[React + Vite workspace<br/>Vercel]
-    UI -->|Image upload only| G[Gradio Space<br/>ZeroGPU]
-    UI -->|Uploaded file reference| GW[Vercel inference gateway<br/>server-only HF_TOKEN]
-    GW -->|Authenticated live analysis| G
-    G --> D[YOLOv8s-P2 detector<br/>global + optional tiles]
-    D --> E[Image evidence]
-    E --> F[Fusion + decision policy]
-    F --> R[Schema-shaped candidate response]
-    R --> UI
-    UI -->|Explicit verified example| B[Bundled F9 image + response<br/>SHA-256 pair check]
-    B --> UI
-    UI --> V[Viewer, candidate review, map, report]
-    V --> L[(Browser-local reviews)]
-    V --> X[JSON / CSV / print-to-PDF]
+  U[Judge browser / React Vite] -->|Image bytes| HF[Public Gradio upload]
+  U -->|Validated file reference| V[Vercel gateway]
+  V -->|Shared admission / lease| DB[Supabase Postgres]
+  V -->|Server-only HF token| A[HF analyze_image_gradio]
+  HF --> A
+  A --> AI[V6 detector / optional tiles / evidence / fusion]
+  AI -->|REVIEW analysis contract| V
+  V -->|Schema validation| U
+  U -->|Explicit confirmation / hash check| EX[Paired precomputed examples]
+  U --> W[Viewer / evidence / human review / reports]
+  W --> B[IndexedDB session and portable exports]
+  W -->|Provisioned reviewer login| C[Vercel records API]
+  C --> DB
+  W --> S[Private Supabase image Storage]
 ```
 
-The Space is a **Gradio** deployment, not the local FastAPI server. The browser uploads image bytes directly to the public Space, then sends only the uploaded reference to `POST /api/analyze` on Vercel. That gateway calls `/analyze_image_gradio` with a server-only `HF_TOKEN`; visitors share the authenticated account's finite quota. Configure the token and exact `APP_ORIGIN` in Vercel before deploying this integration; see [setup and rollback instructions](frontend/docs/HUGGING_FACE_INTEGRATION.md). Missing credentials disable live requests explicitly. Original quota errors and any supplied reset countdown remain visible in Technical details. The API reachability indicator cannot establish available GPU quota. The verified-example path makes no Space inference request.
+The browser uploads image bytes directly to HF; only a small file reference reaches the gateway. Tokens stay on the server. Everyone shares the service account's finite quota. API reachability does not prove GPU availability. Quota errors preserve bounded upstream details and any supplied reset countdown. No automatic inference retry occurs.
 
-## Try it as a judge
+## Judge walkthrough
 
-1. Open [the public workspace](https://sonarshield26.vercel.app/analysis).
-2. For a live run, **Browse image** or drop a JPG/PNG, then select **Run analysis**. A completed response is labeled **LIVE ANALYSIS**. Inspect boxes, candidate details, evidence, decision reasons, localization, and the report.
-3. If ZeroGPU refuses a run, the uploaded image remains visible. The page explains the shared GPU limit. Select **View verified example**, read the explanation, and then select **Load precomputed example**. The app does not retry or silently substitute another image.
-4. **Explore verified examples** is also available before uploading. Contact 105 is the default; Contact 103, Contact 104, and a zero-candidate background are bundled. These are paired F9 images and saved responses, and the browser checks their SHA-256 match before loading.
-5. In either path, select a candidate, inspect its image evidence, choose a human assessment, save a note, and open **Reports**. The human assessment is separate from the AI decision. Example results retain **PRECOMPUTED EXAMPLE · NOT LIVE INFERENCE** in the viewer, review, report, print, and JSON/CSV exports. A verified example is **never** presented as an analysis of the judge's upload.
+1. Open **Analysis**, choose a JPG/PNG and run analysis. Successful responses carry **LIVE ANALYSIS**.
+2. If quota or service availability prevents inference, retain the uploaded image and read the reason. Choose **View verified example**, then explicitly confirm the sample.
+3. **Explore verified examples** is available immediately. Contact 103, 104, 105 and a zero-candidate background have paired image/response hashes. They replay an earlier analysis of the displayed sample.
+4. Select a candidate, inspect evidence, record a separate human assessment and note, then open **Reports**. Download JSON/CSV or print to PDF. Precomputed source labels remain visible throughout.
+5. Export a complete paired record for portability. A provisioned Supabase reviewer can save a cloud record, sync reviews, sign in after refresh and reopen it. Stored analyses are client imported, not server-certified inference evidence.
 
-| Path | What runs now? | Image being analyzed | Source label |
-| --- | --- | --- | --- |
-| Live | Gradio/ZeroGPU inference, if quota permits | The uploaded image | `LIVE ANALYSIS` |
-| Verified example | No new inference | The displayed bundled sample image | `PRECOMPUTED EXAMPLE · NOT LIVE INFERENCE` |
+See the [step-by-step script and failure branch](docs/JUDGE_WALKTHROUGH.md).
 
-Contact 105 is the default verified sample shown in the viewer:
+## Measured results: separate tasks, separate claims
 
-![Contact 105 side-scan sonar sample](frontend/public/contact-105.jpg)
+### Latest detector-only comparison
 
-The Oracle 1 GB Micro VM is not used for inference or represented as a ZeroGPU quota solution.
+All three use the same historical DEV: **1,129 images, 2,293 objects**. Below, global confidence thresholds maximize recall while maintaining micro precision >=80%. Matching is class-correct at IoU 0.5. mAP sweeps confidence/IoU, so it is not the selected-threshold precision.
 
-## What we built
+| Candidate | Precision | Recall | False positives | mAP50 | mAP50-95 | GPU forward |
+|---|---:|---:|---:|---:|---:|---:|
+| D1 | 80.07% | 40.12% | 229 | 70.71% | 50.01% | 7.43 ms |
+| **M2.08 selected** | **80.10%** | **41.43%** | **236** | **69.90%** | **49.73%** | **7.53 ms** |
+| M2.10 | 80.03% | 40.38% | 231 | 70.35% | 49.89% | 8.23 ms |
 
-- **Candidate pipeline:** a YOLOv8s-P2 detector with global and optional tiled passes; image-derived geometry, seabed, shadow, and artifact evidence; a saved fusion model; and a rule-based decision stage. The local F8 `/analyze` implementation and F9 runtime evidence are in `ai/` and `backend_freeze/`.
-- **Analyst workspace:** a zoomable sonar viewer, matching bounding boxes and candidate list, evidence and quality panels, a separately recorded human review, and a map that only plots backend-provided valid WGS84 coordinates. Pixel-only results stay pixel-only.
-- **Reports:** current-session reports with unchanged AI output, local human notes, source labels, JSON/CSV export, and browser print-to-PDF. The deployed Space does not provide a report artifact or review endpoint.
-- **Judging continuity:** a quota-specific message and four verified sample pairs. The fallback remains interactive even when the Space is offline.
+M2.08's exact threshold is **0.3653043210506439**. It wins recall under this precision floor; D1 has the highest mAP. At confidence 0.25 M2.08 instead has P75.57%, R44.66%, FP331. Timing is warm batch-1 FP32/640 model forward on the RTX 4060 laptop, excluding network, queue and fusion. The prior local wall measurement was 10.92 ms.
 
-See [the architecture document](docs/ARCHITECTURE.md) for service boundaries, response structure, and failure handling.
+**These are reused DEV selection measurements, not independent field accuracy or deployed system metrics.** This pool's ghost nets are synthetic. A tuned detector score is not calibrated probability. See [final selection and release evidence](docs/MODULE2_M211_RELEASE.md).
 
-## Training story and what the evidence shows
+### Historical frozen benchmarks
 
-The repository contains scripts for V1 through V6 experiments. V1 fine-tuned a pretrained Drishti detector. Later scripts tested hard negatives, targeted data refinement, higher-resolution hard positives, a larger YOLOv8m baseline, and finally a YOLOv8s-P2 small-object head with sonar-oriented augmentation. The **V6-P2** detector is named in the F9 freeze manifest. Training scripts record intended configurations; by themselves they do not prove that every run completed or establish comparable per-version results. The local dataset and model weights are excluded from GitHub.
+V6-P2 clean-validation summary: P74.7%, R69.1%, mAP50 70.4%, mAP50-95 47.8%, as recorded in [reference metrics](ai/reference/metrics.json). Historical D2 fusion candidate-test evidence reported recall 88.3% to 91.7%, precision 31.8% to 43.7%, FP455 to FP284 (37.6% reduction). These candidate-filtering figures use a different task/protocol and cannot be transferred to M2.08 or called system accuracy. [Training chronology and original evidence](docs/TRAINING_AND_VALIDATION.md).
 
-### Measured validation strip · frozen V6-P2 detector
+## Training: corrections, gains and failures
 
-| **Precision** | **Recall** | **mAP@50** | **mAP@50–95** |
-| ---: | ---: | ---: | ---: |
-| **74.7%** | **69.1%** | **70.4%** | **47.8%** |
+- Source audit found empty-label hard-positive crops, invalid boxes, overlapping revisions and test-informed history. A new mechanically curated exploratory revision preserved the originals: 9,369 TRAIN / 1,129 inherited DEV. Automated screening does not establish expert label correctness or source rights.
+- User completed D1 80 epochs, M2.08 15 epochs and M2.10 10 epochs. M2.08 used targeted TRAIN sampling and shorter fine-tuning; M2.10 corrected inherited bias warmup. No third run is planned for submission.
+- Small crab pots and shipwrecks remain difficult. Scale/tiling checks and short runs did not achieve 80/80. More epochs alone are not evidence of improvement. The final candidate has mixed metrics, not a universal win.
+- Class mapping and schema/provenance repairs are implemented in the software. Older policy/fusion artifacts still lack verified identity and calibration for the new detector. Automatic confirmation remains disabled.
+- The raw XTF renderer initially produced black low-amplitude UINT16 windows. Its rendering was corrected and local image/review/export flows checked. Visible rasters and candidate counts do not establish target accuracy.
 
-Final detector summary on the `drishti_sss_v3` **clean validation split**, as recorded in [`ai/reference/metrics.json`](ai/reference/metrics.json). These are detection metrics, **not “system accuracy”** and not an external field-test result. Per-class AP varies substantially: crab pot **34.3%**, shipwreck **50.5%** at IoU 0.50.
+The [Module 2 ledger](docs/MODULE2_PROGRESS.md) preserves phase evidence. Frozen experimental weights live locally under `models/submission/m211_detector_only_20261004/`; large weights/datasets are not included in a fresh GitHub clone.
 
-### Measured validation strip · D2 evidence fusion
+## Advantages and limitations
 
-| Held-out candidate TEST pool | Detector confidence only | D2 evidence fusion |
-| --- | ---: | ---: |
-| **Recall** | **88.3%** (212/240) | **91.7%** (220/240) |
-| **Precision** | **31.8%** (212/667) | **43.7%** (220/504) |
-| **False positives** | **455** | **284** |
+| Capability | Practical value | Limit |
+|---|---|---|
+| Small-object P2 head and optional tiles | Candidate coverage at multiple image scales | No broad tiling accuracy improvement established |
+| Evidence and reason fields | Reviewers can inspect supporting pixels and uncertainty | Explanation quality and confidence need independent validation |
+| Separate human review/history | Preserve AI output while recording reviewer decisions | Cloud content is client imported |
+| Paired examples and source labels | Honest judging continuity during quota failure | No inference on the judge's image |
+| Metadata-dependent geolocation | Avoid invented locations and dimensions | Known contacts and geometry need field verification |
+| Local XTF and edge API | Path toward offline survey processing | No actual AUV/Jetson/Pi throughput or power certification |
 
-**171 fewer false positives · 37.6% reduction** relative to the detector-confidence baseline. Thresholds were selected **separately on CALIB** to target about 90% recall, then evaluated on the same **794-candidate grouped TEST split** (240 positives, IoU ≥ 0.50). The script marks a positive by overlap with **any** ground-truth box; it does not require a class-label match. This is a **candidate-level, class-agnostic filtering** comparison, not whole-image detector mAP, class-correct precision, or end-to-end system accuracy. I recomputed it from [`gate_d2_final.py`](ai/fusion/gate_d2_final.py) and the checked-in candidate evidence using local, Git-ignored labels; a fresh GitHub clone cannot independently reproduce it until those labels are published. The [recorded test counts](docs/metrics/d2_candidate_test_recomputed.json) and [slide-ready figures](docs/PPT_METRICS.md) show the method and boundary.
+No external competitor benchmark exists. These are implemented workflow distinctions, not proven superior accuracy. Supported motion/slant/dropout handling remains partial. Exact field location, terrain correction, true-net generalization and independent raw-XTF precision/recall remain unverified.
 
-![Slide-ready validation figure showing detector metrics and the separate D2 candidate-pool comparison](docs/assets/validation-metrics.svg)
+## Setup
 
-Other context: [`fp_benchmark.json`](ai/reference/fp_benchmark.json) records **26 detector false positives on 324 background images** at confidence 0.25, a separate evaluation that must not be combined with the D2 candidate pool. The [F9 runtime report](backend_freeze/f9_runtime_validation.md) covers **10 real images** as an end-to-end smoke test, not a statistical accuracy estimate.
+### Frontend and examples
 
-The Gate B ablation found nearly equal global and hybrid `mAP@0.5` (0.7029 versus 0.7036) and the **same 98 false positives** in that evaluation. It does **not** support a broad claim that tiling improves accuracy. It *does* provide a concrete recovery case: Contact 105 had a spatially separate tiled crab-pot candidate missed by the global pass. Read the [training and validation notes](docs/TRAINING_AND_VALIDATION.md) for the chronology, source files, threshold differences, and unresolved evidence.
-
-### Next validation gate · proposed targets, **not achieved results**
-
-| Metric | Proposed goal on a newly locked external survey/sensor test |
-| --- | ---: |
-| Detector mAP@50 / mAP@50–95 | **≥75% / ≥55%** |
-| Detector recall at a stated operating point | **≥75% while maintaining ≥75% precision** |
-| Class-agnostic candidate-match fusion | **≥50% precision at ≥90% recall**; **≥40% fewer false positives** than a matched AI-only baseline |
-| Background false detections | **≤5 per 100 images** at a preregistered operating point |
-
-These are **engineering goals, not predictions or current performance**. Reaching them would require correcting class IDs and provenance, gathering more real and rare-class sonar examples, auditing labels and near-duplicate frames, mining hard negatives, tuning small-object training and evidence fusion on development data, selecting thresholds only on a separate CALIB split, and evaluating once on new external data. Class-correct and per-class results must also be reported after the mapping is fixed. The [slide-ready plan](docs/PPT_METRICS.md) states the comparisons and caveats to use in a presentation.
-
-## Why this design is useful
-
-| Capability | Practical value | Evidence / caveat |
-| --- | --- | --- |
-| Global plus optional tiled detection | Can expose a small, spatially distinct contact missed by a global pass | Contact 105 F9 audit; aggregate Gate B improvement is small |
-| Evidence plus decision reasons | Lets a reviewer inspect more than a class label and confidence | Implemented in candidate response and UI; explanation quality is not a scientific guarantee |
-| Separate human review | Preserves the AI decision while recording a reviewer assessment | Browser-local only; no shared audit service |
-| Honest localization | Prevents invented map pins when navigation metadata is missing | Real bundled examples are pixel-only |
-| Explicit offline example | Keeps a judging walkthrough usable during ZeroGPU quota or Space failure | Precomputed and visibly labeled; it does not test an uploaded image |
-
-No external head-to-head benchmark against other sonar products is in this repository. These are design advantages and project-internal observations, **not** a claim of superior accuracy, speed, or operational readiness against competitors.
-
-Compared with a **hypothetical box-only demo**, this project adds candidate-level evidence and reason codes, human review kept distinct from AI output, source-labeled examples, report exports, and a map that refuses to invent coordinates. This is an architecture comparison, not a measured benchmark against a named competitor.
-
-## Local setup
-
-### Frontend and public Space
-
-Requirements: Git, Node.js `^20.19.0` or `>=22.12.0` (the checked-in Vite version's engine requirement), npm, a modern browser, and internet access for live Space analysis. No local model weights are needed to run the frontend or verified examples.
+Use **Node 24.x**, as declared in `frontend/package.json`.
 
 ```powershell
 git clone https://github.com/anugrahks19/SonarShield.git
-cd SonarShield/frontend
+Set-Location SonarShield/frontend
 npm ci
 npm run dev
 ```
 
-Open the URL Vite prints, normally `http://localhost:5173/`. The frontend defaults to `mrintrovert19/sonar-shield-api`. To use another **public** Gradio Space, copy `frontend/.env.example` to `frontend/.env.local` and set `VITE_GRADIO_SPACE_ID=owner/space`. Never put a Hugging Face token in a `VITE_*` variable: Vite exposes it in browser JavaScript. The Space must expose the same named endpoint and response shape.
+Open the printed local URL. Examples need no model or reviewer login. Live requests additionally need the local gateway or deployed Vercel API. Copy `.env.gateway.example` to ignored `.env.gateway.local`, set server-only variables privately and run in another terminal:
+
+```powershell
+npm run dev:gateway
+```
+
+Use `APP_ORIGIN=http://localhost:5173` locally. For production use `https://sonarshield26.vercel.app`. Keep `HF_TOKEN`, Supabase secret and `CRON_SECRET` out of `VITE_*` variables, Git and screenshots. [HF gateway guide](frontend/docs/HUGGING_FACE_INTEGRATION.md) and [Supabase setup](docs/SUPABASE_VERCEL_SETUP.md) describe exact values, migration/member provisioning and rollback.
 
 ```powershell
 npm run build:release
 npm run preview
 ```
 
-`build:release` checks public configuration, lint, unit tests, TypeScript, and the production bundle. For offline and quota browser QA, serve the production preview with `.\node_modules\.bin\vite.cmd preview --host 127.0.0.1 --port 4182` on Windows (or `./node_modules/.bin/vite preview --host 127.0.0.1 --port 4182` on macOS/Linux). In another terminal run `python tests/browser_judge_fallback.py` and `python tests/browser_mock_gradio.py` from `frontend/`; those optional scripts require Python, Playwright, `pypdf`, and Chrome at the Windows path coded in the scripts. They intercept Space requests and do not consume ZeroGPU runs.
+### Local raw-sonar and future edge interface
 
-### Reproducing the local backend or training
+Supply trusted ignored weights and isolated dependencies from `requirements-inference.txt` and the raw requirements documented in [Module 1 release](docs/MODULE1_RELEASE_20261003.md). A fresh clone alone cannot run model-backed inference.
 
-This is a separate, artifact-dependent path. The checked-in `ai/api/gate_f8_api_server.py` expects `models/v6/detector_v6_p2_sss/weights/best.pt` and `ai/fusion/weights/gate_d_fusion_model.pkl` plus the decision-policy JSON files. The large weights, `.pkl` model, and datasets are ignored by Git. `huggingface_deployment/requirements.txt` is a deployment-oriented dependency list, not a locked full training environment. The recorded training environment used Python 3.12, PyTorch 2.4.1+cu121, Ultralytics 8.4.163, CUDA 12.1, and an RTX 4060 Laptop GPU; see [`environment.json`](ai/reference/environment.json). Several training scripts contain the original author's absolute Windows paths and require path/data adaptation before rerunning. **A fresh GitHub clone alone cannot reproduce training or launch the local model-backed API.**
+```powershell
+python scripts/start_survey_dashboard.py --output-dir .temp/survey-dashboard
+```
 
-The historic local FastAPI service exposes `/health`, `/detect`, `/analyze`, and `/report`. `/analyze` is its full path; `/detect` is a stub and `/report` does not serve a downloadable artifact. The public Vercel app uses the Gradio Space instead. For deployment and API details see [Architecture](docs/ARCHITECTURE.md) and [Hugging Face integration](frontend/docs/HUGGING_FACE_INTEGRATION.md).
+Raw XTF processing is bounded and local. Without a reviewed source-bound geometry profile, output stays pixel-only. [XTF review gate](docs/XTF_ACCURACY_RELEASE.md) describes confirmed annotation and independent 90/90 release prerequisites. [Edge API](docs/EDGE_DEVICE_API.md) provides an authenticated local image contract for future device integration, not underwater connectivity or vehicle control. `/analyze` is the full local path; `/detect` is deprecated, not a supported detector shortcut. Reports are generated by the UI.
+
+## Release evidence and future targets
+
+M2.11 passed 47 frontend tests, 52 backend tests, four freeze safeguards, 12 metric reconciliations, release build/credential scan, local SQL regressions and five browser scenarios. Public/local fallback walkthroughs made zero HF inference calls. Mock live success is not real authenticated inference. User previously confirmed cloud review restoration, five hosted admission checks and maintenance HTTP200; actual expired-object deletion is not demonstrated by HTTP200 alone.
+
+Future **80/80 and 90/90 are goals**, not predicted results. Achieving them requires independently confirmed real targets and natural backgrounds, acquisition-disjoint TRAIN/DEV/CALIB/TEST, improved small-target labels/localization, controlled experiments, compatible fusion refitting/calibration and frozen external evaluation. Public XTF additionally needs verified rendering/navigation. [Current requirement boundaries](docs/PS26057_COMPLIANCE.md).
+
+Use this prototype for research and analyst review. It is not certified mine clearance, navigation or cleanup positioning.
 
 ## Repository guide
 
 | Path | Purpose |
-| --- | --- |
-| [`frontend/`](frontend/) | React/TypeScript app, verified examples, browser exports, tests |
-| [`ai/`](ai/) | Training, detection, evidence, fusion, decision, F8 API and gate scripts |
-| [`backend_freeze/`](backend_freeze/) | F9 manifest, hashes, runtime smoke report |
-| [`huggingface_deployment/`](huggingface_deployment/) | Checked-in Gradio Space packaging source |
-| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Deployment, live/example flows, contracts, storage |
-| [`docs/TRAINING_AND_VALIDATION.md`](docs/TRAINING_AND_VALIDATION.md) | Experiments, recorded metrics, wins, failed assumptions |
-
-## Known limitations and open work
-
-1. **Class-ID mapping conflicts.** The V3 training YAML maps IDs `1/2/3/4` to pipeline/shipwreck/ghost-net/mine, while `ai/reliability/decision_engine.py`, the FastAPI server, and checked-in Gradio wrapper map those IDs to shipwreck/mine/pipeline/ghost-net. This can affect labels and class-specific policy routing. Fix the mapping at the backend boundary and rerun class-level validation before relying on live class-specific claims. This documentation does not change backend behavior.
-2. **Hosted provenance includes placeholders.** The public Space's `app.py` source (checked 1 October 2026) and the checked-in wrapper set `input.sha256` to `dummy_sha`, use placeholder artifact hashes, and fill some reliability and localization uncertainty values with constants. The frontend validates the response *shape* but cannot convert those placeholders into measured evidence. Bundled F9 examples have matching real image hashes; do not conflate their saved response provenance with the live wrapper.
-3. **Capacity is best effort.** ZeroGPU may reject live requests for quota. A reachable Space API is not proof of GPU availability. The explicit precomputed example is a walkthrough backup, not new inference.
-4. **Persistence is local.** Human reviews are stored in this browser. Refresh removes the uploaded image and analysis response; loading the same saved response can recover its matching local reviews. There is no shared review endpoint, durable server-side analysis history, or downloadable backend report.
-5. **Geography needs metadata.** The current real examples report pixel coordinates only. The map does not infer latitude/longitude, and no operational geolocation claim is made.
-6. **Freeze and evaluation are incomplete.** The `backend-freeze-f9` Git tag contains only freeze metadata, the calibration hash records `FILE_NOT_FOUND`, and the F9 report's Contact 0 decision differs from the checked-in runtime reference. A ten-image smoke test is not independent field validation. See the [release audit](frontend/docs/RELEASE_AUDIT.md).
-
-## Responsible interpretation
-
-Use SONAR-SHIELD as a research/demo decision-support workspace. Treat outputs as review candidates, inspect the image and evidence, and keep human conclusions separate. Do not use the current hosted output as certified mine identification, geolocation, navigation, or safety-critical clearance.
-
-## References in this repository
-
-- [F9 runtime smoke and Contact 105 audit](backend_freeze/f9_runtime_validation.md)
-- [Frozen component manifest](backend_freeze/FREEZE_MANIFEST.json)
-- [V6 validation metrics](ai/reference/metrics.json) and [background false-positive benchmark](ai/reference/fp_benchmark.json)
-- [Gate B global/tiled/hybrid ablation](ai/reference/gate_b_results.json)
-- [Frontend release audit and unresolved blockers](frontend/docs/RELEASE_AUDIT.md)
+|---|---|
+| `frontend/` | UI, gateway, cloud routes, examples and tests |
+| `ai/` | Runtime, detection, evidence, fusion, schemas and local APIs |
+| `scripts/` | Audits, guarded experiments, raw workflows and release tooling |
+| `supabase/` | Migration and hosted verification SQL |
+| `huggingface_deployment/` | Gradio deployment source |
+| `backend_freeze/` | Historical F9 evidence |
+| `docs/metrics/` | Structured measurements and release records |
+| `submission/m212_20261004/` | Local judge deck and indexed package; generated, not deployed |

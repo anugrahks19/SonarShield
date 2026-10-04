@@ -20,5 +20,5 @@ class PresentationPolicy(BaseModel):
 class ClassificationPayload(BaseModel):
     class_id: int
     class_name: str
-    reliability: ReliabilityEstimate
+    reliability: Optional[ReliabilityEstimate] = None
     presentation: PresentationPolicy

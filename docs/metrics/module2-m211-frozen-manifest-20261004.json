@@ -1,0 +1,162 @@
+{
+  "schema": "module2-detector-candidate-v1",
+  "created_at": "2026-10-04T10:54:45.051928+00:00",
+  "status": "FROZEN_EXPERIMENTAL_DETECTOR_ONLY_NOT_DEPLOYED",
+  "selected_model": "M2.08",
+  "weights": "candidate.pt",
+  "weights_sha256": "0e8767f1424e3338d3d092235d24093a3a540f54d51389ddd42c0605e01c36c0",
+  "class_map": {
+    "0": "crab_pot",
+    "1": "submarine_pipeline",
+    "2": "shipwreck",
+    "3": "ghost_net",
+    "4": "mine_cylinder"
+  },
+  "class_map_sha256": "e24d56cb99bd9f931bcda0cb0a4e3ba8649d7ed64d5da2e74273a7bc51cf2546",
+  "detector_architecture_checks": {
+    "D1": {
+      "class_ids": {
+        "0": "crab_pot",
+        "1": "submarine_pipeline",
+        "2": "shipwreck",
+        "3": "ghost_net",
+        "4": "mine_cylinder"
+      },
+      "strides": [
+        4,
+        8,
+        16,
+        32
+      ],
+      "sha256": "fde6a1e39e927b4f8908b389d73d9ba753435ac53cbad56eb2443c73d3888cef"
+    },
+    "M2.08": {
+      "class_ids": {
+        "0": "crab_pot",
+        "1": "submarine_pipeline",
+        "2": "shipwreck",
+        "3": "ghost_net",
+        "4": "mine_cylinder"
+      },
+      "strides": [
+        4,
+        8,
+        16,
+        32
+      ],
+      "sha256": "0e8767f1424e3338d3d092235d24093a3a540f54d51389ddd42c0605e01c36c0"
+    },
+    "M2.10": {
+      "class_ids": {
+        "0": "crab_pot",
+        "1": "submarine_pipeline",
+        "2": "shipwreck",
+        "3": "ghost_net",
+        "4": "mine_cylinder"
+      },
+      "strides": [
+        4,
+        8,
+        16,
+        32
+      ],
+      "sha256": "8e62f838be12ca362e3384e871bac98da9b2ac23249082a86ab9ce5ece25135a"
+    }
+  },
+  "inference_protocol": {
+    "imgsz": 640,
+    "batch": 1,
+    "half": false,
+    "augment": false,
+    "conf_floor": 0.001,
+    "max_det": 300,
+    "nms_iou": 0.7,
+    "post_nms_confidence_comparison": ">=",
+    "thresholds": {
+      "0": 0.3653043210506439,
+      "1": 0.3653043210506439,
+      "2": 0.3653043210506439,
+      "3": 0.3653043210506439,
+      "4": 0.3653043210506439
+    },
+    "tiled_auxiliary": false,
+    "input": "JPEG/PNG RGB/BGR interpreted using standard pinned Ultralytics loader; letterbox to 640"
+  },
+  "operating_point_metrics": {
+    "threshold": 0.3653043210506439,
+    "tp": 950,
+    "fp": 236,
+    "fn": 1343,
+    "precision": 0.8010118043844857,
+    "recall": 0.4143044047099869,
+    "f1": 0.546133946536361
+  },
+  "metric_scope": "REUSED_HISTORICAL_DEV_NOT_INDEPENDENT_TEST_OR_CALIBRATION",
+  "manifest_sha256": "f2f8fff98d631725cd3066726056943bc9b2910abce49a380cc6521f7205f796",
+  "selection_evidence_sha256": "a304c09619c594e1193dedd8a99d9509b8b8bdf2788ddfdb55270a7a3f31c137",
+  "decision": "REVIEW_ONLY",
+  "automatic_confirmation_enabled": false,
+  "fusion": null,
+  "calibration": null,
+  "probability_of_correctness": "UNAVAILABLE",
+  "existing_artifact_compatibility": {
+    "fusion": {
+      "path": "ai/fusion/weights/gate_d_fusion_model.pkl",
+      "exists": true,
+      "sha256": "b57dc4e7c9eb713c11a716c72e1087a7f3e942811779d01978527b669ef9d02b",
+      "compatible_with_selected_detector": "NOT_ESTABLISHED",
+      "attached_to_frozen_bundle": false
+    },
+    "fusion_manifest": {
+      "path": "ai/fusion/weights/gate_d_manifest.json",
+      "exists": true,
+      "sha256": "01617eaed9f2b13a4174058e9812f3819ba02ad867465230f889f97c91c946ab",
+      "compatible_with_selected_detector": "NOT_ESTABLISHED",
+      "attached_to_frozen_bundle": false
+    },
+    "decision_policy": {
+      "path": "ai/reliability/weights/score_policy.json",
+      "exists": true,
+      "sha256": "af473f51fd9bf02a456861cefee98cac595da31b6544859cf7bebf5402ed2cba",
+      "compatible_with_selected_detector": "NOT_ESTABLISHED",
+      "attached_to_frozen_bundle": false
+    },
+    "policy_manifest": {
+      "path": "ai/reliability/weights/gate_e_manifest.json",
+      "exists": true,
+      "sha256": "a0c8f1513295772503a851c5c197e72c634d0109cfefafe9a32ec24ad97a9a7f",
+      "compatible_with_selected_detector": "NOT_ESTABLISHED",
+      "attached_to_frozen_bundle": false
+    },
+    "reliability_mapping": {
+      "path": "ai/reliability/weights/reliability_mapping.json",
+      "exists": true,
+      "sha256": "10ae9df9d08085ce1cd25ccbc5103312932defb96cbc2bded5a38a65b36f5c9c",
+      "compatible_with_selected_detector": "NOT_ESTABLISHED",
+      "attached_to_frozen_bundle": false
+    },
+    "unknown_detector": {
+      "path": "ai/reliability/weights/unknown_detector.pkl",
+      "exists": true,
+      "sha256": "b6678d44a8ec73c89392fb0204e2f487ee3ec3f2a01f07d840ed0f68f4915749",
+      "compatible_with_selected_detector": "NOT_ESTABLISHED",
+      "attached_to_frozen_bundle": false
+    }
+  },
+  "runtime_integration": "NOT_ENABLED: current runtime uses V6/conf0.15/global+tiled and is not this detector-only measurement.",
+  "current_runtime_sha256": "517c400029bed5b6d22cebfe36553eb3680d5cab583018c4c22572783f2297e8",
+  "current_runtime_detector_sha256": "b5e475286d7703288719c52e0b31044588c0e114bd426d60057c0f695eaa3605",
+  "rollback": {
+    "weights": "rollback-d1.pt",
+    "sha256": "fde6a1e39e927b4f8908b389d73d9ba753435ac53cbad56eb2443c73d3888cef",
+    "scope": "PRESERVED_LOCAL_EXPERIMENT_BASELINE_NOT_A_DEPLOYMENT_ROLLBACK"
+  },
+  "package_versions": {
+    "ultralytics": "8.4.163",
+    "torch": "2.4.1+cu121",
+    "numpy": "1.26.4"
+  },
+  "release_80_precision_80_recall_passed": false,
+  "public_xtf_enabled": false,
+  "new_training_planned": false
+}

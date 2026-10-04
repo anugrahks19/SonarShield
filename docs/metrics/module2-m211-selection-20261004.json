@@ -1,0 +1,809 @@
+{
+  "phase": "M2.11_THREE_CHECKPOINT_SELECTION",
+  "images": 1129,
+  "manifest_sha256": "f2f8fff98d631725cd3066726056943bc9b2910abce49a380cc6521f7205f796",
+  "matching": "CLASS_CORRECT_CONFIDENCE_ORDERED_ONE_TO_ONE_IOU_GE_0.50",
+  "threshold_search": "ALL_UNIQUE_RETAINED_POST_NMS_CONFIDENCES_GROUPED_TIES",
+  "models": {
+    "D1": {
+      "evidence": {
+        "checkpoint": "E:\\GITHUB\\a sih 2026\\models\\controlled\\m2_d1_curated_r01_640_01\\weights\\best.pt",
+        "checkpoint_sha256": "fde6a1e39e927b4f8908b389d73d9ba753435ac53cbad56eb2443c73d3888cef",
+        "predictions_path": "E:\\GITHUB\\a sih 2026\\.temp\\module2-d1-diagnosis-20261004\\predictions.json",
+        "predictions_sha256": "4c3358c622adf139576861fec50fd83e9ec5bfadc4ddc1639ddbb8e8b1151f40",
+        "settings": {
+          "imgsz": 640,
+          "conf_floor": 0.001,
+          "nms_iou": 0.7,
+          "max_det": 300,
+          "half": false,
+          "batch": 1,
+          "device": 0
+        },
+        "capped_prediction_images": 0,
+        "new_prediction_passes": 0
+      },
+      "ground_truth_boxes": 2293,
+      "detections_above_floor": 16596,
+      "fixed_025": {
+        "threshold": 0.25,
+        "tp": 1002,
+        "fp": 317,
+        "fn": 1291,
+        "precision": 0.759666413949962,
+        "recall": 0.43698211949411253,
+        "f1": 0.5548172757475083
+      },
+      "best_global_recall_at_precision_80": {
+        "threshold": 0.3424893021583557,
+        "tp": 920,
+        "fp": 229,
+        "fn": 1373,
+        "precision": 0.8006962576153177,
+        "recall": 0.4012211077191452,
+        "f1": 0.5345729227193492
+      },
+      "best_global_f1": {
+        "threshold": 0.14704890549182892,
+        "tp": 1107,
+        "fp": 512,
+        "fn": 1186,
+        "precision": 0.6837554045707227,
+        "recall": 0.4827736589620584,
+        "f1": 0.5659509202453987
+      },
+      "maximum_cached_recall": 0.7064980375054514,
+      "global_80_80_met": false,
+      "all_classes_80_80_met": false,
+      "class_precision_floor_policy": {
+        "thresholds": {
+          "0": 0.47693178057670593,
+          "1": 0.7321471571922302,
+          "2": 0.48620179295539856,
+          "3": 0.8290817141532898,
+          "4": 0.5579932332038879
+        },
+        "overall": {
+          "tp": 781,
+          "fp": 123,
+          "fn": 1512,
+          "precision": 0.8639380530973452,
+          "recall": 0.3406018316615787,
+          "f1": 0.4885830466061932
+        },
+        "per_class": {
+          "0": {
+            "threshold": 0.47693178057670593,
+            "tp": 217,
+            "fp": 54,
+            "fn": 1058,
+            "precision": 0.8007380073800738,
+            "recall": 0.17019607843137255,
+            "f1": 0.2807244501940492
+          },
+          "1": {
+            "threshold": 0.7321471571922302,
+            "tp": 147,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9932432432432432,
+            "recall": 1.0,
+            "f1": 0.9966101694915254
+          },
+          "2": {
+            "threshold": 0.48620179295539856,
+            "tp": 193,
+            "fp": 46,
+            "fn": 351,
+            "precision": 0.8075313807531381,
+            "recall": 0.3547794117647059,
+            "f1": 0.4929757343550447
+          },
+          "3": {
+            "threshold": 0.8290817141532898,
+            "tp": 135,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "4": {
+            "threshold": 0.5579932332038879,
+            "tp": 89,
+            "fp": 22,
+            "fn": 103,
+            "precision": 0.8018018018018018,
+            "recall": 0.4635416666666667,
+            "f1": 0.5874587458745875
+          }
+        }
+      },
+      "per_class": {
+        "0": {
+          "name": "crab_pot",
+          "support": 1275,
+          "best_recall_at_precision_80": {
+            "threshold": 0.47693178057670593,
+            "tp": 217,
+            "fp": 54,
+            "fn": 1058,
+            "precision": 0.8007380073800738,
+            "recall": 0.17019607843137255,
+            "f1": 0.2807244501940492
+          },
+          "best_f1": {
+            "threshold": 0.07932739704847336,
+            "tp": 500,
+            "fp": 383,
+            "fn": 775,
+            "precision": 0.5662514156285391,
+            "recall": 0.39215686274509803,
+            "f1": 0.46339202965708987
+          },
+          "maximum_cached_recall": 0.6203921568627451
+        },
+        "1": {
+          "name": "submarine_pipeline",
+          "support": 147,
+          "best_recall_at_precision_80": {
+            "threshold": 0.7321471571922302,
+            "tp": 147,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9932432432432432,
+            "recall": 1.0,
+            "f1": 0.9966101694915254
+          },
+          "best_f1": {
+            "threshold": 0.7321471571922302,
+            "tp": 147,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9932432432432432,
+            "recall": 1.0,
+            "f1": 0.9966101694915254
+          },
+          "maximum_cached_recall": 1.0
+        },
+        "2": {
+          "name": "shipwreck",
+          "support": 544,
+          "best_recall_at_precision_80": {
+            "threshold": 0.48620179295539856,
+            "tp": 193,
+            "fp": 46,
+            "fn": 351,
+            "precision": 0.8075313807531381,
+            "recall": 0.3547794117647059,
+            "f1": 0.4929757343550447
+          },
+          "best_f1": {
+            "threshold": 0.2801060080528259,
+            "tp": 235,
+            "fp": 86,
+            "fn": 309,
+            "precision": 0.7320872274143302,
+            "recall": 0.4319852941176471,
+            "f1": 0.5433526011560694
+          },
+          "maximum_cached_recall": 0.6911764705882353
+        },
+        "3": {
+          "name": "ghost_net",
+          "support": 135,
+          "best_recall_at_precision_80": {
+            "threshold": 0.8290817141532898,
+            "tp": 135,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "best_f1": {
+            "threshold": 0.8290817141532898,
+            "tp": 135,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "maximum_cached_recall": 1.0
+        },
+        "4": {
+          "name": "mine_cylinder",
+          "support": 192,
+          "best_recall_at_precision_80": {
+            "threshold": 0.5579932332038879,
+            "tp": 89,
+            "fp": 22,
+            "fn": 103,
+            "precision": 0.8018018018018018,
+            "recall": 0.4635416666666667,
+            "f1": 0.5874587458745875
+          },
+          "best_f1": {
+            "threshold": 0.2674216330051422,
+            "tp": 124,
+            "fp": 65,
+            "fn": 68,
+            "precision": 0.656084656084656,
+            "recall": 0.6458333333333334,
+            "f1": 0.6509186351706038
+          },
+          "maximum_cached_recall": 0.890625
+        }
+      },
+      "mAP50": 0.7070716786222319,
+      "mAP50_95": 0.500077523778028,
+      "mAP_scope": "Previous full validation; not recomputed after threshold filtering."
+    },
+    "M2.08": {
+      "evidence": {
+        "checkpoint": "E:\\GITHUB\\a sih 2026\\models\\controlled\\m2_submission_ft15_smalltargets_01\\weights\\best.pt",
+        "checkpoint_sha256": "0e8767f1424e3338d3d092235d24093a3a540f54d51389ddd42c0605e01c36c0",
+        "predictions_path": "E:\\GITHUB\\a sih 2026\\.temp\\module2-m209-operating-points-20261004\\m208-predictions.json",
+        "predictions_sha256": "fc54af593d0b276dd7b812c4b54db07ac4a8c2403234c8011d73358f780dc151",
+        "settings": {
+          "imgsz": 640,
+          "conf_floor": 0.001,
+          "nms_iou": 0.7,
+          "max_det": 300,
+          "half": false,
+          "batch": 1,
+          "device": 0
+        },
+        "capped_prediction_images": 0,
+        "new_prediction_passes": 0
+      },
+      "ground_truth_boxes": 2293,
+      "detections_above_floor": 12243,
+      "fixed_025": {
+        "threshold": 0.25,
+        "tp": 1024,
+        "fp": 331,
+        "fn": 1269,
+        "precision": 0.7557195571955719,
+        "recall": 0.44657653728739644,
+        "f1": 0.5614035087719298
+      },
+      "best_global_recall_at_precision_80": {
+        "threshold": 0.3653043210506439,
+        "tp": 950,
+        "fp": 236,
+        "fn": 1343,
+        "precision": 0.8010118043844857,
+        "recall": 0.4143044047099869,
+        "f1": 0.546133946536361
+      },
+      "best_global_f1": {
+        "threshold": 0.11974181979894638,
+        "tp": 1146,
+        "fp": 572,
+        "fn": 1147,
+        "precision": 0.6670547147846333,
+        "recall": 0.49978194505015267,
+        "f1": 0.5714285714285715
+      },
+      "maximum_cached_recall": 0.6624509376362844,
+      "global_80_80_met": false,
+      "all_classes_80_80_met": false,
+      "class_precision_floor_policy": {
+        "thresholds": {
+          "0": 0.5202645063400269,
+          "1": 0.6193296313285828,
+          "2": 0.4955000579357147,
+          "3": 0.8754757046699524,
+          "4": 0.5933417081832886
+        },
+        "overall": {
+          "tp": 849,
+          "fp": 139,
+          "fn": 1444,
+          "precision": 0.8593117408906883,
+          "recall": 0.37025730484081987,
+          "f1": 0.5175251447729352
+        },
+        "per_class": {
+          "0": {
+            "threshold": 0.5202645063400269,
+            "tp": 256,
+            "fp": 63,
+            "fn": 1019,
+            "precision": 0.8025078369905956,
+            "recall": 0.2007843137254902,
+            "f1": 0.3212045169385194
+          },
+          "1": {
+            "threshold": 0.6193296313285828,
+            "tp": 147,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9932432432432432,
+            "recall": 1.0,
+            "f1": 0.9966101694915254
+          },
+          "2": {
+            "threshold": 0.4955000579357147,
+            "tp": 213,
+            "fp": 51,
+            "fn": 331,
+            "precision": 0.8068181818181818,
+            "recall": 0.3915441176470588,
+            "f1": 0.5272277227722773
+          },
+          "3": {
+            "threshold": 0.8754757046699524,
+            "tp": 135,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "4": {
+            "threshold": 0.5933417081832886,
+            "tp": 98,
+            "fp": 24,
+            "fn": 94,
+            "precision": 0.8032786885245902,
+            "recall": 0.5104166666666666,
+            "f1": 0.6242038216560509
+          }
+        }
+      },
+      "per_class": {
+        "0": {
+          "name": "crab_pot",
+          "support": 1275,
+          "best_recall_at_precision_80": {
+            "threshold": 0.5202645063400269,
+            "tp": 256,
+            "fp": 63,
+            "fn": 1019,
+            "precision": 0.8025078369905956,
+            "recall": 0.2007843137254902,
+            "f1": 0.3212045169385194
+          },
+          "best_f1": {
+            "threshold": 0.07360082119703293,
+            "tp": 480,
+            "fp": 315,
+            "fn": 795,
+            "precision": 0.6037735849056604,
+            "recall": 0.3764705882352941,
+            "f1": 0.46376811594202894
+          },
+          "maximum_cached_recall": 0.5443137254901961
+        },
+        "1": {
+          "name": "submarine_pipeline",
+          "support": 147,
+          "best_recall_at_precision_80": {
+            "threshold": 0.6193296313285828,
+            "tp": 147,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9932432432432432,
+            "recall": 1.0,
+            "f1": 0.9966101694915254
+          },
+          "best_f1": {
+            "threshold": 0.6193296313285828,
+            "tp": 147,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9932432432432432,
+            "recall": 1.0,
+            "f1": 0.9966101694915254
+          },
+          "maximum_cached_recall": 1.0
+        },
+        "2": {
+          "name": "shipwreck",
+          "support": 544,
+          "best_recall_at_precision_80": {
+            "threshold": 0.4955000579357147,
+            "tp": 213,
+            "fp": 51,
+            "fn": 331,
+            "precision": 0.8068181818181818,
+            "recall": 0.3915441176470588,
+            "f1": 0.5272277227722773
+          },
+          "best_f1": {
+            "threshold": 0.18569082021713257,
+            "tp": 260,
+            "fp": 146,
+            "fn": 284,
+            "precision": 0.6403940886699507,
+            "recall": 0.47794117647058826,
+            "f1": 0.5473684210526316
+          },
+          "maximum_cached_recall": 0.6819852941176471
+        },
+        "3": {
+          "name": "ghost_net",
+          "support": 135,
+          "best_recall_at_precision_80": {
+            "threshold": 0.8754757046699524,
+            "tp": 135,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "best_f1": {
+            "threshold": 0.8754757046699524,
+            "tp": 135,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "maximum_cached_recall": 1.0
+        },
+        "4": {
+          "name": "mine_cylinder",
+          "support": 192,
+          "best_recall_at_precision_80": {
+            "threshold": 0.5933417081832886,
+            "tp": 98,
+            "fp": 24,
+            "fn": 94,
+            "precision": 0.8032786885245902,
+            "recall": 0.5104166666666666,
+            "f1": 0.6242038216560509
+          },
+          "best_f1": {
+            "threshold": 0.3839626908302307,
+            "tp": 121,
+            "fp": 52,
+            "fn": 71,
+            "precision": 0.6994219653179191,
+            "recall": 0.6302083333333334,
+            "f1": 0.663013698630137
+          },
+          "maximum_cached_recall": 0.8958333333333334
+        }
+      },
+      "mAP50": 0.6989764944189409,
+      "mAP50_95": 0.497272961792033,
+      "mAP_scope": "Previous full validation; not recomputed after threshold filtering."
+    },
+    "M2.10": {
+      "evidence": {
+        "checkpoint": "E:\\GITHUB\\a sih 2026\\models\\controlled\\m2_submission_ft10_warmupfix_02\\weights\\best.pt",
+        "checkpoint_sha256": "8e62f838be12ca362e3384e871bac98da9b2ac23249082a86ab9ce5ece25135a",
+        "predictions_path": "E:\\GITHUB\\a sih 2026\\.temp\\module2-m211-selection-20261004\\m210-predictions.json",
+        "predictions_sha256": "56ffe2f7db9a94c5a2a5d031da34eb73c0cc2f4bb82015f22bc39abddaa3fde3",
+        "settings": {
+          "imgsz": 640,
+          "conf_floor": 0.001,
+          "nms_iou": 0.7,
+          "max_det": 300,
+          "half": false,
+          "batch": 1,
+          "device": 0
+        },
+        "capped_prediction_images": 0,
+        "new_prediction_passes": 1
+      },
+      "ground_truth_boxes": 2293,
+      "detections_above_floor": 13792,
+      "fixed_025": {
+        "threshold": 0.25,
+        "tp": 992,
+        "fp": 312,
+        "fn": 1301,
+        "precision": 0.7607361963190185,
+        "recall": 0.4326210204971653,
+        "f1": 0.5515707534056159
+      },
+      "best_global_recall_at_precision_80": {
+        "threshold": 0.3348314166069031,
+        "tp": 926,
+        "fp": 231,
+        "fn": 1367,
+        "precision": 0.8003457216940363,
+        "recall": 0.40383776711731356,
+        "f1": 0.5368115942028986
+      },
+      "best_global_f1": {
+        "threshold": 0.13475078344345093,
+        "tp": 1100,
+        "fp": 490,
+        "fn": 1193,
+        "precision": 0.6918238993710691,
+        "recall": 0.4797208896641954,
+        "f1": 0.5665722379603398
+      },
+      "maximum_cached_recall": 0.6746620148277366,
+      "global_80_80_met": false,
+      "all_classes_80_80_met": false,
+      "class_precision_floor_policy": {
+        "thresholds": {
+          "0": 0.46199074387550354,
+          "1": 0.7101154923439026,
+          "2": 0.49788597226142883,
+          "3": 0.827650249004364,
+          "4": 0.5932945609092712
+        },
+        "overall": {
+          "tp": 820,
+          "fp": 128,
+          "fn": 1473,
+          "precision": 0.8649789029535865,
+          "recall": 0.35761011774967294,
+          "f1": 0.506016661524221
+        },
+        "per_class": {
+          "0": {
+            "threshold": 0.46199074387550354,
+            "tp": 241,
+            "fp": 60,
+            "fn": 1034,
+            "precision": 0.8006644518272426,
+            "recall": 0.18901960784313726,
+            "f1": 0.3058375634517767
+          },
+          "1": {
+            "threshold": 0.7101154923439026,
+            "tp": 147,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9932432432432432,
+            "recall": 1.0,
+            "f1": 0.9966101694915254
+          },
+          "2": {
+            "threshold": 0.49788597226142883,
+            "tp": 210,
+            "fp": 46,
+            "fn": 334,
+            "precision": 0.8203125,
+            "recall": 0.3860294117647059,
+            "f1": 0.525
+          },
+          "3": {
+            "threshold": 0.827650249004364,
+            "tp": 135,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "4": {
+            "threshold": 0.5932945609092712,
+            "tp": 87,
+            "fp": 21,
+            "fn": 105,
+            "precision": 0.8055555555555556,
+            "recall": 0.453125,
+            "f1": 0.58
+          }
+        }
+      },
+      "per_class": {
+        "0": {
+          "name": "crab_pot",
+          "support": 1275,
+          "best_recall_at_precision_80": {
+            "threshold": 0.46199074387550354,
+            "tp": 241,
+            "fp": 60,
+            "fn": 1034,
+            "precision": 0.8006644518272426,
+            "recall": 0.18901960784313726,
+            "f1": 0.3058375634517767
+          },
+          "best_f1": {
+            "threshold": 0.0856238529086113,
+            "tp": 458,
+            "fp": 286,
+            "fn": 817,
+            "precision": 0.6155913978494624,
+            "recall": 0.3592156862745098,
+            "f1": 0.4536899455175829
+          },
+          "maximum_cached_recall": 0.5654901960784313
+        },
+        "1": {
+          "name": "submarine_pipeline",
+          "support": 147,
+          "best_recall_at_precision_80": {
+            "threshold": 0.7101154923439026,
+            "tp": 147,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9932432432432432,
+            "recall": 1.0,
+            "f1": 0.9966101694915254
+          },
+          "best_f1": {
+            "threshold": 0.7101154923439026,
+            "tp": 147,
+            "fp": 1,
+            "fn": 0,
+            "precision": 0.9932432432432432,
+            "recall": 1.0,
+            "f1": 0.9966101694915254
+          },
+          "maximum_cached_recall": 1.0
+        },
+        "2": {
+          "name": "shipwreck",
+          "support": 544,
+          "best_recall_at_precision_80": {
+            "threshold": 0.49788597226142883,
+            "tp": 210,
+            "fp": 46,
+            "fn": 334,
+            "precision": 0.8203125,
+            "recall": 0.3860294117647059,
+            "f1": 0.525
+          },
+          "best_f1": {
+            "threshold": 0.15825532376766205,
+            "tp": 266,
+            "fp": 154,
+            "fn": 278,
+            "precision": 0.6333333333333333,
+            "recall": 0.4889705882352941,
+            "f1": 0.5518672199170124
+          },
+          "maximum_cached_recall": 0.6893382352941176
+        },
+        "3": {
+          "name": "ghost_net",
+          "support": 135,
+          "best_recall_at_precision_80": {
+            "threshold": 0.827650249004364,
+            "tp": 135,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "best_f1": {
+            "threshold": 0.827650249004364,
+            "tp": 135,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "maximum_cached_recall": 1.0
+        },
+        "4": {
+          "name": "mine_cylinder",
+          "support": 192,
+          "best_recall_at_precision_80": {
+            "threshold": 0.5932945609092712,
+            "tp": 87,
+            "fp": 21,
+            "fn": 105,
+            "precision": 0.8055555555555556,
+            "recall": 0.453125,
+            "f1": 0.58
+          },
+          "best_f1": {
+            "threshold": 0.3891860246658325,
+            "tp": 116,
+            "fp": 38,
+            "fn": 76,
+            "precision": 0.7532467532467533,
+            "recall": 0.6041666666666666,
+            "f1": 0.6705202312138729
+          },
+          "maximum_cached_recall": 0.8802083333333334
+        }
+      },
+      "mAP50": 0.703489331499804,
+      "mAP50_95": 0.4989043333058042,
+      "mAP_scope": "Previous full validation; not recomputed after threshold filtering."
+    }
+  },
+  "selected_precision_floor_candidate": {
+    "model": "M2.08",
+    "policy": "GLOBAL",
+    "metrics": {
+      "threshold": 0.3653043210506439,
+      "tp": 950,
+      "fp": 236,
+      "fn": 1343,
+      "precision": 0.8010118043844857,
+      "recall": 0.4143044047099869,
+      "f1": 0.546133946536361
+    },
+    "thresholds": {
+      "0": 0.3653043210506439,
+      "1": 0.3653043210506439,
+      "2": 0.3653043210506439,
+      "3": 0.3653043210506439,
+      "4": 0.3653043210506439
+    },
+    "scope": "EXPLORATORY_DEV_NOT_PRODUCTION_APPROVED",
+    "deployed": false,
+    "calibrated_probability": false
+  },
+  "training_calls": 0,
+  "hf_calls": 0,
+  "deployment_changes": 0,
+  "limitations": [
+    "DEV reused for training validation and recipe/threshold selection; not independent evidence.",
+    "Class-precision policy maximizes recall separately under >=80% precision for every class; global-micro optimum may sacrifice class precision.",
+    "Prediction floor 0.001/max_det 300/NMS 0.7 bound the search; proposal changes are not searched.",
+    "No confirmed natural-negative DEV images; FP count is on the existing positive-image pool.",
+    "Net DEV examples are synthetic, not verified real ghost nets."
+  ],
+  "direct_matching_reconciliation": [
+    {
+      "model": "D1",
+      "check": "fixed025",
+      "passed": true
+    },
+    {
+      "model": "D1",
+      "check": "global_precision80",
+      "passed": true
+    },
+    {
+      "model": "D1",
+      "check": "best_f1",
+      "passed": true
+    },
+    {
+      "model": "D1",
+      "check": "class_precision80",
+      "passed": true
+    },
+    {
+      "model": "M2.08",
+      "check": "fixed025",
+      "passed": true
+    },
+    {
+      "model": "M2.08",
+      "check": "global_precision80",
+      "passed": true
+    },
+    {
+      "model": "M2.08",
+      "check": "best_f1",
+      "passed": true
+    },
+    {
+      "model": "M2.08",
+      "check": "class_precision80",
+      "passed": true
+    },
+    {
+      "model": "M2.10",
+      "check": "fixed025",
+      "passed": true
+    },
+    {
+      "model": "M2.10",
+      "check": "global_precision80",
+      "passed": true
+    },
+    {
+      "model": "M2.10",
+      "check": "best_f1",
+      "passed": true
+    },
+    {
+      "model": "M2.10",
+      "check": "class_precision80",
+      "passed": true
+    }
+  ]
+}

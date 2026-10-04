@@ -1,3 +1,7 @@
+## Latest submission evidence — 4 October 2026
+
+Use the [M2.12 deck/package](MODULE2_M212_SUBMISSION.md) and [M2.11 metrics](MODULE2_M211_RELEASE.md) for the latest experimental results. M2.08 P80.10%, R41.43%, FP236; mAP50 69.90%, mAP50-95 49.73%, warm GPU forward7.53ms. Historical figures below use different protocols and are not deployed or new-detector accuracy claims.
+
 # Slide-ready figures: measured results and future goals
 
 [Project README](../README.md) · [Training evidence](TRAINING_AND_VALIDATION.md) · [Editable vector graphic](assets/validation-metrics.svg)

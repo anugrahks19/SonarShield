@@ -49,9 +49,9 @@ class ProvenanceRecord(BaseModel):
     
     detector_artifact_sha256: str
     fusion_artifact_sha256: str
-    decision_policy_sha256: str
-    classification_calibration_sha256: str
-    localization_uncertainty_sha256: str
+    decision_policy_sha256: Optional[str] = None
+    classification_calibration_sha256: Optional[str] = None
+    localization_uncertainty_sha256: Optional[str] = None
     
     processing_timestamp: str
     runtime_version: str

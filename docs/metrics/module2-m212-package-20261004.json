@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-04",
+  "status": "M2.12_PACKAGING_COMPLETE_LOCAL_NOT_DEPLOYED",
+  "package": {
+    "archive": "submission/m212_20261004/final/SONAR_SHIELD_Submission.zip",
+    "sha256": "108ff08c8dada8b4d5647664eefae0a7b1bcc1baa960f999c2596f40981f8f10",
+    "bytes": 40182589,
+    "member_count": 37,
+    "archive_crc_and_member_hashes": "PASSED",
+    "text_and_deck_credential_pattern_scan": "PASSED",
+    "frozen_checkpoint_hashes": "PASSED",
+    "static_browser_verification": "NOT_RUN_BY_PACKAGER"
+  },
+  "final_static_assets_identical_to_browser_tested_zip": true,
+  "static_browser": {
+    "results": [
+      {
+        "id": "contact-105",
+        "source_label_and_report_export": true
+      },
+      {
+        "id": "contact-103",
+        "source_label_and_report_export": true
+      },
+      {
+        "id": "contact-104",
+        "source_label_and_report_export": true
+      },
+      {
+        "id": "background",
+        "source_label_and_report_export": true
+      }
+    ],
+    "real_inference_calls": 0,
+    "page_errors": [],
+    "scope": "STATIC_FILES_EXTRACTED_FROM_FINAL_ZIP"
+  },
+  "deck": {
+    "slides": 8,
+    "editable_native_tables": 2,
+    "sha256": "b1e763fb5fdc73c351085da0c2743b715aa61a0e055a7a2b456b3d2306aecac7",
+    "structural_layout_font_checks": "PASSED",
+    "all_final_slides_rendered_and_visually_checked": true,
+    "native_powerpoint_execution": "NOT_PERFORMED"
+  },
+  "documentation_links": "PASSED_FOR_NEW_MAIN_DOCUMENTS_IN_REPOSITORY",
+  "new_training": false,
+  "new_runtime_deployment": false,
+  "git_push": false,
+  "accuracy_80_80_achieved": false
+}

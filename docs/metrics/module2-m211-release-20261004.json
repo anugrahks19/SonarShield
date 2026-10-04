@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-04",
+  "status": "LOCAL_RELEASE_QA_AND_EXPERIMENTAL_FREEZE_COMPLETE_NOT_DEPLOYED",
+  "frontend_tests_passed": 47,
+  "backend_tests_passed": 52,
+  "freeze_tests_passed": 4,
+  "direct_metric_reconciliations_passed": 12,
+  "release_build_lint_typecheck_secret_scan": "PASSED",
+  "local_supabase_sql_regressions": "PASSED",
+  "qa_dependencies": {
+    "geographiclib": "2.1",
+    "pyxtf": "1.4.2",
+    "scope": "isolated QA target; training environment unchanged"
+  },
+  "offline_browser": {
+    "browser": "Microsoft Edge headless",
+    "results": [
+      {
+        "target": "local",
+        "url": "http://127.0.0.1:8782",
+        "http_status": 200,
+        "mode": "SIMULATED_SPACE_OFFLINE_REAL_BROWSER_NO_HF_CALLS",
+        "explicit_fallback": true,
+        "viewer_review_refresh_restore": true,
+        "complete_record_export_import": true,
+        "json_csv_print_labels": true,
+        "mobile_no_page_overflow": true,
+        "page_errors": [],
+        "inference_calls": 0,
+        "blocked_space_reachability_requests": 3,
+        "cloud_signed_in_check": "NOT_REPEATED_NO_REVIEWER_CREDENTIAL_IN_ISOLATED_CONTEXT"
+      },
+      {
+        "target": "public",
+        "url": "https://sonarshield26.vercel.app",
+        "http_status": 200,
+        "mode": "SIMULATED_SPACE_OFFLINE_REAL_BROWSER_NO_HF_CALLS",
+        "explicit_fallback": true,
+        "viewer_review_refresh_restore": true,
+        "complete_record_export_import": true,
+        "json_csv_print_labels": true,
+        "mobile_no_page_overflow": true,
+        "page_errors": [],
+        "inference_calls": 0,
+        "blocked_space_reachability_requests": 3,
+        "cloud_signed_in_check": "NOT_REPEATED_NO_REVIEWER_CREDENTIAL_IN_ISOLATED_CONTEXT"
+      }
+    ]
+  },
+  "mock_gateway_browser": {
+    "scope": "FULLY_MOCKED_HF_AND_GATEWAY_NOT_REAL_LIVE_VERIFICATION",
+    "results": [
+      {
+        "mode": "mock_success",
+        "passed": true,
+        "mocked_gateway_calls": 1,
+        "real_inference_calls": 0,
+        "page_errors": []
+      },
+      {
+        "mode": "mock_quota_countdown",
+        "passed": true,
+        "mocked_gateway_calls": 1,
+        "real_inference_calls": 0,
+        "page_errors": []
+      },
+      {
+        "mode": "mock_quota_no_countdown",
+        "passed": true,
+        "mocked_gateway_calls": 1,
+        "real_inference_calls": 0,
+        "page_errors": []
+      }
+    ]
+  },
+  "real_hf_inference_calls": 0,
+  "production_authenticated_live_check": "NOT_REPEATED",
+  "hosted_cloud_record_walkthrough": "USER_PREVIOUSLY_CONFIRMED_NOTE_RESTORED_NOT_REPEATED_THIS_PHASE",
+  "hosted_admission_sql": "USER_PREVIOUSLY_CONFIRMED_FIVE_PASSED_ROWS",
+  "maintenance": "USER_PREVIOUSLY_REPORTED_HTTP_200_NOT_STORAGE_DELETION_PROOF",
+  "accuracy_scope": "Reused historical DEV; not independent field evaluation",
+  "runtime_changed": false,
+  "public_xtf_enabled": false,
+  "freeze_hash_recheck": "PASSED"
+}
