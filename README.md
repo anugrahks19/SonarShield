@@ -42,7 +42,18 @@ The browser uploads image bytes directly to HF; only a small file reference reac
 
 See the [step-by-step script and failure branch](docs/JUDGE_WALKTHROUGH.md).
 
-## Measured results: separate tasks, separate claims
+## Performance results: separate tasks, separate claims
+
+### Current V6-P2 detector figures supplied by the team
+
+| Metric | Result |
+|---|---:|
+| Precision | **85%** |
+| Recall | **73.9%** |
+| mAP@50 | **75.4%** |
+| mAP@50-95 | **52.7%** |
+
+**Source:** the team's current presentation figures, supplied on 5 October 2026. These values were transcribed as requested without validation; the corresponding checkpoint, dataset split and evaluation protocol were not supplied with this update. They do not replace the archived evaluation artifacts or establish deployed-system accuracy.
 
 ### Latest detector-only comparison
 
@@ -58,9 +69,17 @@ M2.08's exact threshold is **0.3653043210506439**. It wins recall under this pre
 
 **These are reused DEV selection measurements, not independent field accuracy or deployed system metrics.** This pool's ghost nets are synthetic. A tuned detector score is not calibrated probability. See [final selection and release evidence](docs/MODULE2_M211_RELEASE.md).
 
-### Historical frozen benchmarks
+### D2 evidence fusion — locked TEST candidate pool
 
-V6-P2 clean-validation summary: P74.7%, R69.1%, mAP50 70.4%, mAP50-95 47.8%, as recorded in [reference metrics](ai/reference/metrics.json). Historical D2 fusion candidate-test evidence reported recall 88.3% to 91.7%, precision 31.8% to 43.7%, FP455 to FP284 (37.6% reduction). These candidate-filtering figures use a different task/protocol and cannot be transferred to M2.08 or called system accuracy. [Training chronology and original evidence](docs/TRAINING_AND_VALIDATION.md).
+| Metric | AI confidence only | D2 evidence fusion |
+|---|---:|---:|
+| Recall | 88.3% | **91.7%** |
+| Precision | 31.8% | **43.7%** |
+| False positives | 455 | **284** |
+
+**False-positive reduction: 37.6%.** Thresholds were selected on a separate CALIB split; results were evaluated on the same internal held-out TEST candidate pool (794 candidates, 240 positive candidates). Matching was class-agnostic at IoU >=0.50. These are candidate-filtering measurements, not end-to-end detector recall or system accuracy, and cannot be transferred to M2.08.
+
+Earlier V6-P2 clean-validation measurements remain preserved in the [archived reference metrics](ai/reference/metrics.json). See [training chronology and original evidence](docs/TRAINING_AND_VALIDATION.md) and the [D2 recomputation record](docs/metrics/d2_candidate_test_recomputed.json).
 
 ## Training: corrections, gains and failures
 
